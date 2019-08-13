@@ -1134,197 +1134,93 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
     }
 
     public void openAppView(AppUser user) {
-        
-        
-       
-        
-        
-        if (user.getName().trim().toUpperCase().equals("MEMBERS")) 
-        {
-         
-            
-        } 
-        else 
-        {
-            
-            try {
 
-                boolean flag1 = true;
-                Date d = new Date();
-                Date newdate
-                        = null;
-                Date ocashtime
-                        = null;
-                Date osaletime
-                        = null;
-                user.fillPermissions(m_dlSystem);
-                Object[] log = (Object[]) new StaticSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT LOGINTIME,OPENCASHTIME,OPENSALE FROM PEOPLE WHERE  ID= ?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP})).find(user.getId());
-                if (log != null) {
-                    if (log[0] != null) {
-                        newdate = (Date) (log[0]);
-                    }
-                    if (log[1] != null) {
-                        ocashtime = (Date) (log[1]);
-                    }
-                    if (log[2] != null) {
-                        osaletime = (Date) (log[2]);
-                    }
-                } else {
-                    osaletime = new Date();
+        try {
+
+            boolean flag1 = true;
+            Date d = new Date();
+            Date newdate
+                    = null;
+            Date ocashtime
+                    = null;
+            Date osaletime
+                    = null;
+            user.fillPermissions(m_dlSystem);
+            Object[] log = (Object[]) new StaticSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT LOGINTIME,OPENCASHTIME,OPENSALE FROM PEOPLE WHERE  ID= ?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP})).find(user.getId());
+            if (log != null) {
+                if (log[0] != null) {
+                    newdate = (Date) (log[0]);
                 }
-
-                if (newdate == null) {
-                    user.setLastLoginTime(d);
-                    if (ocashtime == null) {
-                        if (user.hasPermission("payment")) {
-//                            String sActiveCashIndex = UUID.randomUUID().toString();
-//                            Object[] temp = null;
-//                            int count = 0;
-//                            if (temp != null && temp[0] != null) {
-//                                count = Integer.parseInt(String.valueOf(temp[0]));
-//                            }
-//
-//                            if (count == 0) {
-//                                m_dlSystem.execInsertCash(new Object[]{UUID.randomUUID().toString(), -1, LookupUtilityImpl.getInstance(null).getAppView().getProperties().getHost(), d, user.getId()});
-//                            }
-//                            user.setOpenCashTime(user.getOpenCashTime());
-//                            ocashtime = user.getOpenCashTime();
-//                            setActiveCash(sActiveCashIndex, -1, d, null);
-                        }
-
-                    } else {
-                        if (user.hasPermission("payment")) {
-                            String sActiveCashIndex = UUID.randomUUID().toString();
-                            setActiveCash(sActiveCashIndex, -1, d, null);
-                            Calendar cal1
-                                    = Calendar.getInstance();
-                            Calendar cal2
-                                    = Calendar.getInstance();
-                            cal1.setTimeInMillis(d.getTime());
-                            cal2.setTimeInMillis(ocashtime.getTime());
-                            if (cal1.before(cal2)) {
-                                if (JOptionPane.showConfirmDialog(this, "Login Time is less than Open Cash Time.Previous Open Cash Time is " + ocashtime + " .Do you want to override the open cash time ?", "System Time is Modified", JOptionPane.OK_OPTION) == JOptionPane.NO_OPTION) {
-                                    flag1 = false;
-                                } else {
-                                    user.setOpenCashTime(d);
-                                    new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "UPDATE CLOSEDCASH SET DATESTART=? WHERE USER_=? AND HOSTSEQUENCE<0" // change:USER -> USER_
-                                            ,
-                                             new SerializerWriteBasic(new Datas[]{Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{d, user.getId()});
-
-                                }
-
-                            }
-                        }
-                    }
-                    if (osaletime == null) {
-                        if (user.hasPermission("sales")) {
-                            //new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "UPDATE PEOPLE SET OPENSALE=?,CLOSESALE=? WHERE ROLE=?", new SerializerWriteBasic(new Datas[]{Datas.TIMESTAMP, Datas.STRING, Datas.STRING})).exec(new Object[]{null, user.getRole()});
-                            new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "UPDATE PEOPLE SET CLOSESALE=? WHERE ROLE=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{null, user.getRole()});
-
-                        }
-
-                        user.setOpenSaleTime(d);
-                    } else {
-                        if (user.hasPermission("sales")) {
-                            Calendar cal1 = Calendar.getInstance();
-                            Calendar cal2
-                                    = Calendar.getInstance();
-                            cal1.setTimeInMillis(d.getTime());
-                            cal2.setTimeInMillis(osaletime.getTime());
-                            if (cal1.before(cal2)) {
-                                if (JOptionPane.showConfirmDialog(this, "Login Time is less than Open Sale Time.Previous Open Sale Time is " + osaletime + " .Do you want to override the open sale time ?", "System Time is Modified", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
-                                    flag1 = false;
-                                } else {
-                                    user.setOpenSaleTime(d);
-                                }
-
-                            }
-                        }
-                    }
-                    if (flag1 == true) {
-                        //JIntroPageRest intropage=new JIntroPageRest(this);
-                        if (user.hasPermission("sales")) {
-                            int count1 = 1;
-                            Object[] con = (Object[]) new StaticSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT COUNT(*) FROM PEOPLE WHERE LOGINTIME IS NOT NULL AND ROLE = ?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.INT})).find(user.getRole());
-                            if (con != null && con[0] != null) {
-                                count1 = Integer.parseInt(con[0].toString());
-                            } else {
-                                count1 = 1;
-                            }
-                            if (count1 != 0) {
-                                java.util.List<Object[]> con1 = new StaticSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT OPENSALE,LOGINTIME FROM PEOPLE WHERE LOGINTIME IS NOT NULL AND ROLE = ? ORDER BY LOGINTIME", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.TIMESTAMP, Datas.TIMESTAMP})).list(user.getRole());
-                                JOptionPane.showMessageDialog(this, "Another terminal is already opened ", "Alert", JOptionPane.OK_OPTION);
-                                /*  Object[] con1 =(Object[])   new StaticSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession()
-                                , "SELECT OPENSALE FROM PEOPLE WHERE LOGINTIME IS NOT NULL AND ROLE = ?"
-                                ,  SerializerWriteString.INSTANCE
-                                , new SerializerReadBasic(new Datas[] {Datas.TIMESTAMP}))
-                                .find(user.getRole());*/
-                                // else{
-                                Calendar cal1
-                                        = Calendar.getInstance();
-                                Calendar cal2
-                                        = Calendar.getInstance();
-                                cal2.setTimeInMillis(osaletime.getTime());
-                                for (Object[] obj1 : con1) {
-                                    cal1.setTimeInMillis(((Timestamp) obj1[0]).getTime());
-                                    if (cal1.before(cal2)) {
-                                        user.setOpenSaleTime((Timestamp) obj1[0]);
-                                    } else {
-                                        user.setOpenSaleTime(osaletime);
-                                    }
-
-                                }
-
-                            }
-                        }
-                        int port = 0;
-                        sSocketActive = true;
-
-                        ListenerSocket l
-                                = new ListenerSocket(user.getName());
-                        Thread t
-                                = new Thread(l);
-                        t.start();
-
-                        t.sleep(2000);
-
-                        while (port == 0) {
-                            port = l.getPort();
-                        }
-
-                        InetAddress lhost = InetAddress.getLocalHost();
-                        user.setIpAdddr(lhost.getHostAddress() + " : " + port);
-                        m_dlSystem.updateUser(user);
-
-                        if (closeAppView()) {
-                            m_principalapp = new JPrincipalApp(this, user);
-                            // The user status notificator
-                            jPanel3.add(m_principalapp.getNotificator());
-                            jPanel3.revalidate();
-                            // The main panel
-                            m_jPanelContainer.add(m_principalapp, "_" + m_principalapp.getUser().getId());
-                            showView("_" + m_principalapp.getUser().getId(), m_jPanelContainer);
-                            m_principalapp.activate();
-                        }
-
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Please reset the system time or consult your system admin", "Sorry Cannot login", JOptionPane.OK_OPTION);
-
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "The user is already logged in", "Cannot Login", JOptionPane.OK_OPTION);
+                if (log[1] != null) {
+                    ocashtime = (Date) (log[1]);
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                new MessageInf(e).show(this);
-                return;
-
+                if (log[2] != null) {
+                    osaletime = (Date) (log[2]);
+                }
+            } else {
+                osaletime = new Date();
             }
 
+            if (newdate == null) {
+                user.setLastLoginTime(d);
+
+                if (osaletime == null) {
+                    if (user.hasPermission("sales")) {
+                        new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "UPDATE PEOPLE SET CLOSESALE=? WHERE ROLE=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{null, user.getRole()});
+
+                    }
+
+                    user.setOpenSaleTime(d);
+                }
+                if (flag1 == true) {
+                    //JIntroPageRest intropage=new JIntroPageRest(this);
+
+                    int port = 0;
+                    sSocketActive = true;
+
+                    ListenerSocket l
+                            = new ListenerSocket(user.getName());
+                    Thread t
+                            = new Thread(l);
+                    t.start();
+
+                    t.sleep(2000);
+
+                    while (port == 0) {
+                        port = l.getPort();
+                    }
+
+                    InetAddress lhost = InetAddress.getLocalHost();
+                    user.setIpAdddr(lhost.getHostAddress() + " : " + port);
+                    m_dlSystem.updateUser(user);
+
+                    if (closeAppView()) {
+                        m_principalapp = new JPrincipalApp(this, user);
+                        // The user status notificator
+                        jPanel3.add(m_principalapp.getNotificator());
+                        jPanel3.revalidate();
+                        // The main panel
+                        m_jPanelContainer.add(m_principalapp, "_" + m_principalapp.getUser().getId());
+                        showView("_" + m_principalapp.getUser().getId(), m_jPanelContainer);
+                        m_principalapp.activate();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please reset the system time or consult your system admin", "Sorry Cannot login", JOptionPane.OK_OPTION);
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "The user is already logged in", "Cannot Login", JOptionPane.OK_OPTION);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            new MessageInf(e).show(this);
+            return;
 
         }
+
     }
 
     public void closeMemMainPage() {
