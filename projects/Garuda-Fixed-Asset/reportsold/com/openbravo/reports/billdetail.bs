@@ -1,0 +1,29 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Bill Detail");
+report.setReport("/com/openbravo/reports/billdetail");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+
+report.setSentence("SELECT MEMBER,SKEY,PID,PRODUCT,MUL,RATE,TOTAL FROM (SELECT CUSTOMERS.NAME AS MEMBER,CUSTOMERS.SEARCHKEY AS SKEY,BILLITEM_ARV.PARENTID AS PID,PRODUCTS.NAME AS PRODUCT,BILLITEM_ARV.DMULTIPLY AS MUL,BILLITEM_ARV.RATE AS RATE,BILLITEM_ARV.TOTAL AS TOTAL " +
+                 " FROM BILL_ARV,BILLITEM_ARV,PRODUCTS,CUSTOMERS   " +
+                 " WHERE BILLITEM_ARV.PRODUCT=PRODUCTS.ID AND CUSTOMERS.ID=BILL_ARV.CUSTOMER AND BILL_ARV.ID=BILLITEM_ARV.PARENTID AND ?(QBF_FILTER)  "+
+                 " UNION ALL SELECT CUSTOMERS.NAME AS MEMBER,CUSTOMERS.SEARCHKEY AS SKEY,BILLITEM.PARENTID AS PID,PRODUCTS.NAME AS PRODUCT,BILLITEM.DMULTIPLY AS MUL,BILLITEM.RATE AS RATE,BILLITEM.TOTAL AS TOTAL " +
+                 " FROM BILL,BILLITEM,PRODUCTS,CUSTOMERS   " +
+                 " WHERE BILLITEM.PRODUCT=PRODUCTS.ID AND CUSTOMERS.ID=BILL.CUSTOMER AND BILL.ID=BILLITEM.PARENTID AND ?(QBF_FILTER) ) as billdetail ");
+
+report.addParameter("BILLITEM_ARV.PARENTID");
+report.addParameter("BILLITEM.PARENTID");
+report.addQBFFilter(new com.openbravo.pos.ticket.BillNo(),2);
+report.addField("MEMBER", com.openbravo.data.loader.Datas.STRING);
+report.addField("SKEY", com.openbravo.data.loader.Datas.STRING);
+report.addField("PARENTID", com.openbravo.data.loader.Datas.STRING);
+report.addField("PRODUCT", com.openbravo.data.loader.Datas.STRING);
+report.addField("DMULTIPLY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("RATE", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+
+
+return report;
+

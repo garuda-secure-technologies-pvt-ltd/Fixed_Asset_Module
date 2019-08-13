@@ -1,0 +1,37 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Waiter Wise Report");
+report.setReport("/com/openbravo/reports/waiterbillwise");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+
+ report.setSentence("SELECT NAME,SUM(AMOUNT),ID,LNAME FROM (SELECT WAITER.NAME, SUM(BILL.AMOUNT) AS AMOUNT,WAITER.ID,LOCATIONS.NAME AS LNAME " +
+                 " FROM BILL JOIN WAITER ON BILL.WAITER=WAITER.ID JOIN PEOPLE ON BILL.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID " +
+                 " WHERE  ?(QBF_FILTER)   " +
+                 " GROUP BY WAITER.ID,WAITER.NAME,LNAME  "+
+                 " UNION ALL SELECT WAITER.NAME, SUM(BILL_ARV.AMOUNT) AS AMOUNT,WAITER.ID,LOCATIONS.NAME AS LNAME  " +
+                 " FROM BILL_ARV JOIN WAITER ON BILL_ARV.WAITER=WAITER.ID JOIN PEOPLE ON BILL_ARV.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID " +
+                 " WHERE  ?(QBF_FILTER)   " +
+                 " GROUP BY WAITER.ID,WAITER.NAME,LNAME )as wb GROUP BY ID,NAME,LNAME ORDER BY 4,1 ");
+report.addParameter("BILL.CREATEDDATE");
+report.addParameter("BILL.CREATEDDATE");
+report.addParameter("LOCATIONS.ID");
+report.addParameter("YES");
+report.addParameter("BILL_ARV.CREATEDDATE");
+report.addParameter("BILL_ARV.CREATEDDATE");
+report.addParameter("LOCATIONS.ID");
+report.addParameter("YES");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval(),2);
+
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsLocationWithFirst(),2);
+
+report.addQBFFilter(new com.openbravo.pos.ticket.ReportType(report),2);
+
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("AMOUNT", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("ID", com.openbravo.data.loader.Datas.STRING);
+report.addField("LNAME", com.openbravo.data.loader.Datas.STRING);
+
+return report;
+

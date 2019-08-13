@@ -1,0 +1,21 @@
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //IS//Tomcat7 --DisplayName "Apache Tomcat 7.0 Tomcat7" --Description "Apache Tomcat 7.0.37 Server - http://tomcat.apache.org/" --LogPath "D:\GarudaClubPlus\Tomcat\logs" --Install "D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" --Jvm "C:\Program Files\Java\jre7\bin\server\jvm.dll" --StartPath "D:\GarudaClubPlus\Tomcat" --StopPath "D:\GarudaClubPlus\Tomcat"
+Install failed: 8 The specified service already exists.
+Failed to install service
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //IS//Tomcat7 --DisplayName "Apache Tomcat 7.0 Tomcat7" --Description "Apache Tomcat 7.0.37 Server - http://tomcat.apache.org/" --LogPath "D:\GarudaClubPlus\Tomcat\logs" --Install "D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" --Jvm "C:\Program Files\Java\jre7\bin\server\jvm.dll" --StartPath "D:\GarudaClubPlus\Tomcat" --StopPath "D:\GarudaClubPlus\Tomcat"
+Install failed: 8 The specified service already exists.
+Failed to install service
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //IS//Tomcat7 --DisplayName "Apache Tomcat 7.0 Tomcat7" --Description "Apache Tomcat 7.0.37 Server - http://tomcat.apache.org/" --LogPath "D:\GarudaClubPlus\Tomcat\logs" --Install "D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" --Jvm "C:\Program Files\Java\jre7\bin\server\jvm.dll" --StartPath "D:\GarudaClubPlus\Tomcat" --StopPath "D:\GarudaClubPlus\Tomcat"
+Install failed: 8 The specified service already exists.
+Failed to install service
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //IS//Tomcat7 --DisplayName "Apache Tomcat 7.0 Tomcat7" --Description "Apache Tomcat 7.0.37 Server - http://tomcat.apache.org/" --LogPath "D:\GarudaClubPlus\Tomcat\logs" --Install "D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" --Jvm "C:\Program Files\Java\jre7\bin\server\jvm.dll" --StartPath "D:\GarudaClubPlus\Tomcat" --StopPath "D:\GarudaClubPlus\Tomcat"
+Install failed: 8 The specified service already exists.
+Failed to install service
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //IS//Tomcat7 --DisplayName "Apache Tomcat 7.0 Tomcat7" --Description "Apache Tomcat 7.0.37 Server - http://tomcat.apache.org/" --LogPath "D:\GarudaClubPlus\Tomcat\logs" --Install "D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" --Jvm "C:\Program Files\Java\jre7\bin\server\jvm.dll" --StartPath "D:\GarudaClubPlus\Tomcat" --StopPath "D:\GarudaClubPlus\Tomcat"
+Install failed: 8 The specified service already exists.
+Failed to install service
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //IS//Tomcat7 --DisplayName "Apache Tomcat 7.0 Tomcat7" --Description "Apache Tomcat 7.0.37 Server - http://tomcat.apache.org/" --LogPath "D:\GarudaClubPlus\Tomcat\logs" --Install "D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" --Jvm "C:\Program Files\Java\jre7\bin\server\jvm.dll" --StartPath "D:\GarudaClubPlus\Tomcat" --StopPath "D:\GarudaClubPlus\Tomcat"
+Install failed: 8 The specified service already exists.
+Failed to install service
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //US//Tomcat7 --Classpath "D:\GarudaClubPlus\Tomcat\bin\bootstrap.jar;D:\GarudaClubPlus\Tomcat\bin\tomcat-juli.jar" --StartClass org.apache.catalina.startup.Bootstrap --StopClass org.apache.catalina.startup.Bootstrap --StartParams start --StopParams stop  --StartMode jvm --StopMode jvm
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //US//Tomcat7 --JvmOptions "-Dcatalina.home=D:\GarudaClubPlus\Tomcat#-Dcatalina.base=D:\GarudaClubPlus\Tomcat#-Djava.endorsed.dirs=D:\GarudaClubPlus\Tomcat\endorsed#-Djava.io.tmpdir=D:\GarudaClubPlus\Tomcat\temp#-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager#-Djava.util.logging.config.file=D:\GarudaClubPlus\Tomcat\conf\logging.properties"
+"D:\GarudaClubPlus\Tomcat\bin\Tomcat7.exe" //US//Tomcat7 --StdOutput auto --StdError auto

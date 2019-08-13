@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<output>
+
+    <display>
+        <line>
+            <text align="left" length="10">Total.</text>
+            <text align="right" length="10">${ticket.printTotal()}</text>
+        </line>
+        <line>
+           <text align="center" length="20">Thank you.</text>
+        </line>
+    </display>
+
+    <ticket>
+       <!-- <image>Printer.Ticket.Logo</image> -->
+ 	<line>
+            <text align="center" bold="true" length="42">Name Of The Receiving Agent</text>
+        </line>
+       <line>
+            <text align="center" bold="true" length="42">Name Of The Contractor</text>
+        </line>
+        <line>
+            <text align="center" length="42">Address 1</text>
+        </line>
+        <line>
+            <text align="center" length="42">Address 2</text>
+        </line>
+       <line>
+            <text align="center" length="42">Address 3</text>
+        </line>
+
+         <line>
+             <text>------------------------------------------</text>
+        </line>
+	<line>
+            <text align="center" bold="true" length="42">Receipt</text>
+        </line>
+ 	<line>
+             <text>------------------------------------------</text>
+        </line>
+        <line>
+            <text align="left" length="15">Receipt:</text>
+            <text>${ticket.printReceiptID()}</text>
+        </line>
+        <line>
+            <text align="left" length="15">Date:</text>
+            <text>${date}</text>
+        </line>
+
+         #if ($ticket.getCustomer())
+        <line>
+            <text align="left" length="15">Customer:</text>
+            <text>${ticket.getCustomer().getName()}</text>
+        </line>
+        <line>
+            <text align="left" length="15"></text>
+            <text>${ticket.getCustomer().getTaxid()}</text>
+        </line>
+        #end
+
+
+
+
+
+
+        <line>
+            <text align ="left" length="16">BillNo.</text>
+            <text align ="right" length="16">${ticket.printId()}</text>
+        </line>
+	 <line>
+             <text>------------------------------------------</text>
+        </line>
+
+        <line>
+            <text align ="left" length="16">Subtotal.</text>
+            <text align ="right" length="20">${ticket.printSubTotal()}</text>
+        </line>
+        <line>
+            <text align ="left" length="16">Taxes.</text>
+            <text align ="right" length="20">${ticket.printTax()}</text>
+        </line>
+        <line>
+             <text>------------------------------------------</text>
+        </line>
+        <line size="1">
+            <text align ="left" length="16" bold="true">Total.</text>
+            <text align ="right" length="20" bold="true">${ticket.printTotal()}</text>
+        </line>
+        <line>
+             <text>------------------------------------------</text>
+        </line>
+
+        #foreach ($payment in $ticket.getPayments())
+         #if ($payment.getName() == "cash")
+        <line></line>
+        <line>
+            <text bold="true">Cash</text>
+        </line>
+        <line>
+             <text align="left" length="22">Tendered:</text>
+             <text align ="right" length="20">${payment.printPaid()}</text>
+         </line>
+        <line>
+            <text align="left" length="22">Change:</text>
+            <text align ="right" length="20">${payment.printChange()}</text>
+        </line>
+         #end
+         #if ($payment.getName() == "cashrefund")
+        <line></line>
+        <line>
+            <text bold="true">Refund</text>
+         </line>
+        <line>
+            <text align ="right" length="42">${payment.printTotal()}</text>
+        </line>
+         #end
+
+
+         #if ($payment.getName() == "cheque")
+        <line></line>
+        <line>
+            <text bold="true">Cheque</text>
+        </line>
+	<line>
+        <text align ="left" length="10">Cheque No</text>
+	<text align="left" length="30" >${payment.getChequeDetails().getChequeno()}</text>
+
+         </line>
+
+    	<line>
+        <text align ="left" length="10">Bank</text>
+	<text align="left" length="30" >${payment.getChequeDetails().getBank()}</text>
+
+         </line>
+        <line>
+
+            <text align ="right" length="42">${payment.printTotal()}</text>
+        </line>
+         #end
+         #if ($payment.getName() == "chequerefund")
+        <line></line>
+        <line>
+            <text bold="true">Cheque refund</text>
+        </line>
+
+        <line>
+            <text align ="right" length="42">${payment.printTotal()}</text>
+        </line>
+         #end
+
+         #if ($payment.getName() == "debt")
+        <line></line>
+        <line>
+            <text bold="true">Debt</text>
+        </line>
+        <line>
+            <text align ="right" length="42">${payment.printTotal()}</text>
+        </line>
+         #end
+         #end
+	<line></line>
+        <line></line>
+	#if(${sign}=="sign")
+         <line>
+	<text align="right" length="42">Customer sign</text>
+	</line>
+	#end
+
+         <line>
+             <text>------------------------------------------</text>
+        </line>
+ 	<line>
+             <text>------------------------------------------</text>
+        </line>
+
+        <line>
+
+            <text>${ticket.printUser()}</text>
+        </line>
+  	<line>
+
+            <text>${ticket.printRole()}</text>
+        </line>
+	 <line>
+
+            <text>${ticket.printHost()}</text>
+        </line>
+
+
+        <line></line>
+        <line>
+            <text align="center" length="42">Thank you for your visit.</text>
+        </line>
+    </ticket>
+
+    #foreach ($payment in $ticket.getPayments())
+     #if ($payment.getName() == "cash")
+    <opendrawer/>
+     #end
+     #if ($payment.getName() == "cashrefund")
+    <opendrawer/>
+     #end
+    #end
+
+</output>

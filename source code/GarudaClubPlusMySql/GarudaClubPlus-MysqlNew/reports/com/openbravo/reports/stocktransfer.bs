@@ -1,0 +1,32 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.StockTransferReport");
+report.setReport("/com/openbravo/reports/stocktransfer");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+
+report.setSentence("SELECT S.DATENEW,CAST(S.NUM AS SIGNED) AS TNO,P.NAME AS PRODUCT,L.NAME AS LOCATION,CAST(S.UNITS AS SIGNED) AS QTY,S.CREATEDBY AS SNAME,P1.NAME AS PRODUCT1,L1.NAME AS LOCATION1,CAST(S.UNITS1 AS SIGNED) AS QTY1,S.RECEIVEDBY AS RNAME FROM STOCKDIARY S,LOCATIONS L,LOCATIONS L1,PRODUCTS P,PRODUCTS P1 WHERE P1.ID=S.PRODUCT1 AND P.ID=S.PRODUCT AND L.ID=S.LOCATION AND L1.ID=S.LOCATION1 AND ?(QBF_FILTER)  ORDER BY S.DATENEW,TNO");
+
+
+
+
+
+report.addParameter("S.DATENEW");
+report.addParameter("S.DATENEW");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval());
+
+
+report.addField("DATENEW", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("TNO", com.openbravo.data.loader.Datas.INT);
+report.addField("PRODUCT", com.openbravo.data.loader.Datas.STRING);
+report.addField("LOCATION", com.openbravo.data.loader.Datas.STRING);
+report.addField("QTY", com.openbravo.data.loader.Datas.INT);
+report.addField("SNAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("PRODUCT1", com.openbravo.data.loader.Datas.STRING);
+report.addField("LOCATION1", com.openbravo.data.loader.Datas.STRING);
+report.addField("QTY1", com.openbravo.data.loader.Datas.INT);
+report.addField("RNAME", com.openbravo.data.loader.Datas.STRING);
+
+
+return report;

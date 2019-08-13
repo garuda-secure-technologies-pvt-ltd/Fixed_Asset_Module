@@ -1,0 +1,138 @@
+  body
+  {
+  
+  }
+            table {
+                width: 100%
+            }
+      th.logo {
+        width: 15%;
+        }
+        th.logo1 {
+        width: 15%;
+        }
+
+     th.cname {
+    width: 85%;
+        }
+        th.event {
+            width: 35%;
+            
+            
+        }
+        th.login {
+            width: 65%;
+            height:90%;
+        }
+        th.main {
+            width:35%;
+            height:45%;
+        }
+                    .button
+            {
+            font-family: Verdana, Arial, Helvetica, sans-serif; 
+            font-size: 12px; 
+            font-weight: bold; 
+            color: #003366
+            }
+                            .button1 {
+                font-family: Verdana, Arial, Helvetica, sans-serif; 
+                font-size: 12px; 
+                font-weight: bold; 
+                color: #003366
+              }
+              
+              .panel
+              {
+              
+               border:6px outset #545565;
+               height: 150px;
+               width: 280px
+              }
+              .advrtClass
+              {
+              border:6px outset #545565; 
+              height: 280px; 
+              width: 380px
+              }
+              div.glogo
+              {
+             
+              
+              
+              }
+              
+              .errorMessage {
+    		color: maroon;
+		    font-weight: bold;
+		    list-style: none;
+		     float: left;
+		     font-size: xx-large;
+		     margin: 0px 0px 0px 0px;
+              }
+               .label{
+        	 clear: left;
+        	 float: left;
+             line-height: 20px;
+             padding-left: 220px;
+	 		 width: 20%;
+	 		 margin-bottom: 15px;
+			 text-align: right;
+	 		 padding-right: 10px;
+	 		 font-style: oblique;
+	 		 font-size: x-large;
+	 		 color: fuchsia;;
+        	}
+        	
+        .button{
+        
+        	 clear: right;
+        	 float: left;
+             line-height: 20px;
+             padding-left: 320px;
+	 		 width: 20%;
+	 		 margin-bottom: 10px;
+	 		 margin-left: 300px;
+			 text-align: justify;
+	 		 padding-right: 10px;
+	 		 font-style: oblique;
+	 		 size: 25px;
+	 		 font-stretch: wider;
+	 		 
+        
+        }	
+        
+        .input{
+        	
+        	font-size: 1.3em;
+    		line-height: 22px;
+    		float: left;
+    		
+        }
+        
+        #logoTxt {
+	background: url(../resources/GarudaNew.png) top right no-repeat;
+	position: absolute;
+    display:inline-block;
+	top: -130px;
+	left: 40px;
+	width: 378px;
+	height: 115px;
+	border: none;
+    padding-bottom: 50px;
+    z-index: 10 !important;
+}
+
+.x {display: inline-block }
+.x a {
+    display: block;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+.x a:hover img{
+    margin-left: -100px;
+} /* ie6 needs this fix*/
+.x a:hover {
+    zoom: 1;
+}

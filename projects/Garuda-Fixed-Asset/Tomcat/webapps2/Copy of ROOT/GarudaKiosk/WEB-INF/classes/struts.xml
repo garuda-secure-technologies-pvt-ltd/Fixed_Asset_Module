@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 	<constant name="struts.devMode" value="true" />
+ 
+	<package name="default" namespace="/" extends="struts-default">
+	
+	<interceptors>
+    	<interceptor name="auth" class="com.openbravo.pos.pda.struts.AuthenticationInterceptor"></interceptor>
+    		<interceptor-stack name="authStack">
+    			<interceptor-ref name="auth"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    </interceptors> 
+		
+	<default-interceptor-ref name="authStack"/>
+	
+	<global-results>
+        	<result name ="login" type="redirectAction" >homePage</result>
+        	<result name="exception">pages/Error.jsp</result>
+        	<result name="error">pages/Error.jsp</result>
+        	
+    </global-results>
+		<action name="homePage" class="com.openbravo.pos.pda.struts.actions.HomePageAction">
+			<interceptor-ref name="defaultStack"/>
+	        <result name="success">pages/Welcome.jsp</result>
+        	<result name="cardlogin">pages/Welcome.jsp</result>
+        	<result name="loginfailed">pages/Welcome.jsp</result>
+        	<result name= "alreadyloagedin">pages/UserHome.jsp</result>
+
+		</action>	
+		
+		<action name="news" class="com.openbravo.pos.pda.struts.actions.NewsLetterAction">
+			<interceptor-ref name="defaultStack"/>
+			<result name="success" type="stream">
+            <param name="contentType">application/pdf</param>
+            <param name="inputName">inputStream</param>
+            <param name="contentDisposition">filename="test.pdf"</param>
+            <param name="bufferSize">1024</param>
+    		</result>
+			
+        	<result name="failure">pages/UnderConstruction.jsp</result>
+		</action>	
+ 		
+ 		<action name="cardLoginAction" class="com.openbravo.pos.pda.struts.actions.CardReaderLoginAction">
+ 			<interceptor-ref name="defaultStack"/>
+        	<result name="success">pages/UserHome.jsp</result>
+        	<result name="failure">pages/Welcome.jsp</result>
+        	<result name="resetpassword">pages/ResetPassword.jsp</result>
+        	
+		</action>	
+		
+		<action name="loginPage" class="com.openbravo.pos.pda.struts.actions.HomePageAction">
+			<interceptor-ref name="defaultStack"/>
+			<result>pages/Login.jsp</result>
+			<result name= "alreadyloagedin">pages/UserHome.jsp</result>
+		</action>
+			
+		<action name="login" class="com.openbravo.pos.pda.struts.actions.LoginAction">
+			<interceptor-ref name="defaultStack"/>
+        	<result name="success">pages/UserHome.jsp</result>
+        	<result name="input">pages/Login.jsp</result>
+        	<result name="failure">pages/Login.jsp</result>
+			<result name="resetpassword">pages/ResetPassword.jsp</result>
+		</action>		
+		
+		<action name="restPass" class="com.openbravo.pos.pda.struts.actions.ResetPassword">
+		<interceptor-ref name="authStack"/>
+        	<result name="success">pages/UserHome.jsp</result>
+        	<result name="input">pages/ResetPassword.jsp</result>
+        	<result name="failure">pages/Login.jsp</result>
+			<result name="resetpassword">pages/ResetPassword.jsp</result>
+		</action>	
+		
+		<action name="showBalance" class="com.openbravo.pos.pda.struts.actions.ShowBalance">
+		<interceptor-ref name="authStack"/>
+        	<result name="success">pages/ShowBalance.jsp</result>
+        	<result name="failure">pages/Welcome.jsp</result>
+		</action>	
+		
+		<action name="showTransaction" class="com.openbravo.pos.pda.struts.actions.TransactionAction">
+		<interceptor-ref name="authStack"/>
+        	<result name="success">pages/ShowTransactions.jsp</result>
+        	<result name="failure">pages/Welcome.jsp</result>
+		</action>
+		
+		<action name="userHome" class="com.openbravo.pos.pda.struts.actions.UserHomeAction">
+		<interceptor-ref name="authStack"/>
+        	<result name="success">pages/UserHome.jsp</result>
+        	<result name="failure">pages/Welcome.jsp</result>
+		</action>	
+		
+		<action name="showFacilities" class="com.openbravo.pos.pda.struts.actions.UserHomeAction">
+		<interceptor-ref name="authStack"/>
+        	<result name="success">pages/ShowFacilities.jsp</result>
+        	<result name="failure">pages/Welcome.jsp</result>
+		</action>
+		  
+		<action name="logout" class="com.openbravo.pos.pda.struts.actions.LogOutAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success">pages/Logout.jsp</result>
+        	<result name="failure">pages/Welcome.jsp</result>
+		</action>
+		
+		<action name="showActiveFacility" class="com.openbravo.pos.pda.struts.actions.ActiveFacilitiesAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success">pages/ShowActiveFacilities.jsp</result>
+        	<result name="failure">pages/UserHome.jsp</result>
+		</action>	
+		
+		<action name="deactivatefacility" class="com.openbravo.pos.pda.struts.actions.DeactivateFacilityAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success">pages/ShowDeactivateFacility.jsp</result>
+        	<result name="failure">pages/UserHome.jsp</result>
+		</action>	
+		
+		<action name="cancel" class="com.openbravo.pos.pda.struts.actions.CancelRequestAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/ShowFacilities.jsp</result>
+        	<result name="failure">pages/ShowFacilities.jsp</result>
+		</action>
+		
+		<action name="showOtherFacility" class="com.openbravo.pos.pda.struts.actions.OtherFacilityAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/ShowOtherFacility.jsp</result>
+        	<result name="failure">pages/ShowFacilities.jsp</result>
+		</action>
+		
+		<action name="activateFacility" class="com.openbravo.pos.pda.struts.actions.ActivateFacilityAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/ShowActivateFacilitie.jsp</result>
+        	<result name="failure">pages/UserHome.jsp</result>
+		</action>
+		
+		<action name="showEvents" class="com.openbravo.pos.pda.struts.actions.ShowEventsAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/ShowEvents.jsp</result>
+		</action>
+		
+		<action name="showMinUsage" class="com.openbravo.pos.pda.struts.actions.MinUsageAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/ShowMinUsage.jsp</result>
+		</action>
+		
+		<action name="changePassword" class="com.openbravo.pos.pda.struts.actions.HomePageAction">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/ChangePassword.jsp</result>
+			<result name= "alreadyloagedin">pages/ChangePassword.jsp</result>
+		</action>
+		
+		
+		<action name="submitNewPassword" class="com.openbravo.pos.pda.struts.actions.ChangePassword">
+		<interceptor-ref name="authStack"/>
+			<result name="success" >pages/UserHome.jsp</result>
+			<result name="failure" >pages/Welcome.jsp</result>
+			<result name="loginfailed" >pages/ChangePassword.jsp</result>
+			<result name="input">pages/ChangePassword.jsp</result>
+		</action>
+		
+		<action name="partyHallBooking" class="com.openbravo.pos.pda.struts.actions.RoomAndPartyHallBookingAction">
+		<interceptor-ref name="authStack"/>
+			<result name="failure" >pages/UnderConstruction.jsp</result>
+		</action>
+		
+		<action name="roomBooking" class="com.openbravo.pos.pda.struts.actions.RoomAndPartyHallBookingAction">
+		<interceptor-ref name="authStack"/>
+			<result name="failure" >pages/UnderConstruction.jsp</result>
+		</action>
+		
+        </package>
+         
+        
+   
+</struts>

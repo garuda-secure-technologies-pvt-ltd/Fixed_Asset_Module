@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="NoticeToMembers_Second"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="10"
+		 bottomMargin="5"
+		 whenNoDataType="BlankPage"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="companyName" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="companyAddress" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="date" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="memAddress" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="pbal" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="pdues" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="totaldues" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="header1" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{header1}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="amountpayable" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="received" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="amountreceivable" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="memno" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="membername" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="duedate" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="note" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="noticeName" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{noticeName}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sign" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{sign}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="designation" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{designation}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="footer" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{footer}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="header2" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{header2}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="generatedDate" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{generatedDate}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="footer2" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{footer2}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="paymentDate" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[$P{paymentDate}]]></defaultValueExpression>
+	</parameter>
+
+	<field name="transno" class="java.lang.String"/>
+	<field name="date" class="java.util.Date"/>
+	<field name="fname" class="java.lang.String"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="memno" class="java.lang.String"/>
+	<field name="memname" class="java.lang.String"/>
+	<field name="memaddr" class="java.lang.String"/>
+	<field name="amtreceived" class="java.lang.Double"/>
+	<field name="orgamt" class="java.lang.Double"/>
+	<field name="obtype" class="java.lang.String"/>
+	<field name="previousNoticeName" class="java.lang.String">
+		<fieldDescription><![CDATA[$F{previousNoticeName}]]></fieldDescription>
+	</field>
+	<field name="pGeneratedDate" class="java.lang.String"/>
+	<field name="pDueAmount" class="java.lang.Double"/>
+	<field name="pPayByDate" class="java.lang.String"/>
+	<field name="pDueDate" class="java.lang.String"/>
+	<field name="NoticeName" class="java.lang.String"/>
+	<field name="DateOfGeneration" class="java.lang.String"/>
+	<field name="DueDate" class="java.lang.String"/>
+	<field name="PayByDate" class="java.lang.String"/>
+	<field name="DueAMountDetails" class="java.lang.Double"/>
+	<field name="previousNoticeList" class="java.util.List"/>
+
+	<variable name="tdebit" class="java.lang.Double" resetType="Group" resetGroup="memReport" calculation="Sum">
+		<variableExpression><![CDATA[new java.lang.Double($F{type}.equals( "D" )?$F{orgamt}.doubleValue():0.0)]]></variableExpression>
+	</variable>
+	<variable name="totalsdues" class="java.lang.Double" resetType="Report" calculation="Nothing">
+	</variable>
+	<variable name="detach" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["PLEASE DETACH THIS STUB AND ENCLOSE WITH YOUR REMITTANCE."]]></variableExpression>
+	</variable>
+	<variable name="paidby" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["Paid by Cash/Cheque/DD............................Dt.........................Drawn on ..........................For Rs.........................."]]></variableExpression>
+	</variable>
+	<variable name="memsig" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["Member's signature................................."]]></variableExpression>
+	</variable>
+	<variable name="amountdue" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["AMOUNT DUE"]]></variableExpression>
+	</variable>
+	<variable name="memno" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["MEMBERSHIP NO."]]></variableExpression>
+	</variable>
+	<variable name="cuthere" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["..................................................................................cut here................................................................................................."]]></variableExpression>
+	</variable>
+	<variable name="memreq" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["Members are requested to register theis Mobile numbers with the office for SMS updates."]]></variableExpression>
+	</variable>
+	<variable name="compu" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["This is a computer generated statement and does not require signature."]]></variableExpression>
+	</variable>
+	<variable name="thanku" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["Thanking you"]]></variableExpression>
+	</variable>
+	<variable name="bci" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA["in the name of "+$P{companyName}]]></variableExpression>
+	</variable>
+	<variable name="tcredit" class="java.lang.Double" resetType="Group" resetGroup="memReport" calculation="Sum">
+		<variableExpression><![CDATA[new java.lang.Double($F{type}.equals( "C" )?$F{orgamt}.doubleValue():0.0)]]></variableExpression>
+	</variable>
+	<variable name="amtbal" class="java.lang.String" resetType="Report" calculation="Nothing">
+	</variable>
+
+		<group  name="memReport" isResetPageNumber="true" isReprintHeaderOnEachPage="true" >
+			<groupExpression><![CDATA[$F{memno}]]></groupExpression>
+			<groupHeader>
+			<band height="220"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="200"
+						width="77"
+						height="16"
+						key="staticText-1"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Doc.No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="90"
+						y="200"
+						width="77"
+						height="16"
+						key="staticText-2"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="340"
+						y="200"
+						width="77"
+						height="16"
+						key="staticText-4"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Debit]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="197"
+						width="535"
+						height="0"
+						key="line-1"
+						printWhenGroupChanges="memReport"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="217"
+						width="535"
+						height="0"
+						key="line-2"
+						printWhenGroupChanges="memReport"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<elementGroup><!--  Start: 1 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="80"
+						y="-3"
+						width="297"
+						height="80"
+						key="textField-12"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{memaddr}]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 1 !-->
+				<staticText>
+					<reportElement
+						x="0"
+						y="102"
+						width="535"
+						height="13"
+						key="staticText-19"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Dear Sir/Madam,]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="115"
+						width="535"
+						height="82"
+						key="textField-13"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="173"
+						y="200"
+						width="154"
+						height="16"
+						key="staticText-20"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Particulars]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="86"
+						width="535"
+						height="13"
+						key="staticText-30"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[                                                                          Subject: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="254"
+						y="86"
+						width="162"
+						height="13"
+						key="textField"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{noticeName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="3"
+						y="177"
+						width="190"
+						height="16"
+						key="staticText-38"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Details are as follows.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="116"
+						width="201"
+						height="20"
+						key="staticText-39"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[We would like to inform you that we had sent ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="406"
+						y="116"
+						width="129"
+						height="20"
+						key="staticText-41"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[where in you are required ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="158"
+						y="137"
+						width="19"
+						height="20"
+						key="staticText-43"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[by]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="176"
+						y="137"
+						width="69"
+						height="20"
+						key="textField-52"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true">
+							<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pPayByDate}+"."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="246"
+						y="137"
+						width="113"
+						height="20"
+						key="staticText-44"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[But we find that a sum of]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Auto" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="362"
+						y="137"
+						width="71"
+						height="20"
+						key="textField-53"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($V{tdebit})]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="439"
+						y="137"
+						width="91"
+						height="20"
+						key="staticText-45"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[is due from you ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="157"
+						width="30"
+						height="20"
+						key="staticText-46"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[as on]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Auto" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="157"
+						width="100"
+						height="21"
+						key="textField"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pGeneratedDate}+"."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="294"
+						y="116"
+						width="50"
+						height="20"
+						key="staticText-47"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[to you on]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="137"
+						width="80"
+						height="20"
+						key="staticText-49"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[to pay a sum of ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="137"
+						width="80"
+						height="20"
+						key="textField-76"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($F{pDueAmount})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="200"
+						y="116"
+						width="94"
+						height="20"
+						key="textField-77"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{previousNoticeName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="344"
+						y="116"
+						width="60"
+						height="20"
+						key="textField-78"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DateOfGeneration}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="349"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="270"
+						y="9"
+						width="54"
+						height="13"
+						key="staticText-8"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true"
+						printWhenGroupChanges="memReport"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Total ]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="4"
+						width="535"
+						height="1"
+						key="line-5"
+						isRemoveLineWhenBlank="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="29"
+						width="535"
+						height="0"
+						key="line-6"
+						isRemoveLineWhenBlank="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="136"
+						width="102"
+						height="15"
+						key="textField-25"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{thanku}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="51"
+						width="534"
+						height="60"
+						key="textField-35"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{note}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="422"
+						y="9"
+						width="15"
+						height="13"
+						key="staticText-24"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Dr.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="118"
+						width="534"
+						height="15"
+						key="textField-42"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="340"
+						y="9"
+						width="77"
+						height="13"
+						key="textField-44"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($V{tdebit})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="309"
+						y="118"
+						width="84"
+						height="13"
+						key="textField-46"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{paymentDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="385"
+						y="118"
+						width="117"
+						height="15"
+						key="textField-48"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[(" to avoid inconvinience")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="118"
+						width="327"
+						height="15"
+						key="textField-49"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["You are requested to kindly make payment of due amount on or before "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="35"
+						width="534"
+						height="15"
+						key="textField-56"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Please see that any dues after  " +$F{pDueDate}+ "  not mentioned above is also cleared at the earliest."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="151"
+						width="82"
+						height="14"
+						key="textField-57"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["  E&OE"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="382"
+						y="157"
+						width="94"
+						height="18"
+						key="textField-58"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Yours faithfully"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="334"
+						y="175"
+						width="195"
+						height="16"
+						key="textField-59"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["for  "+$P{companyName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="394"
+						y="191"
+						width="82"
+						height="14"
+						key="textField-60"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sd/-"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="376"
+						y="210"
+						width="118"
+						height="14"
+						key="textField-61"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{sign}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="376"
+						y="229"
+						width="118"
+						height="13"
+						key="textField-62"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{designation}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="3"
+						y="278"
+						width="180"
+						height="17"
+						key="staticText-50"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Previous Notice Detail:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="8"
+						y="303"
+						width="80"
+						height="13"
+						key="textField-82"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Notice Name"]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="2"
+						y="298"
+						width="519"
+						height="0"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="147"
+						y="303"
+						width="80"
+						height="12"
+						key="textField-83"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Date Of Generation"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="248"
+						y="303"
+						width="80"
+						height="13"
+						key="textField-84"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Due Date"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="344"
+						y="302"
+						width="80"
+						height="14"
+						key="textField-85"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pay By Date"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="452"
+						y="303"
+						width="60"
+						height="12"
+						key="textField-86"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Due Amount"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="324"
+						width="70"
+						height="22"
+						key="textField-87"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NoticeName}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="2"
+						y="321"
+						width="518"
+						height="0"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="148"
+						y="324"
+						width="70"
+						height="21"
+						key="textField-88"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DateOfGeneration}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="248"
+						y="324"
+						width="70"
+						height="21"
+						key="textField-89"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DueDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="346"
+						y="324"
+						width="70"
+						height="21"
+						key="textField-90"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PayByDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="324"
+						width="80"
+						height="22"
+						key="textField-91"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						isPrintInFirstWholeBand="true"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[com.openbravo.format.Formats.CURRENCY.formatValue($F{DueAMountDetails})]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="53"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="370"
+						y="25"
+						width="0"
+						height="0"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="412"
+						y="40"
+						width="37"
+						height="13"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Date :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="535"
+						height="18"
+						key="textField-36"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{companyName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="22"
+						width="535"
+						height="18"
+						key="textField-37"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{companyAddress}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="40"
+						width="85"
+						height="13"
+						key="textField-79"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="16"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[new Boolean($F{orgamt}.doubleValue()>0.0 && $F{type}.equals( "D" ))]]></printWhenExpression>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="77"
+						height="10"
+						key="textField"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{orgamt}.doubleValue()>0.0?$F{transno}:null]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="0"
+						width="77"
+						height="10"
+						key="textField"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{orgamt}.doubleValue()>0.0?$F{date}:null]]></textFieldExpression>
+				</textField>
+				<elementGroup><!--  Start: 2 !-->
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="173"
+						y="0"
+						width="154"
+						height="10"
+						key="textField"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{orgamt}.doubleValue()>0.0?$F{fname}:null]]></textFieldExpression>
+				</textField>
+				</elementGroup><!-- End 2 !-->
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="340"
+						y="0"
+						width="77"
+						height="13"
+						key="textField-43"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{orgamt}.doubleValue()>0.0?com.openbravo.format.Formats.CURRENCY.formatValue($F{orgamt}):null]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Group" evaluationGroup="memReport"  hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="504"
+						y="3"
+						width="29"
+						height="14"
+						key="textField-92"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line direction="BottomUp">
+					<reportElement
+						x="500"
+						y="3"
+						width="4"
+						height="14"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="470"
+						y="3"
+						width="29"
+						height="14"
+						key="textField-93"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

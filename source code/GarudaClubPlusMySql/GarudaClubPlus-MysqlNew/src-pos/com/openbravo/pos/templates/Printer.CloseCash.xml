@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ 
+<output>
+    <ticket>
+        <image>Printer.Ticket.Logo</image>
+
+        <line></line>
+        <line>
+            <text align ="center" length="42" bold="true">Close cash</text>            
+        </line>
+        <line></line>
+        
+        <line>
+            <text bold="true">Receipt report</text>
+        </line>
+        
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+        <line>
+            <text align ="left" length="20">Type</text>
+            <text align ="right" length="22">Total</text>
+        </line>
+        #foreach ($line in $payments.getPaymentLines())
+        <line>
+            <text align ="left" length="20">${line.printPtype()}</text>
+            <text align ="right" length="22">${line.printPtotal()}</text>
+        </line> 
+        #end
+        <line>
+            <text align ="left" length="32">Sub Total</text>
+            <text align ="right" length="10">${payments.printreceiptTotal()}</text>
+        </line>
+        <line>
+            <text>------------------------------------------</text>
+        </line> 
+        <line>
+            <text align ="left" length="32">Incash Total</text>
+            <text align ="right" length="10">${payments.printincash()}</text>
+        </line>
+
+        <line>
+            <text>------------------------------------------</text>
+        </line> 
+        
+        <line></line>
+        <line>
+            <text bold="true">Details of Receipt</text>
+        </line>
+        <line>
+
+             <text align ="left" length="10">Date</text>
+             <text align ="right" length="3">RNO</text>
+            <text align ="right" length="7">Billno</text>
+            <text align ="right" length="12">Customer</text>
+            <text align ="right" length="10">Total</text>
+        
+           
+        </line>
+        #foreach ($line in $payments.getRdetalLines())
+        <line>
+
+            <text align ="left" length="10">${line.printrDate()}</text>
+            <text align ="right" length="3">${line.printrId()}</text>
+            <text align ="right" length="7">${line.printbillid()}</text>
+            <text align ="right" length="12">${line.printrCustomer()}</text>
+            <text align ="right" length="10">${line.printrTotal()}</text>
+
+        </line> 
+        #end        
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+        <line>
+            <text align ="left" length="32">Receipt Total</text>
+            <text align ="right" length="10">${payments.printreceiptTotal()}</text>
+        </line>
+        
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+
+        <line>
+            <text bold="true">Payments</text>
+            
+        </line>
+        <line>
+            <text align ="left" length="32">Type</text>
+            <text align ="right" length="10">Total</text>
+        </line>
+        #foreach ($line in $payments.getPaymentLines1())
+        <line>
+            <text align ="left" length="32">${line.printpaymentType1()}</text>
+            <text align ="right" length="10">${line.printpaymentTotal1()}</text>
+        </line>
+        #end
+
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+        <line>
+            <text align ="left" length="32">Payments Total</text>
+            <text align ="right" length="10">${payments.printpayTotal()}</text>
+        </line>
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+        <line>
+            <text align ="left" length="32"> Balance</text>
+            <text align ="right" length="10">${payments.printbalance()}</text>
+        </line>
+
+
+        <line>
+            <text length="18">Machine:</text>
+            <text>${payments.printHost()}</text>
+        </line>    
+        <line>
+            <text length="18">Sequence:</text>
+            <text length="24" align="right">${payments.printSequence()}</text>
+        </line> 
+        <line>
+            <text length="18">Start date:</text>
+            <text length="24" align="right">${payments.printDateStart()}</text>
+        </line>  
+        <line>
+            <text length="18">End date:</text>
+            <text length="24" align="right">${payments.printDateEnd()}</text>
+        </line>  
+    </ticket>
+</output>

@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="C1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="10"
+		 bottomMargin="5"
+		 whenNoDataType="BlankPage"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="companyName" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="companyAddress" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="S" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W1" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W2" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W3" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W4" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W5" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W6" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W7" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W8" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W9" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="W10" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="pdate" isForPrompting="false" class="java.lang.String"/>
+
+	<field name="UNITTYPE" class="java.lang.String"/>
+	<field name="QUANTITY" class="java.lang.Double"/>
+	<field name="prod" class="java.lang.String"/>
+	<field name="TotQty" class="java.lang.Double"/>
+	<field name="Rate" class="java.lang.Double"/>
+	<field name="TotAmo" class="java.lang.Double"/>
+	<field name="W1" class="java.lang.String"/>
+	<field name="W2" class="java.lang.String"/>
+	<field name="W3" class="java.lang.String"/>
+	<field name="W4" class="java.lang.String"/>
+	<field name="W5" class="java.lang.String"/>
+	<field name="Q1" class="java.lang.Double"/>
+	<field name="Q2" class="java.lang.Double"/>
+	<field name="Q3" class="java.lang.Double"/>
+	<field name="Q4" class="java.lang.Double"/>
+	<field name="Q5" class="java.lang.Double"/>
+	<field name="Q6" class="java.lang.Double"/>
+	<field name="Q7" class="java.lang.Double"/>
+	<field name="Q8" class="java.lang.Double"/>
+	<field name="Q9" class="java.lang.Double"/>
+	<field name="Q10" class="java.lang.Double"/>
+	<field name="W6" class="java.lang.String"/>
+	<field name="W7" class="java.lang.String"/>
+	<field name="W8" class="java.lang.String"/>
+	<field name="W9" class="java.lang.String"/>
+	<field name="W10" class="java.lang.String"/>
+	<field name="QT1TotalAmt" class="java.lang.Double"/>
+
+	<variable name="gtotal" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[Double.valueOf(new DecimalFormat("#.##").format($F{TotAmo}))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+	</variable>
+	<variable name="totals" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{TotAmo}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW1Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W1}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W1}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W1}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW2Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W2}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W2}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W2}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW3Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W3}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W3}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W3}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW4Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W4}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W4}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W4}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW5Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W5}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W5}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W5}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW6Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W6}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W6}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W6}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW7Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W7}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W7}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W7}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW8Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W8}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W8}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W8}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW9Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W9}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W9}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W9}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+	<variable name="totalW10Amount" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[($P{W10}.equals( $F{W1} ))?new Double($F{Q1}.doubleValue()*$F{Rate}.doubleValue()):(($P{W10}.equals( $F{W2} ))?new Double($F{Q2}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W3} )?new Double($F{Q3}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W4} )?new Double($F{Q4}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W5} )?new Double($F{Q5}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W6} )?new Double($F{Q6}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W7} )?new Double($F{Q7}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W8} )?new Double($F{Q8}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W9} )?new Double($F{Q9}.doubleValue()*$F{Rate}.doubleValue()):($P{W10}.equals( $F{W10} )?new Double($F{Q10}.doubleValue()*$F{Rate}.doubleValue()):null)))))))))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.00)]]></initialValueExpression>
+	</variable>
+
+		<group  name="memReport" isResetPageNumber="true" isReprintHeaderOnEachPage="true" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="47"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="24"
+						width="535"
+						height="0"
+						key="line-1"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="44"
+						width="535"
+						height="0"
+						key="line-2"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"
+						printWhenGroupChanges="memReport"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="24"
+						width="33"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="45"
+						y="24"
+						width="29"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="85"
+						y="24"
+						width="37"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="131"
+						y="24"
+						width="25"
+						height="12"
+						key="textField"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W4}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="23"
+						width="30"
+						height="12"
+						key="textField"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="196"
+						y="25"
+						width="30"
+						height="12"
+						key="textField-45"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W6}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="232"
+						y="26"
+						width="31"
+						height="12"
+						key="textField-46"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W7}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="23"
+						width="31"
+						height="12"
+						key="textField-47"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W9}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="268"
+						y="25"
+						width="31"
+						height="12"
+						key="textField-48"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W8}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="24"
+						width="28"
+						height="12"
+						key="textField-49"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{W10}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="394"
+						y="24"
+						width="38"
+						height="15"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Rate
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="439"
+						y="24"
+						width="39"
+						height="15"
+						key="staticText-18"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[TotQty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="489"
+						y="25"
+						width="46"
+						height="15"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[TotAmt]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="115"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="39"
+						width="535"
+						height="1"
+						key="line-18"
+						isRemoveLineWhenBlank="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="432"
+						y="18"
+						width="102"
+						height="13"
+						key="textField-56"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totals}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="18"
+						width="33"
+						height="18"
+						key="textField-59"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW1Amount}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="34"
+						y="2"
+						width="0"
+						height="38"
+						key="line-19"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="81"
+						y="2"
+						width="0"
+						height="38"
+						key="line-20"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="18"
+						width="38"
+						height="18"
+						key="textField-62"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW2Amount}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="126"
+						y="2"
+						width="0"
+						height="38"
+						key="line-21"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="155"
+						y="1"
+						width="0"
+						height="38"
+						key="line-22"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="190"
+						y="-1"
+						width="0"
+						height="39"
+						key="line-23"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="227"
+						y="0"
+						width="0"
+						height="39"
+						key="line-24"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="265"
+						y="0"
+						width="0"
+						height="39"
+						key="line-25"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="299"
+						y="0"
+						width="0"
+						height="39"
+						key="line-26"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="337"
+						y="0"
+						width="0"
+						height="39"
+						key="line-27"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="385"
+						y="0"
+						width="0"
+						height="39"
+						key="line-28"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="534"
+						y="0"
+						width="0"
+						height="39"
+						key="line-29"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="85"
+						y="18"
+						width="38"
+						height="18"
+						key="textField-63"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW3Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="131"
+						y="18"
+						width="23"
+						height="18"
+						key="textField-64"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW4Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="18"
+						width="29"
+						height="18"
+						key="textField-65"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW5Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="196"
+						y="18"
+						width="29"
+						height="18"
+						key="textField-66"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW6Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="232"
+						y="17"
+						width="29"
+						height="18"
+						key="textField-67"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW7Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="267"
+						y="17"
+						width="29"
+						height="18"
+						key="textField-68"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW8Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="302"
+						y="18"
+						width="29"
+						height="18"
+						key="textField-69"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW9Amount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="18"
+						width="36"
+						height="18"
+						key="textField-70"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{totalW10Amount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="51"
+						width="532"
+						height="43"
+						forecolor="#CC0F0F"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[Note : There may be a small difference in columnar total to grand total due to rounding of to two decimal       points in calculation.]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="1"
+						width="0"
+						height="39"
+						key="line-30"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="0"
+						y="1"
+						width="60"
+						height="15"
+						forecolor="#DD0606"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="65"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="449"
+						y="50"
+						width="85"
+						height="13"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="370"
+						y="25"
+						width="0"
+						height="0"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="412"
+						y="50"
+						width="37"
+						height="13"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Date :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="535"
+						height="18"
+						key="textField-36"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{companyName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="22"
+						width="535"
+						height="18"
+						key="textField-37"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{companyAddress}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="45"
+						width="279"
+						height="20"
+						key="staticText-20"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[      Consolidated Warehousewise Report As On:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="279"
+						y="45"
+						width="123"
+						height="20"
+						key="textField-57"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{pdate}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="39"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="37"
+						width="535"
+						height="1"
+						key="line-5"
+						isRemoveLineWhenBlank="true"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="4"
+						width="313"
+						height="10"
+						key="textField"
+						isPrintRepeatedValues="false"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{prod}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="395"
+						y="19"
+						width="40"
+						height="10"
+						key="textField"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{Rate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="440"
+						y="19"
+						width="42"
+						height="10"
+						key="textField-38"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{TotQty}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="487"
+						y="19"
+						width="47"
+						height="10"
+						key="textField-39"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{TotAmo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="19"
+						width="35"
+						height="10"
+						key="textField-40"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W1}.equals( $F{W1} ))?$F{Q1}:(($P{W1}.equals( $F{W2} ))?$F{Q2}:($P{W1}.equals( $F{W3} )?$F{Q3}:($P{W1}.equals( $F{W4} )?$F{Q4}:($P{W1}.equals( $F{W5} )?$F{Q5}:($P{W1}.equals( $F{W6} )?$F{Q6}:($P{W1}.equals( $F{W7} )?$F{Q7}:($P{W1}.equals( $F{W8} )?$F{Q8}:($P{W1}.equals( $F{W9} )?$F{Q9}:($P{W1}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="45"
+						y="18"
+						width="35"
+						height="10"
+						key="textField-41"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W2}.equals( $F{W1} ))?$F{Q1}:(($P{W2}.equals( $F{W2} ))?$F{Q2}:($P{W2}.equals( $F{W3} )?$F{Q3}:($P{W2}.equals( $F{W4} )?$F{Q4}:($P{W2}.equals( $F{W5} )?$F{Q5}:($P{W2}.equals( $F{W6} )?$F{Q6}:($P{W2}.equals( $F{W7} )?$F{Q7}:($P{W2}.equals( $F{W8} )?$F{Q8}:($P{W2}.equals( $F{W9} )?$F{Q9}:($P{W2}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="85"
+						y="19"
+						width="41"
+						height="10"
+						key="textField-42"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W3}.equals( $F{W1} ))?$F{Q1}:(($P{W3}.equals( $F{W2} ))?$F{Q2}:($P{W3}.equals( $F{W3} )?$F{Q3}:($P{W3}.equals( $F{W4} )?$F{Q4}:($P{W3}.equals( $F{W5} )?$F{Q5}:($P{W3}.equals( $F{W6} )?$F{Q6}:($P{W3}.equals( $F{W7} )?$F{Q7}:($P{W3}.equals( $F{W8} )?$F{Q8}:($P{W3}.equals( $F{W9} )?$F{Q9}:($P{W3}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="126"
+						y="18"
+						width="31"
+						height="10"
+						key="textField-43"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W4}.equals( $F{W1} ))?$F{Q1}:(($P{W4}.equals( $F{W2} ))?$F{Q2}:($P{W4}.equals( $F{W3} )?$F{Q3}:($P{W4}.equals( $F{W4} )?$F{Q4}:($P{W4}.equals( $F{W5} )?$F{Q5}:($P{W4}.equals( $F{W6} )?$F{Q6}:($P{W4}.equals( $F{W7} )?$F{Q7}:($P{W4}.equals( $F{W8} )?$F{Q8}:($P{W4}.equals( $F{W9} )?$F{Q9}:($P{W4}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="156"
+						y="19"
+						width="36"
+						height="10"
+						key="textField-44"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W5}.equals( $F{W1} ))?$F{Q1}:(($P{W5}.equals( $F{W2} ))?$F{Q2}:($P{W5}.equals( $F{W3} )?$F{Q3}:($P{W5}.equals( $F{W4} )?$F{Q4}:($P{W5}.equals( $F{W5} )?$F{Q5}:($P{W5}.equals( $F{W6} )?$F{Q6}:($P{W5}.equals( $F{W7} )?$F{Q7}:($P{W5}.equals( $F{W8} )?$F{Q8}:($P{W5}.equals( $F{W9} )?$F{Q9}:($P{W5}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="34"
+						y="-23"
+						width="1"
+						height="60"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="191"
+						y="19"
+						width="35"
+						height="10"
+						key="textField-50"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W6}.equals( $F{W1} ))?$F{Q1}:(($P{W6}.equals( $F{W2} ))?$F{Q2}:($P{W6}.equals( $F{W3} )?$F{Q3}:($P{W6}.equals( $F{W4} )?$F{Q4}:($P{W6}.equals( $F{W5} )?$F{Q5}:($P{W6}.equals( $F{W6} )?$F{Q6}:($P{W6}.equals( $F{W7} )?$F{Q7}:($P{W6}.equals( $F{W8} )?$F{Q8}:($P{W6}.equals( $F{W9} )?$F{Q9}:($P{W6}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="233"
+						y="18"
+						width="31"
+						height="10"
+						key="textField-51"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W7}.equals( $F{W1} ))?$F{Q1}:(($P{W7}.equals( $F{W2} ))?$F{Q2}:($P{W7}.equals( $F{W3} )?$F{Q3}:($P{W7}.equals( $F{W4} )?$F{Q4}:($P{W7}.equals( $F{W5} )?$F{Q5}:($P{W7}.equals( $F{W6} )?$F{Q6}:($P{W7}.equals( $F{W7} )?$F{Q7}:($P{W7}.equals( $F{W8} )?$F{Q8}:($P{W7}.equals( $F{W9} )?$F{Q9}:($P{W7}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="270"
+						y="19"
+						width="28"
+						height="10"
+						key="textField-52"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W8}.equals( $F{W1} ))?$F{Q1}:(($P{W8}.equals( $F{W2} ))?$F{Q2}:($P{W8}.equals( $F{W3} )?$F{Q3}:($P{W8}.equals( $F{W4} )?$F{Q4}:($P{W8}.equals( $F{W5} )?$F{Q5}:($P{W8}.equals( $F{W6} )?$F{Q6}:($P{W8}.equals( $F{W7} )?$F{Q7}:($P{W8}.equals( $F{W8} )?$F{Q8}:($P{W8}.equals( $F{W9} )?$F{Q9}:($P{W8}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="19"
+						width="36"
+						height="10"
+						key="textField-53"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W9}.equals( $F{W1} ))?$F{Q1}:(($P{W9}.equals( $F{W2} ))?$F{Q2}:($P{W9}.equals( $F{W3} )?$F{Q3}:($P{W9}.equals( $F{W4} )?$F{Q4}:($P{W9}.equals( $F{W5} )?$F{Q5}:($P{W9}.equals( $F{W6} )?$F{Q6}:($P{W9}.equals( $F{W7} )?$F{Q7}:($P{W9}.equals( $F{W8} )?$F{Q8}:($P{W9}.equals( $F{W9} )?$F{Q9}:($P{W9}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="18"
+						width="36"
+						height="10"
+						key="textField-54"
+						isRemoveLineWhenBlank="true"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($P{W10}.equals( $F{W1} ))?$F{Q1}:(($P{W10}.equals( $F{W2} ))?$F{Q2}:($P{W10}.equals( $F{W3} )?$F{Q3}:($P{W10}.equals( $F{W4} )?$F{Q4}:($P{W10}.equals( $F{W5} )?$F{Q5}:($P{W10}.equals( $F{W6} )?$F{Q6}:($P{W10}.equals( $F{W7} )?$F{Q7}:($P{W10}.equals( $F{W8} )?$F{Q8}:($P{W10}.equals( $F{W9} )?$F{Q9}:($P{W10}.equals( $F{W10} )?$F{Q10}:null)))))))))]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="81"
+						y="-20"
+						width="1"
+						height="57"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="126"
+						y="-21"
+						width="0"
+						height="58"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="155"
+						y="-21"
+						width="1"
+						height="58"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="190"
+						y="-21"
+						width="0"
+						height="58"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="227"
+						y="-20"
+						width="0"
+						height="59"
+						key="line-13"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="265"
+						y="-21"
+						width="0"
+						height="59"
+						key="line-14"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="299"
+						y="-21"
+						width="0"
+						height="57"
+						key="line-15"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="337"
+						y="-23"
+						width="0"
+						height="61"
+						key="line-16"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="385"
+						y="-22"
+						width="0"
+						height="58"
+						key="line-17"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="-23"
+						width="1"
+						height="60"
+						key="line-31"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

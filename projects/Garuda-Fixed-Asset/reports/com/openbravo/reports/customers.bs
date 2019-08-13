@@ -1,0 +1,34 @@
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.CustomersReport");
+report.setReport("/com/openbravo/reports/customers");
+report.setResourceBundle("com/openbravo/reports/customers_messages");
+
+if (app.getSession().getDatabaseName().equals("HSQL Database Engine") ||
+    app.getSession().getDatabaseName().equals("MySQL") ||
+    app.getSession().getDatabaseName().equals("PostgreSQL")) {
+    report.setSentence("SELECT ID, TAXID, NAME, ADDRESS, NOTES, CARD, MAXDEBT, CURDATE, CURDEBT " +
+                     "FROM CUSTOMERS " +
+                     "WHERE VISIBLE = TRUE AND ?(QBF_FILTER)");
+} else if (app.getSession().getDatabaseName().equals("Oracle")) {
+    report.setSentence("SELECT ID, TAXID, NAME, ADDRESS, NOTES, CARD, MAXDEBT, CURDATE, CURDEBT " +
+                     "FROM CUSTOMERS " +
+                     "WHERE VISIBLE = 1 AND ?(QBF_FILTER)");
+}
+
+report.addParameter("ID");
+report.addParameter("NAME");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsCustomer());
+
+report.addField("ID", com.openbravo.data.loader.Datas.STRING);
+report.addField("TAXID", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("ADDRESS", com.openbravo.data.loader.Datas.STRING);
+report.addField("NOTES", com.openbravo.data.loader.Datas.STRING);
+report.addField("CARD", com.openbravo.data.loader.Datas.STRING);
+report.addField("MAXDEBT", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CURDATE", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("CURDEBT", com.openbravo.data.loader.Datas.DOUBLE);
+
+return report;

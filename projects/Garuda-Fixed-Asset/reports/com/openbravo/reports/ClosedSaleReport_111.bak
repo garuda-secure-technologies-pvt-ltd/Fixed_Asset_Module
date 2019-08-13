@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ClosedSaleReport_1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="fromDate" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="toDate" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="date" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="companyName" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="companyAddress" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="closedsaledatasource1" isForPrompting="false" class="java.lang.Object"/>
+	<parameter name="Total" isForPrompting="false" class="java.lang.Double"/>
+	<parameter name="role" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="closedsaleProdsource" isForPrompting="false" class="java.lang.String"/>
+
+	<field name="billno" class="java.lang.String"/>
+	<field name="memno" class="java.lang.String"/>
+	<field name="amt" class="java.lang.Double"/>
+	<field name="date" class="java.util.Date"/>
+	<field name="memname" class="java.lang.String"/>
+	<field name="role" class="java.lang.String"/>
+	<field name="ProductName" class="java.lang.String"/>
+	<field name="Qty" class="java.lang.String"/>
+	<field name="rate" class="java.lang.String"/>
+	<field name="sdate" class="java.util.Date"/>
+
+	<variable name="totalamount" class="java.lang.Double" resetType="Page" incrementType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$V{amounttotal}]]></variableExpression>
+	</variable>
+	<variable name="amounttotal" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$V{amounttotal}]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="61"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="29"
+						y="44"
+						width="0"
+						height="0"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="42"
+						y="37"
+						width="0"
+						height="0"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="375"
+						y="-34"
+						width="0"
+						height="0"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="50"
+						width="530"
+						height="9"
+						key="subreport-1"/>
+					<subreportParameter  name="fromDate">
+						<subreportParameterExpression><![CDATA[$P{fromDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="toDate">
+						<subreportParameterExpression><![CDATA[$P{toDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="date">
+						<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="companyName">
+						<subreportParameterExpression><![CDATA[$P{companyName}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="companyAddress">
+						<subreportParameterExpression><![CDATA[$P{companyAddress}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="closedsaledatasource1">
+						<subreportParameterExpression><![CDATA[$P{closedsaledatasource1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="Total">
+						<subreportParameterExpression><![CDATA[$P{Total}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="role">
+						<subreportParameterExpression><![CDATA[$P{role}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="closedsaleProdsource">
+						<subreportParameterExpression><![CDATA[$P{closedsaleProdsource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[$P{closedsaledatasource1}]]></dataSourceExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["\\ClosedSaleSubreport_1.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="174"
+						y="27"
+						width="178"
+						height="22"
+						key="staticText-20"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ClosedSaleDetails]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="13"
+						y="12"
+						width="32"
+						height="20"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[From:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="45"
+						y="39"
+						width="0"
+						height="0"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="13"
+						y="32"
+						width="32"
+						height="20"
+						key="staticText-23"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[To:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="403"
+						y="12"
+						width="31"
+						height="18"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Date:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="443"
+						y="12"
+						width="75"
+						height="18"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="12"
+						y="-15"
+						width="513"
+						height="27"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="16" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{companyName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="174"
+						y="13"
+						width="178"
+						height="14"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{companyAddress}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="50"
+						y="33"
+						width="100"
+						height="12"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{date}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="50"
+						y="15"
+						width="107"
+						height="13"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{sdate}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="2"
+						width="530"
+						height="9"
+						key="subreport-2"/>
+					<subreportParameter  name="fromDate">
+						<subreportParameterExpression><![CDATA[$P{fromDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="toDate">
+						<subreportParameterExpression><![CDATA[$P{toDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="date">
+						<subreportParameterExpression><![CDATA[$P{date}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="companyName">
+						<subreportParameterExpression><![CDATA[$P{companyName}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="companyAddress">
+						<subreportParameterExpression><![CDATA[$P{companyAddress}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="closedsaledatasource1">
+						<subreportParameterExpression><![CDATA[$P{closedsaledatasource1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="Total">
+						<subreportParameterExpression><![CDATA[$P{Total}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="role">
+						<subreportParameterExpression><![CDATA[$P{role}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="closedsaleProdsource">
+						<subreportParameterExpression><![CDATA[$P{closedsaleProdsource}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[$P{closedsaledatasource1}]]></dataSourceExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["\\ClosedSaleProdReport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="14"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="35"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="471"
+						y="1"
+						width="25"
+						height="13"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="512"
+						y="1"
+						width="23"
+						height="13"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line direction="BottomUp">
+					<reportElement
+						x="502"
+						y="1"
+						width="7"
+						height="14"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="375"
+						y="14"
+						width="71"
+						height="16"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Total Amount]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="453"
+						y="14"
+						width="67"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$P{Total}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="354"
+						y="14"
+						width="178"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="354"
+						y="14"
+						width="178"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

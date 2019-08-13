@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<permissions>
+   <class name="com.openbravo.pos.panels.discountManager"/>
+    <class name="com.openbravo.pos.forms.MenuSalesReport"/>
+    <class name="/com/openbravo/reports/waiterbillwise.bs"/>
+    <class name="/com/openbravo/reports/waiterproductwise.bs"/>
+    <class name="/com/openbravo/reports/customerwise.bs"/>
+    <class name= "/com/openbravo/reports/operatorwise.bs"/>
+
+    <class name="sales.PrintTicket"/>
+    <class name="sales.Total"/>
+    <class name="sales.Discount"/>
+    <!-- <class name="sales.ChangeTaxOptions"/> -->
+
+    <class name="payment"/>
+    <class name="payment.cash"/>
+    <class name="payment.cheque"/>
+    <!--<class name="payment.paper"/>-->
+    <!--<class name="payment.magcard"/>-->
+    <!--<class name="payment.free"/>-->
+    <class name="payment.debt"/>
+    <class name="refund.cash"/>
+    <class name="refund.cheque"/>
+    <class name="refund.paper"/>
+    <class name="refund.magcard"/>
+
+
+
+
+    <class name="Menu.ChangePassword"/>
+    <class name="com.openbravo.pos.panels.JPanelPrinter"/>
+
+    <class name="button.print"/>
+    <class name="button.opendrawer"/>
+
+</permissions>

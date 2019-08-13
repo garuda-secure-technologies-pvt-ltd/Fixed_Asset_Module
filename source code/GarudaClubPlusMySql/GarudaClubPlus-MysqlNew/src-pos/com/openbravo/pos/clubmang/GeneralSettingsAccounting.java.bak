@@ -1,0 +1,369 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * GeneralSettingsAccounting.java
+ *
+ * Created on May 12, 2009, 10:15:45 AM
+ */
+
+package com.openbravo.pos.clubmang;
+
+import com.openbravo.pos.Accounts.AccountMasterExt;
+import com.openbravo.basic.BasicException;
+import com.openbravo.data.gui.ComboBoxValModel;
+import com.openbravo.data.loader.Datas;
+import com.openbravo.data.loader.PreparedSentence;
+import com.openbravo.data.loader.SerializerReadBasic;
+import com.openbravo.data.loader.SerializerWriteBasic;
+import com.openbravo.data.loader.StaticSentence;
+import com.openbravo.pos.admin.PeopleInfo;
+import com.openbravo.pos.forms.AppView;
+import com.openbravo.pos.forms.BeanFactoryApp;
+import com.openbravo.pos.forms.BeanFactoryException;
+import com.openbravo.pos.forms.DataLogicSales;
+import com.openbravo.pos.forms.JPanelView;
+import com.openbravo.pos.forms.LookupUtilityImpl;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+//import java.util.Map;
+import java.util.Map;
+import java.util.UUID;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.JTextComponent;
+
+/**
+ *
+ * @author swathi
+ */
+public class GeneralSettingsAccounting extends javax.swing.JPanel implements JPanelView,BeanFactoryApp {
+
+    /** Creates new form GeneralSettingsAccounting */
+    private AppView m_App;
+    private List arr;
+    private ComboBoxValModel clmodel;
+    private ComboBoxValModel stmodel;
+    private ComboBoxValModel pcmodel;
+    private ComboBoxValModel peoplemodel;
+    private DataLogicFacilities dlfac;
+    private String clevyp=null;
+    private String clacc=null;
+    private String stacc=null;
+    private String pettycashacc=null;
+    private String pettycashincharge=null;
+    private JTextComponent editor;
+    private JTextComponent servtaxeditor;
+    private DataLogicSales m_dlSales;
+    private Map<String, GeneralSettingInfo> GeneralSettingsMap = new HashMap<String, GeneralSettingInfo>();
+    public GeneralSettingsAccounting() {
+        initComponents();
+    }
+
+    public void init(AppView app) throws BeanFactoryException {
+       m_App=app;
+       dlfac=(DataLogicFacilities) app.getBean("com.openbravo.pos.clubmang.DataLogicFacilitiesCreate");
+       m_dlSales = (DataLogicSales) m_App.getBean("com.openbravo.pos.forms.DataLogicSalesCreate");
+    }
+
+     public String getTitle() {
+       return "General Settings";
+    }
+
+    public void activate() throws BasicException {
+        List<PeopleInfo> plist=m_dlSales.getPeopleList().list();
+        peoplemodel=new ComboBoxValModel(plist);
+        pcincharge.setModel(peoplemodel);
+        pcincharge.setSelectedIndex(-1);
+        List<AccountMasterExt> sacclist=dlfac.getaccounts();
+        clmodel=new ComboBoxValModel(sacclist);
+        claccount.setModel(clmodel);
+        claccount.setSelectedIndex(-1);
+        pcmodel=new ComboBoxValModel(sacclist);
+        pcaccount.setModel(pcmodel);
+        pcaccount.setSelectedIndex(-1);
+        editor=(JTextComponent)claccount.getEditor().getEditorComponent();
+        editor.setText(null);
+        editor.addKeyListener(new Comboboxlistenner());
+        stmodel=new ComboBoxValModel(sacclist);
+        staxacc.setModel(stmodel);
+        staxacc.setSelectedIndex(-1);
+        servtaxeditor=(JTextComponent)staxacc.getEditor().getEditorComponent();
+        servtaxeditor.setText(null);
+        servtaxeditor.addKeyListener(new Comboboxlistenner1());
+        arr=new ArrayList();
+       /* List<Object[]> data=new StaticSentence(m_App.getSession()
+                , "SELECT NAME,VALUE FROM GENERALTABLE "
+                ,null
+                , new SerializerReadBasic(new Datas[]{Datas.STRING,Datas.STRING})).list();*/
+        LookupUtilityImpl.getInstance(null).refresh();
+       GeneralSettingsMap=LookupUtilityImpl.getInstance(null).getGeneralSettingsMap();
+       // Object[] detail=(Object[])data.get(0);
+       // for(int i=0;i<GeneralSettingsMap.size();i++){
+         GeneralSettingInfo detail=GeneralSettingsMap.get("Canteen Levy");
+         if(detail !=null && detail.getName().equals("Canteen Levy")){
+           clevy.setText(detail.getValue());
+           clevyp=detail.getValue();
+         }
+         detail=GeneralSettingsMap.get("Canteen Levy Account");
+         if(detail !=null && detail.getName().equals("Canteen Levy Account")){
+           clmodel.setSelectedKey(detail.getValue());
+           clacc=detail.getValue();
+         }
+         detail=GeneralSettingsMap.get("Service Tax Account");
+         if(detail !=null && detail.getName().equals("Service Tax Account")){
+            stmodel.setSelectedKey(detail.getValue());
+            stacc=detail.getValue();
+         }
+         detail=GeneralSettingsMap.get("Petty Cash Account");
+         if(detail !=null && detail.getName().equals("Petty Cash Account")){
+            pcmodel.setSelectedKey(detail.getValue());
+            pettycashacc=detail.getValue();
+         }
+         detail=GeneralSettingsMap.get("Petty Cash Incharge");
+         if(detail !=null && detail.getName().equals("Petty Cash Incharge")){
+            peoplemodel.setSelectedKey(detail.getValue());
+            pettycashincharge=detail.getValue();
+         }
+       // }
+       
+    }
+     private boolean isAlpha(String s)
+    {
+       s = s.toUpperCase();
+      for (int i = 0; i < s.length(); i ++)
+      {
+       int c = (int) s.charAt(i);
+      if ((c < 65 || c > 90) && (c<47 || c>58) )
+       return false;
+      }
+        return true;
+     }
+     public class Comboboxlistenner extends  KeyAdapter{
+         public void keyReleased(KeyEvent e) {
+             try{
+                 //!e.getKeyText(e.getKeyCode()).equals("Enter")
+
+                 String text=editor.getText();
+                 if(isAlpha(String.valueOf(e.getKeyChar())) || e.getKeyText(e.getKeyCode()).equals("Backspace")){//|| !e.getKeyText(e.getKeyCode()).equals("Backspace")){
+                   clmodel=new ComboBoxValModel(dlfac.getsubAccounts(text.toUpperCase()));
+                   claccount.setModel(clmodel);
+                   editor.setText(text);
+                   claccount.showPopup();
+
+                 }else if(e.getKeyText(e.getKeyCode()).equals("Enter")){
+                    if(clmodel.getSize()<=0){
+                       editor.setText(null);
+                    }
+                 }
+             }
+             catch(Exception e1){
+               e1.printStackTrace();
+             }
+         }
+     }
+     public class Comboboxlistenner1 extends  KeyAdapter{
+         public void keyReleased(KeyEvent e) {
+             try{
+                 String text=servtaxeditor.getText();
+                 if(isAlpha(String.valueOf(e.getKeyChar())) || e.getKeyText(e.getKeyCode()).equals("Backspace")){//|| !e.getKeyText(e.getKeyCode()).equals("Backspace")){
+                   stmodel=new ComboBoxValModel(dlfac.getsubAccounts(text.toUpperCase()));
+                   staxacc.setModel(stmodel);
+                   servtaxeditor.setText(text);
+                   staxacc.showPopup();
+
+                 }else if(e.getKeyText(e.getKeyCode()).equals("Enter")){
+                    if(stmodel.getSize()<=0){
+                       servtaxeditor.setText(null);
+                    }
+                 }
+             }
+             catch(Exception e1){
+               e1.printStackTrace();
+             }
+         }
+     }
+    public boolean deactivate() {
+        return true;
+    }
+
+    public JComponent getComponent() {
+        return this;
+    }
+
+    public Object getBean() {
+       return this;
+    }
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        clevy = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        claccount = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        staxacc = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        pcaccount = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        pcincharge = new javax.swing.JComboBox();
+
+        jLabel1.setText("Canteen Levy :");
+
+        jLabel2.setText("%");
+
+        jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Canteen Levy Account :");
+
+        jLabel4.setText("Service tax account");
+
+        jLabel5.setText("Petty Cash Account");
+
+        pcaccount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel6.setText("Petty Cash Incharge");
+
+        pcincharge.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(staxacc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(clevy, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(29, 29, 29)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(claccount, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(pcincharge, 0, 220, Short.MAX_VALUE)
+                                .addComponent(pcaccount, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(clevy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(claccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(staxacc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(pcaccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(pcincharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addComponent(jButton1)
+                .addContainerGap(330, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+        
+        
+        if(!pcaccount.getSelectedItem().equals(pettycashacc)){
+            AccountMasterExt acc=(AccountMasterExt) pcmodel.getSelectedItem();
+            if( new PreparedSentence(m_App.getSession()
+                , "UPDATE GENERALTABLE SET VALUE=? WHERE NAME=?"
+                , new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING})).exec(new Object[]{acc.getid(),"Petty Cash Account"})<=0){
+
+                new PreparedSentence(m_App.getSession()
+                , "INSERT INTO GENERALTABLE(ID,NAME,VALUE) VALUES(?,?,?)"
+                , new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING,Datas.STRING})).exec(new Object[]{UUID.randomUUID().toString(),"Petty Cash Account",acc.getid()});
+            }
+        }
+         if( !pcincharge.getSelectedItem().equals(pettycashincharge)){
+            PeopleInfo pinfo=(PeopleInfo) peoplemodel.getSelectedItem();
+             if(new PreparedSentence(m_App.getSession()
+                , "UPDATE GENERALTABLE SET VALUE=? WHERE NAME=?"
+                , new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING})).exec(new Object[]{pinfo.getID(),"Petty Cash Incharge"})<=0){
+
+                 new PreparedSentence(m_App.getSession()
+                , "INSERT INTO GENERALTABLE(ID,NAME,VALUE) VALUES(?,?,?)"
+                , new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING,Datas.STRING})).exec(new Object[]{UUID.randomUUID().toString(),"Petty Cash Incharge",pinfo.getID()});
+             }
+        }
+        }catch(NumberFormatException e1){
+           JOptionPane.showMessageDialog(this, "Please enter a vaild number", null, JOptionPane.OK_OPTION);
+        }
+        catch(Exception e){
+          e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox claccount;
+    private javax.swing.JTextField clevy;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JComboBox pcaccount;
+    private javax.swing.JComboBox pcincharge;
+    private javax.swing.JComboBox staxacc;
+    // End of variables declaration//GEN-END:variables
+
+}

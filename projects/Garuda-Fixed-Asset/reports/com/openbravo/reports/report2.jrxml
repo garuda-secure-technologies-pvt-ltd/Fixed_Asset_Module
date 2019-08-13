@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport  name="report2" >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band height="23"/>
+	</background>
+	<title>
+		<band height="23" />
+	</title>
+	<pageHeader>
+		<band height="12" />
+	</pageHeader>
+	<columnHeader>
+		<band height="13" />
+	</columnHeader>
+	<detail>
+		<band height="110" >
+			<image>
+                <reportElement x="265" y="44" width="100" height="50"/>
+                <imageExpression class="net.sf.jasperreports.engine.JRRenderable">
+                    <![CDATA[new com.onbarcode.barcode.jasper.JasperRenderer(
+                        com.onbarcode.barcode.jasper.BarcodeGenerator.draw(2, "12345", "", "X=2&Y=60"))]]>
+                    </imageExpression>
+            </image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" />
+	</columnFooter>
+	<pageFooter>
+		<band height="9" />
+	</pageFooter>
+	<summary>
+		<band height="16" />
+	</summary>
+</jasperReport>

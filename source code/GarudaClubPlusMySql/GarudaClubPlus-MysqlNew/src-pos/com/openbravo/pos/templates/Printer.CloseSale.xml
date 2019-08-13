@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<output>
+    <ticket>
+        <image>Printer.Ticket.Logo</image>
+
+        <line></line>
+        <line>
+            <text align ="center" length="42" bold="true">Close Sale</text>
+        </line>
+        <line></line>
+
+        <line>
+            <text bold="true">Sales report</text>
+        </line>
+       <line>
+            <text align ="left" length="10">BillNo</text>
+            <text align ="left" length="22">Customer</text>
+            <text align = "right" length="10">Tot.Amt</text>
+        </line>
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+        #foreach ($line in $sales.getSalesLines())
+        <line>
+            <text align ="left" length="10">${line.printbillno()}</text>
+            <text align ="left" length="22">${line.printcustomer()}</text>
+            <text align = "right" length="10">${line.printTotal()}</text>
+        </line>
+        #end
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+        <line>
+            <text align = "left" length = "22">Bill Total</text>
+            <text align = "right" length = "20">${sales.printsubbill()}</text>
+        </line>
+        <line>
+            <text align = "left" length = "22">Tax Total</text>
+            <text align = "right" length = "20">${sales.printsubtax()}</text>
+        </line>
+        <line size="1">
+            <text align = "left" length = "22">Total</text>
+            <text align = "right" length = "20">${sales.printTotals()}</text>
+        </line>
+        <line></line>
+        <line>
+            <text bold="true">Productwise Sales Report</text>
+        </line>
+        <line>
+            <text align ="left" length="17">Product</text>
+            <text align ="right" length="3">Qty</text>
+            <text align ="right" length="10">Rate</text>
+            <text align ="right" length="12">Amount</text>
+        </line>
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+
+        #foreach ($line in $sales.getProductsLines())
+        <line>
+            <text align ="left" length="17">${line.printproduct()}</text>
+            <text align ="right" length="3">${line.printQty()}</text>
+            <text align ="right" length="10">${line.printRate()}</text>
+            <text align ="right" length="12">${line.printAmount()}</text>
+        </line>
+        #end
+
+        <line>
+            <text align ="left" length="22">Amount Total:</text>
+            <text align ="right" length="20">${sales.printpdtamount()}</text>
+        </line>
+        <line>
+            <text align ="left" length="22" bold="true">Tax Total</text>
+            <text align ="right" length="20" bold="true">${sales.printtaxamt()}</text>
+        </line>
+        <line size="1">
+            <text align ="left" length="22" bold="true">Total</text>
+            <text align ="right" length="20" bold="true">${sales.printtotalamt()}</text>
+        </line>
+        <line>
+            <text>------------------------------------------</text>
+        </line>
+
+        <line>
+            <text bold="true">Pending QT</text>
+        </line>
+        <line>
+            <text align="left" length="5">QT</text>
+             <text align ="left" length="12">Customer</text>
+            <text align ="left" length="7">Waiter</text>
+            <text align ="left" length="8">Value</text>
+            <text align ="left" length="10">Date</text>
+
+        </line>
+        #foreach($line in $sales.getQtLine())
+         <line>
+            <text align ="left" length="5">${line.printqtid()}</text>
+            <text align ="left" length="12">${line.printcustomer()}</text>
+            <text align ="left" length="7">${line.printwaiter()}</text>
+            <text align ="left" length="8">${line.printqtvalue()}</text>
+            <text align ="left" length="10">${line.printcreateddate()}</text>
+        </line>
+        #end
+
+           <line></line>
+        <line>
+		<text length="22">Host</text>
+		<text length = "20">${sales.printHost()}</text>
+	</line>
+	<line>
+		<text length="22">User</text>
+		<text length ="20">${sales.printUser()}</text>
+	</line>
+    <line>
+        <text length="22">Role</text>
+        <text length="20">${sales.printRole()}</text>
+    </line>
+        <line>
+            <text length="18">Start date:</text>
+            <text length="24" align="right">${sales.printDateStart()}</text>
+        </line>
+        <line>
+            <text length="18">End date:</text>
+            <text length="24" align="right">${sales.printDateEnd()}</text>
+        </line>
+    </ticket>
+</output>

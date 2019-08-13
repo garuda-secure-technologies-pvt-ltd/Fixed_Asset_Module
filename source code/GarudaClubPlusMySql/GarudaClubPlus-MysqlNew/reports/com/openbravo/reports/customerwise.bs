@@ -1,0 +1,28 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+report.setTitleKey("title.CustomerWise");
+report.setReport("/com/openbravo/reports/customerwise");
+report.setResourceBundle("com/openbravo/reports/chartsales_messages");
+
+report.setSentence(" SELECT CUSTID,CNAME,SUM(TOTAL),WAREHOUSE FROM( SELECT CUSTOMERS.SEARCHKEY AS CUSTID,CUSTOMERS.NAME AS CNAME, SUM(BILL.AMOUNT)AS TOTAL,LOCATIONS.NAME AS WAREHOUSE FROM BILL  JOIN PEOPLE ON BILL.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID JOIN CUSTOMERS ON BILL.CUSTOMER LIKE CONCAT(CUSTOMERS.ID,'%') "
+                    +" WHERE  ?(QBF_FILTER)"
+                    +" GROUP BY CUSTOMERS.SEARCHKEY,CUSTOMERS.NAME,WAREHOUSE  "
+                    + "UNION ALL SELECT CUSTOMERS.SEARCHKEY AS CUSTID,CUSTOMERS.NAME AS CNAME, SUM(BILL_ARV.AMOUNT)AS TOTAL,LOCATIONS.NAME AS WAREHOUSE FROM BILL_ARV   JOIN PEOPLE ON BILL_ARV.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID JOIN CUSTOMERS ON BILL_ARV.CUSTOMER LIKE CONCAT(CUSTOMERS.ID,'%') "
+                    +" WHERE  ?(QBF_FILTER)"
+                    +" GROUP BY CUSTOMERS.SEARCHKEY,CUSTOMERS.NAME,WAREHOUSE  )  AS CUSTWISE GROUP BY CUSTID,CNAME,WAREHOUSE ORDER BY 4,1" );
+
+report.addParameter("BILL.CREATEDDATE");
+report.addParameter("BILL.CREATEDDATE");
+report.addParameter("LOCATIONS.ID");
+report.addParameter("BILL_ARV.CREATEDDATE");
+report.addParameter("BILL_ARV.CREATEDDATE");
+report.addParameter("LOCATIONS.ID");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval(),2);
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsLocationWithFirst(),2);
+
+report.addField("CUSTID", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("WAREHOUSE", com.openbravo.data.loader.Datas.STRING);
+return report;

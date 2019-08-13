@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClosedCashReport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="118b0f64-bcd0-4224-8c59-840ff4dcd134">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="fromDate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="toDate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="date" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="companyName" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="companyAddress" class="java.lang.String" isForPrompting="false"/>
+	<field name="seq" class="java.lang.String"/>
+	<field name="sdate" class="java.util.Date"/>
+	<field name="edate" class="java.util.Date"/>
+	<field name="user" class="java.lang.String"/>
+	<field name="host" class="java.lang.String"/>
+	<field name="rno" class="java.lang.String"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="mname" class="java.lang.String"/>
+	<field name="gcat" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String"/>
+	<field name="num" class="java.lang.String"/>
+	<field name="names" class="java.lang.String"/>
+	<field name="memNum" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="fe1c4c89-621f-40af-992c-13ab395a924d" key="staticText-5" x="29" y="44" width="0" height="0"/>
+				<textElement/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64f25972-eb5c-4368-a69f-f6967e6aae5a" key="staticText-15" x="171" y="38" width="178" height="23"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Guest Entry Through Member Kiosk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="610340c5-08b0-4fff-8e2d-9922026b46cd" key="staticText-16" x="21" y="30" width="32" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[From:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca6c19ef-e967-4ec3-95fa-1df8d2155c9d" key="staticText-17" x="42" y="37" width="0" height="0"/>
+				<textElement/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ee7f1c47-20c1-44a0-a312-04d48b046b3e" key="staticText-18" x="21" y="50" width="32" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[To:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="0e52d68e-f73e-483f-9c84-e9612bb0a156" key="textField-4" x="59" y="30" width="80" height="18"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="87164454-c31c-4c8f-a15d-ab3aeb547dfe" key="textField-5" x="59" y="50" width="80" height="18"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f4c7faa8-6cf6-412b-8017-73261488e373" key="staticText-19" x="375" y="-34" width="0" height="0"/>
+				<textElement/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9a3dd424-4367-46bc-b6cb-aaf67c0ac809" key="staticText-20" x="412" y="50" width="31" height="18"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField evaluationTime="Report" pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="68836225-bd1a-479d-995a-7f87a58eeb78" key="textField-6" x="446" y="50" width="75" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="f61bd2d6-e2d4-4afe-a8fe-74e5994bf8d6" key="textField-7" x="8" y="0" width="513" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{companyName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="34860080-2e4a-43db-8d5f-d35ff653a0e9" key="textField-8" x="171" y="25" width="178" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{companyAddress}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5763fa60-4df4-4745-8055-b14398d688de" key="staticText-7" x="8" y="11" width="59" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Recp No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4642650c-92cd-447c-bb2e-b8a65fe7dca4" key="staticText-8" x="82" y="10" width="57" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf73e3ee-c168-4a4e-aafc-4aa16d37e7cb" key="staticText-9" x="412" y="10" width="65" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6be64945-514b-4c7f-8fd7-8d0a39a49205" key="staticText-10" x="279" y="11" width="84" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Guest Cat]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="37958078-5ad1-4688-8958-07ea152d229c" key="line-4" x="8" y="6" width="514" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="60d2743d-5bc5-4511-bd2d-395eadc57471" key="line-6" x="8" y="25" width="514" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="9023a902-e6f6-432d-8c4c-7963b051eb3b" key="staticText-14" x="206" y="10" width="73" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Mem Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="073671b0-0586-47df-9f6b-1819b7b3bc42" key="staticText-9" x="369" y="10" width="37" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85f795fe-6d62-4610-bedf-ed540d305227" key="staticText-14" x="146" y="11" width="60" height="13"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Mem No.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement uuid="6e7a9048-686d-497e-8a7f-00571c8075e7" x="8" y="10" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{rno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bf9cc692-07ba-42cc-b35a-a5916e7a46ba" x="81" y="10" width="65" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0ab09704-5f05-4370-b2be-4ebfb9f151e2" x="206" y="9" width="73" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{mname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ed536b91-4d91-445f-be35-56decd1a7a5a" x="279" y="9" width="68" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{gcat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3360b6c1-fd65-4074-a507-4b56755f1619" x="146" y="9" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{memNum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9c0a6109-bc4d-4aa6-9abf-638a0af6a9ec" x="363" y="9" width="43" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="013e8e89-e608-4d5d-8ef7-33d50eabe92b" x="415" y="6" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="c8ee7834-f9cd-4439-86ba-549bff1d7ab7" key="textField-2" x="448" y="20" width="34" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement uuid="06398a34-2002-44cc-838d-7c693c9978cf" key="textField-3" x="489" y="20" width="34" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement uuid="4cf04884-f52e-4bd3-85c6-a4c0478a1855" key="line-5" x="482" y="20" width="7" height="14"/>
+			</line>
+			<line>
+				<reportElement uuid="c87133cb-d7b7-4624-8a38-553df24b45f2" key="line-7" x="8" y="6" width="514" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

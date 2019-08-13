@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="CASHCLOSEMAIN"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="NAME" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT  NAME,OPENCASHTIME,CLOSECASHTIME FROM PEOPLE
+WHERE OPENCASHTIME IS NOT NULL AND CLOSECASHTIME IS NOT NULL AND NAME=$P{NAME}]]></queryString>
+
+	<field name="NAME" class="java.lang.String"/>
+	<field name="OPENCASHTIME" class="java.sql.Timestamp"/>
+	<field name="CLOSECASHTIME" class="java.sql.Timestamp"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="30"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="1"
+						y="0"
+						width="533"
+						height="29"
+						backcolor="#999900"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="9"
+						y="2"
+						width="204"
+						height="27"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+				<text><![CDATA[CASHIER STATEMENT :]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="139"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="270"
+						y="12"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{OPENCASHTIME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="421"
+						y="12"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{CLOSECASHTIME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="381"
+						y="12"
+						width="21"
+						height="18"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[to]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="12"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="30"
+						y="46"
+						width="491"
+						height="30"
+						key="subreport-1"/>
+					<subreportParameter  name="NAME">
+						<subreportParameterExpression><![CDATA[$F{NAME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CLOSECASH">
+						<subreportParameterExpression><![CDATA[$F{CLOSECASHTIME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="OPENCASH">
+						<subreportParameterExpression><![CDATA[$F{OPENCASHTIME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\Documents and Settings\\swathi\\Desktop\\temp.\\reports\\com\\openbravo\\reports\\RECEIPT.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="30"
+						y="84"
+						width="491"
+						height="36"
+						key="subreport-2"/>
+					<subreportParameter  name="NAME">
+						<subreportParameterExpression><![CDATA[$F{NAME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="CLOSECASH">
+						<subreportParameterExpression><![CDATA[$F{CLOSECASHTIME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="OPENCASH">
+						<subreportParameterExpression><![CDATA[$F{OPENCASHTIME}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[".\\reports\\com\\openbravo\\reports\\PAYMENT.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="30"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

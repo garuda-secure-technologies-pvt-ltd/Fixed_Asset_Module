@@ -1,0 +1,16 @@
+
+
+report = new com.openbravo.pos.clubmang.JasperReportPrinter();
+
+report.setTitleKey("Menu.Products");
+report.setReport("/com/openbravo/reports/del");
+report.setResourceBundle("com/openbravo/reports/products_messages");
+
+report.setSentence("select name from people where name like 'Adm%'");
+
+
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+
+
+return report;
+

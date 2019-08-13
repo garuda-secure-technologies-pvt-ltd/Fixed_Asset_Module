@@ -1,0 +1,23 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Trail Balance");
+report.setReport("/com/openbravo/reports/TrailBalance");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+
+report.setSentence("SELECT AM.NAME AS PARENT,AM1.NAME ,AM2.NAME AS TONAME,A.TRANSTYPE,A1.AMOUNT AS TOTAL   " +
+                 " FROM ACCOUNTMASTER AM,ACCOUNTMASTER AM1,ACCOUNTMASTER AM2,ACCOUNTJOURNAL A,ACCOUNTJOURNAL A1  " +
+                 " WHERE A.ACCOUNTID=AM1.ID AND AM1.PARENT=AM.SEARCHKEY AND A.TRANSNO=A1.TRANSNO AND A1.ACCOUNTID=AM2.ID AND A.ID != A1.ID AND A.TRANSTYPE!=A1.TRANSTYPE   " +
+                 " ORDER BY PARENT,AM1.NAME,AM2.NAME");
+
+
+report.addField("PARENT", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("TONAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("TRANSTYPE", com.openbravo.data.loader.Datas.STRING);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+
+
+return report;
+

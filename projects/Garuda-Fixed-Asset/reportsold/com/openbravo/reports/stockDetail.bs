@@ -1,0 +1,32 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Bill Wise Report");
+report.setReport("/com/openbravo/reports/billwiseReport");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+//(QBF_FILTER)
+ report.setSentence("select pdtname,sum(ob) as ob,sum(pur) as pur,sum(res_) as rec_,sum(sales) as sales,sum(out) as out,sum(break) as break,sum(insp) as insp from ( "
+                   + " select p.name as pdtname,sum(s.units1) as ob,0.0 as pur,0.0 as res_,0.0  as sales,0.0 as out,0.0 as break,0.0 as insp from products p join stockdiary s on p.id=s.product1 and s.reason1='1' and rno='Opening Balance'  where datenew <'2009-11-19 00:00:00' group by p.name  "
+                   + " union all select p.name as pdtname,0.0 as ob,sum(s1.units1) as pur ,0.0 as res_,0.0 as sales,0.0 as out,0.0 as break,0.0 as insp from products p join stockdiary s1 on p.id=s1.product1 and s1.reason1='1' and rno!='Opening Balance'     where datenew <'2009-11-19 00:00:00'  group by p.name "
+                   + " union all select p.name as pdtname,0.0 as ob,0.0 as pur,sum(s1.units1) as res_,0.0 as sales,0.0 as out,0.0 as break,0.0 as insp from products p join stockdiary s1 on p.id=s1.product1 and s1.reason1='4'   where datenew <'2009-11-19 00:00:00'  group by p.name "
+                   + " union all select p.name as pdtname,0.0 as ob,0.0 as pur,0.0 as res_,sum(s2.units1) as sales,0.0 as out,0.0 as break,0.0 as insp from products p join stockdiary  s2 on p.id=s2.product1 and s2.reason1='-1'   where datenew <'2009-11-19 00:00:00'  group by p.name "
+                   + " union all select p.name as pdtname,0.0 as ob,0.0 as pur,0.0 as res_,0.0 as sales,sum(s2.units ) as out,0.0 as break,0.0 as insp from products p join stockdiary  s2 on p.id=s2.product and s2.reason='-4'  where datenew <'2009-11-19 00:00:00'  group by p.name "
+                   + " union all select p.name as pdtname,0.0 as ob,0.0 as pur,0.0 as res_,0.0 as sales,0.0 as out,sum(s2.units1 * -1) as break,0.0 as insp from products p join stockdiary  s2 on p.id=s2.product1 and s2.reason1='-3'  where datenew <'2009-11-19 00:00:00'  group by p.name "
+                   + " union all select p.name as pdtname,0.0 as ob,0.0 as pur,0.0 as res_,0.0 as sales,0.0 as out,0.0 as break,sum(s2.units1 ) as insp from products p join stockdiary  s2 on p.id=s2.product1 and s2.reason1='5'  where datenew <'2009-11-19 00:00:00'  group by p.name) group by pdtname order by pdtname");
+report.addParameter("B.CREATEDDATE");
+report.addParameter("B.CREATEDDATE");
+report.addParameter("L.ID");
+report.addParameter("B.CREATEDDATE");
+report.addParameter("B.CREATEDDATE");
+report.addParameter("L.ID");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval(),2);
+
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsLocationWithFirst(),2);
+
+report.addField("DATE", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("BID", com.openbravo.data.loader.Datas.STRING);
+report.addField("AMOUNT", com.openbravo.data.loader.Datas.DOUBLE);
+
+return report;
+

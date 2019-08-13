@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="stockdiary2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ARG" isForPrompting="false" class="java.lang.Object"/>
+	<parameter name="startdate" isForPrompting="false" class="java.sql.Timestamp"/>
+	<parameter name="enddate" isForPrompting="false" class="java.sql.Timestamp"/>
+	<parameter name="product" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT   IN_ ,OUT_, NAME,REASON,UNITS1,DATENEW
+       FROM ( 
+SELECT   (SELECT SUM(S.UNITS1) FROM STOCKDIARY S WHERE  S.PRODUCT1=P.ID AND S.DATENEW <$P{startdate} AND (S.RECEIVEDBY IS NULL OR S.RECEIVEDBY!='Rejected') GROUP BY P.ID ) AS IN_ 
+       , (SELECT SUM(S.UNITS) FROM STOCKDIARY S WHERE  S.PRODUCT=P.ID AND S.DATENEW <$P{startdate} AND (S.RECEIVEDBY IS NULL OR S.RECEIVEDBY!='Rejected') GROUP BY P.ID ) AS OUT_
+       , P.NAME,(CASE WHEN S1.RNO = NULL THEN CAST(CAST(S1.NUM AS SIGNED) AS CHAR(255))+' (From '+(SELECT L.NAME FROM LOCATIONS L WHERE L.ID=S1.LOCATION)+')' ELSE RNO END) AS REASON,S1.UNITS1,S1.DATENEW
+          FROM STOCKDIARY S1 RIGHT OUTER JOIN PRODUCTS P ON S1.PRODUCT1=P.ID WHERE P.ID=$P{product} AND S1.DATENEW >=  $P{startdate} AND S1.DATENEW <=  $P{enddate} AND (S1.RECEIVEDBY IS NULL OR S1.RECEIVEDBY!='Rejected')
+UNION ALL SELECT  (SELECT SUM(S.UNITS1) FROM STOCKDIARY S WHERE  S.PRODUCT1=P.ID AND S.DATENEW <$P{startdate} AND (S.RECEIVEDBY IS NULL OR S.RECEIVEDBY!='Rejected') GROUP BY P.ID) AS IN_ 
+       , (SELECT SUM(S.UNITS) FROM STOCKDIARY S WHERE  S.PRODUCT=P.ID AND S.DATENEW <$P{startdate} AND (S.RECEIVEDBY IS NULL OR S.RECEIVEDBY!='Rejected') GROUP BY P.ID) AS OUT_
+       ,  P.NAME,(CASE WHEN S1.RNO = NULL THEN CAST(CAST(S1.NUM AS SIGNED) AS CHAR(255))+' (To '+(SELECT L.NAME FROM LOCATIONS L WHERE L.ID=S1.LOCATION1)+')' ELSE RNO END) AS REASON,S1.UNITS,S1.DATENEW
+          FROM STOCKDIARY S1 RIGHT OUTER JOIN PRODUCTS P ON S1.PRODUCT=P.ID WHERE P.ID=$P{product} AND S1.DATENEW >=  $P{startdate} AND S1.DATENEW <= $P{enddate} AND (S1.RECEIVEDBY IS NULL OR S1.RECEIVEDBY!='Rejected')
+       ) as stkd ORDER BY 6]]></queryString>
+
+	<field name="IN_" class="java.lang.Double"/>
+	<field name="OUT_" class="java.lang.Double"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="REASON" class="java.lang.String"/>
+	<field name="UNITS1" class="java.lang.Double"/>
+	<field name="DATENEW" class="java.sql.Timestamp"/>
+
+	<variable name="REM" class="java.lang.Double" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new java.lang.Double(  ($V{DIFF}.doubleValue()) -($V{TEMP}.doubleValue()) )]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+	</variable>
+	<variable name="TEMP" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{UNITS1}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+	</variable>
+	<variable name="DIFF" class="java.lang.Double" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new java.lang.Double((  $F{IN_}==null ?  0.0 :  $F{IN_}.doubleValue() ) +(  $F{OUT_}==null ? 0.0 :  $F{OUT_}.doubleValue() ))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="102"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="138"
+						y="0"
+						width="103"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Particulars]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="254"
+						y="0"
+						width="50"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[IN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="324"
+						y="0"
+						width="50"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[OUT_]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="411"
+						y="0"
+						width="95"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Balance]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="25"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="411"
+						y="12"
+						width="101"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new java.lang.Double((  $F{IN_}==null ?  0.0 :  $F{IN_}.doubleValue() ) +(  $F{OUT_}==null ? 0.0 :  $F{OUT_}.doubleValue() ))]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="12"
+						width="116"
+						height="13"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Opening Balance]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="324"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="254"
+						y="0"
+						width="50"
+						height="11"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[( ($F{UNITS1}.doubleValue() >  0.0) ? $F{UNITS1} : new Double(0.0) )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="324"
+						y="0"
+						width="51"
+						height="11"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[( ($F{UNITS1}.doubleValue() <  0.0) ? $F{UNITS1} : new Double(0.0) )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="138"
+						y="0"
+						width="100"
+						height="11"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{REASON}.equals( null )?null:$F{REASON}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="100"
+						height="11"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{DATENEW}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="19"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="411"
+						y="5"
+						width="101"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new java.lang.Double(  ($V{DIFF}.doubleValue()) +($V{TEMP}.doubleValue()) )]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="0"
+						width="512"
+						height="2"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="18"
+						width="512"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="0"
+						y="4"
+						width="117"
+						height="14"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Closing Balance]]></text>
+				</staticText>
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="24"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="451"
+						y="6"
+						width="28"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line direction="BottomUp">
+					<reportElement
+						x="488"
+						y="6"
+						width="7"
+						height="15"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="500"
+						y="6"
+						width="33"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="9"
+						y="6"
+						width="395"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[* Pending QT and unclosed sales are not considered]]></text>
+				</staticText>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

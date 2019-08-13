@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+ 
+<output>
+     
+    <display animation="scroll">
+        <line>
+            <text align="center" length="20">GAruda POS</text>
+        </line>
+        <line>
+            <text align="center" length="20">Welcome</text>
+        </line>
+    </display>
+</output>
+

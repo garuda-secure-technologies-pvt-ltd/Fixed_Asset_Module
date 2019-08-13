@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="TRAILBALANCEACCOUNTS"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="535"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="PID" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\Documents and Settings\\swathi\\Desktop\\temp\\reports\\com\\openbravo\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT AM.SEARCHKEY,AM.NAME,(SELECT SUM(A.AMOUNT) FROM ACCOUNTMASTER AM1,ACCOUNTJOURNAL A WHERE  A.ACCOUNTID=AM1.ID AND AM1.TYPE_=AM.TYPE_ AND A.TRANSTYPE='C' GROUP BY AM1.TYPE_)AS CTOTAL,
+(SELECT SUM(A.AMOUNT) FROM ACCOUNTMASTER AM1,ACCOUNTJOURNAL A WHERE  A.ACCOUNTID=AM1.ID AND AM1.TYPE_=AM.TYPE_ AND A.TRANSTYPE='D' GROUP BY AM1.TYPE_)AS DTOTAL  FROM ACCOUNTMASTER AM WHERE AM.PARENT=$P{PID}   ORDER BY AM.NAME]]></queryString>
+
+	<field name="SEARCHKEY" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="CTOTAL" class="java.lang.Double"/>
+	<field name="DTOTAL" class="java.lang.Double"/>
+
+	<variable name="sumdtotal1" class="java.lang.Double" resetType="Report" calculation="System">
+		<initialValueExpression><![CDATA[new Double (0.0)]]></initialValueExpression>
+	</variable>
+	<variable name="sumctotal1" class="java.lang.Double" resetType="Report" calculation="System">
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="58"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="100"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="36"
+						width="530"
+						height="18"
+						key="subreport-2"/>
+					<subreportParameter  name="PID">
+						<subreportParameterExpression><![CDATA[$F{SEARCHKEY}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<returnValue subreportVariable="sumdtotal" toVariable="sumdtotal1" calculation="Sum"/>
+					<returnValue subreportVariable="sumctotal" toVariable="sumctotal1" calculation="Sum"/>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "TRAILBALANCESACCOUNT.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="13"
+						width="530"
+						height="18"
+						key="subreport-3"/>
+					<subreportParameter  name="PID">
+						<subreportParameterExpression><![CDATA[$F{SEARCHKEY}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "TRAILBALANCEMHEAD.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

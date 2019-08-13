@@ -1,0 +1,1412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel5"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+    <Component class="com.openbravo.pos.Booking.GuestRoomBookingRequstTableModel" name="guestRoomBookingRequstTableModel1">
+    </Component>
+  </NonVisualComponents>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane5" pref="1139" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane5" min="-2" pref="1827" max="-2" attributes="0"/>
+              <EmptySpace pref="262" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="jPanel1">
+          <Events>
+            <EventHandler event="caretPositionChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="jPanel1CaretPositionChanged"/>
+          </Events>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jSeparator15" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSeparator17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSeparator16" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="jSeparator12" alignment="1" min="-2" pref="0" max="-2" attributes="0"/>
+                                      <Component id="jSeparator18" alignment="1" min="-2" pref="0" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator10" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jLabel16" min="-2" pref="143" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator4" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jSeparator13" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel53" min="-2" pref="95" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
+                                              <Component id="MemberPostal" min="-2" pref="179" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="MemberName" min="-2" pref="223" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" attributes="0">
+                                                              <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
+                                                              <Component id="postal" min="-2" pref="211" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="jSeparator9" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Group type="102" attributes="0">
+                                                              <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="kymMemberName" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
+                                                                  <Component id="KYMMOBILENO" alignment="0" min="-2" pref="449" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                                  <Component id="city" min="-2" pref="188" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="-2" pref="301" max="-2" attributes="0"/>
+                                                      <Component id="KYMMEMBERTYPE" min="-2" pref="267" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                              <Component id="jTextField1" min="-2" pref="164" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Group type="102" attributes="0">
+                                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                                          <Component id="jLabel10" min="-2" pref="56" max="-2" attributes="0"/>
+                                                                          <Component id="Membername2" pref="119" max="32767" attributes="0"/>
+                                                                          <Component id="Membername4" alignment="0" pref="119" max="32767" attributes="0"/>
+                                                                          <Component id="jLabel6" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                                                          <Component id="Membername11" max="32767" attributes="0"/>
+                                                                      </Group>
+                                                                      <EmptySpace min="30" pref="58" max="32767" attributes="0"/>
+                                                                  </Group>
+                                                                  <Group type="102" attributes="0">
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Component id="Membername12" alignment="0" pref="171" max="32767" attributes="0"/>
+                                                                          <Group type="102" attributes="0">
+                                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                                  <Component id="jLabel34" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
+                                                                                  <Component id="jLabel52" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                                                              </Group>
+                                                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                          </Group>
+                                                                      </Group>
+                                                                      <EmptySpace max="-2" attributes="0"/>
+                                                                  </Group>
+                                                              </Group>
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                                      <Component id="jScrollPane3" pref="180" max="32767" attributes="0"/>
+                                                                      <Component id="MemberPhone" alignment="0" pref="180" max="32767" attributes="0"/>
+                                                                      <Component id="MemberCity" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                                                                      <Component id="Memberdob" alignment="0" pref="180" max="32767" attributes="0"/>
+                                                                      <Component id="Memberpostal" alignment="0" pref="180" max="32767" attributes="0"/>
+                                                                      <Component id="Memberjoindate" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
+                                                                      <Component id="Membermemtype" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                                      <Component id="jScrollPane4" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                                      <Component id="Member_Spouse_Name" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="Member_Dependent_Name" alignment="0" pref="180" max="32767" attributes="0"/>
+                                                                      <Component id="MemberMobile" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="member_mobiletype" alignment="0" pref="180" max="32767" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="Membername" min="-2" pref="180" max="-2" attributes="0"/>
+                                                                  <Component id="memberMother_name" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="MOTHER_DOB_MEMBER" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="member_profeesion" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="member_emailid" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="member_sports" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                                  <Component id="member_special_talent" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
+                                                                  <Component id="member_father_name" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="mem_father_dob" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="member_dom" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="Membername13" max="32767" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="317" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="Membername15" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                                          <Component id="Membername14" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
+                                                          <Component id="jLabel35" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel45" min="-2" pref="80" max="-2" attributes="0"/>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                          <Component id="Membername5" max="32767" attributes="0"/>
+                                                          <Component id="jLabel42" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                          <Component id="jLabel30" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                          <Component id="jLabel31" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                          <Component id="jLabel49" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                                                          <Component id="jLabel50" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                                                          <Component id="jLabel9" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
+                                                          <Component id="jLabel41" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                                                          <Component id="jLabel11" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                                          <Component id="jLabel24" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                                                          <Component id="Membername3" alignment="1" max="32767" attributes="0"/>
+                                                          <Component id="jLabel51" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                                                          <Component id="KymMember_sports2" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                                                          <Component id="jLabel33" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                          <Component id="jLabel44" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                                          <Component id="Membername6" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="Membername7" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="Membername8" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="Membername9" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="Membername10" alignment="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="kymmembername1" min="-2" pref="154" max="-2" attributes="0"/>
+                                                                  <Component id="KymMembersince" min="-2" pref="145" max="-2" attributes="0"/>
+                                                                  <Component id="Kymmobileno" min="-2" pref="195" max="-2" attributes="0"/>
+                                                                  <Component id="KYMRESNO" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                                                                  <Component id="City" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
+                                                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                                                      <Component id="Postal" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
+                                                                      <Component id="KymMemberdateofbirth" min="-2" pref="115" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="jScrollPane1" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
+                                                                  <Component id="jScrollPane2" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                                                                  <Component id="KymMember_sports" min="-2" pref="92" max="-2" attributes="0"/>
+                                                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                                                      <Component id="KymMember_spcltalent" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
+                                                                      <Component id="Kymmembertype" min="-2" pref="177" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="KymMember_EmailID" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                                                                  <Component id="KymMember_Profession" min="-2" pref="195" max="-2" attributes="0"/>
+                                                                  <Component id="KymMember_MobileType" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <Group type="102" attributes="0">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Group type="102" attributes="0">
+                                                                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                                                      <Component id="kymdependent" max="32767" attributes="0"/>
+                                                                  </Group>
+                                                                  <Group type="102" alignment="0" attributes="0">
+                                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Component id="KymMember_FatherName" pref="888" max="32767" attributes="0"/>
+                                                                          <Component id="KymMember_date_of_marriage" pref="888" max="32767" attributes="0"/>
+                                                                          <Component id="KymMember_father_date_of_marriage" alignment="0" pref="888" max="32767" attributes="0"/>
+                                                                      </Group>
+                                                                  </Group>
+                                                                  <Group type="102" alignment="0" attributes="0">
+                                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Component id="KymMember_mother_date_of_birth" pref="888" max="32767" attributes="0"/>
+                                                                          <Component id="KymMember_MotherName" pref="888" max="32767" attributes="0"/>
+                                                                          <Group type="102" alignment="0" attributes="0">
+                                                                              <Component id="KYMMember_Spouse_Name" min="-2" pref="179" max="-2" attributes="0"/>
+                                                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                          </Group>
+                                                                      </Group>
+                                                                  </Group>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel48" min="-2" pref="80" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" attributes="0">
+                                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                                  <Group type="102" attributes="0">
+                                                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel21" min="-2" pref="223" max="-2" attributes="0"/>
+                                                                      <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel32" min="-2" pref="175" max="-2" attributes="0"/>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Group type="102" attributes="0">
+                                                                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                                                              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+                                                                          </Group>
+                                                                          <Group type="102" alignment="0" attributes="0">
+                                                                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                                                              <Component id="ErrorMessage" min="-2" pref="149" max="-2" attributes="0"/>
+                                                                          </Group>
+                                                                      </Group>
+                                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                                  </Group>
+                                                                  <Group type="102" attributes="0">
+                                                                      <EmptySpace min="0" pref="801" max="32767" attributes="0"/>
+                                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                                          <Component id="jSeparator8" min="-2" max="-2" attributes="0"/>
+                                                                          <Component id="MemberMemType" alignment="1" min="-2" pref="262" max="-2" attributes="0"/>
+                                                                      </Group>
+                                                                  </Group>
+                                                              </Group>
+                                                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Group type="102" attributes="0">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="jLabel47" min="-2" pref="95" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel7" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel27" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel29" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel43" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel28" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                                                  <Component id="Membername16" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Component id="jSeparator7" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="376" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel46" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                                          <Component id="jLabel26" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jSeparator14" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="jLabel14" min="-2" pref="187" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="kymMemberName" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel21" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                                      <Component id="ErrorMessage" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel32" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jSeparator1" alignment="0" min="-2" pref="10" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="MemberName" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="kymmembername1" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="Membername" alignment="1" min="-2" pref="14" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="KYMMember_Spouse_Name" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                      <Component id="Membername3" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="Member_Spouse_Name" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                      <Component id="Membername2" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="KYMMOBILENO" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Membername7" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="KymMember_MotherName" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="memberMother_name" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Membername11" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Membername9" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="KymMember_mother_date_of_birth" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="MOTHER_DOB_MEMBER" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Membername12" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Membername8" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="KymMember_FatherName" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="Membername13" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="member_father_name" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Membername10" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="KymMember_father_date_of_marriage" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="Membername14" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="mem_father_dob" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Membername6" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="KymMember_date_of_marriage" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="Membername15" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="member_dom" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="Member_Dependent_Name" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="Membername4" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="Membername5" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="kymdependent" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jScrollPane3" min="-2" pref="72" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane2" min="-2" pref="72" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="KymMember_Profession" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Membername16" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="member_profeesion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Kymmobileno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="MemberMobile" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="KymMember_MobileType" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="member_mobiletype" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="KymMember_EmailID" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="member_emailid" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="MemberPhone" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="KYMRESNO" min="-2" pref="14" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="City" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="MemberCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jSeparator9" min="-2" pref="99" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="MemberMemType" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="KYMMEMBERTYPE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="KymMemberdateofbirth" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                              <Component id="Memberdob" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                              <Component id="city" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="MemberPostal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="postal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="Postal" alignment="0" min="-2" pref="14" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                                      <Component id="KymMembersince" min="-2" pref="29" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel45" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="Memberpostal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel43" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel49" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                                          <Component id="Memberjoindate" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                                          <Component id="jLabel46" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Kymmembertype" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="Membermemtype" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel47" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                              <Component id="jSeparator3" min="-2" pref="207" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                                      <Component id="jSeparator7" min="-2" pref="166" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                                      <Component id="jSeparator14" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel51" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="KymMember_sports" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="member_sports" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Component id="jSeparator13" min="-2" pref="131" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="member_special_talent" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="KymMember_sports2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="KymMember_spcltalent" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jSeparator12" min="-2" pref="220" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jSeparator10" min="-2" pref="196" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="jSeparator4" min="-2" pref="127" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel14" alignment="1" min="-2" pref="0" max="-2" attributes="0"/>
+                                          <Component id="jLabel16" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                      <Component id="jSeparator15" min="-2" pref="66" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jSeparator16" min="-2" pref="121" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                                      <Component id="jSeparator17" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jSeparator8" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <Component id="jSeparator18" min="-2" pref="131" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="jSeparator2" pref="467" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Membership No : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField1">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyReleased"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator2">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator3">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="According to KYM"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator4">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel16">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator7">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel21">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="99" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="According to Customer"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator8">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator9">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel32">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="99" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="According to KYM"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberMobile">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mobile :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator10">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator12">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator13">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator14">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator15">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator16">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator17">
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator18">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel9">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Name : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberName">
+            </Component>
+            <Component class="javax.swing.JLabel" name="kymMemberName">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel10">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Address :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel24">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Address :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel26">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mobile :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KYMMOBILENO">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel42">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mobile :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel27">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Phone :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KYMRESNO">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="phone :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberPhone">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Phone:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel30">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Phone :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel28">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="City :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberCity">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="City :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel31">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="City :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="city">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel29">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="DOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Memberdob">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel41">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="DOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMemberdateofbirth">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DOB:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel43">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Postal :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberPostal">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel45">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Postal :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="postal">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel46">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Member Since :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Memberjoindate">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MemberSince :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMembersince">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Membersince :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel49">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Member Since :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel47">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Member Type :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberMemType">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel50">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Member Type :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KYMMEMBERTYPE">
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="Xarr">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="MemberAddress">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JLabel" name="Membername">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Memberpostal">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Postal :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membermemtype">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Member Type :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="ErrorMessage">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Message :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Kymmobileno">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mobile :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="City">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="City :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Postal">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Postal :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Kymmembertype">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Member Type :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="kymmembername1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Name : "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Facility name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel11">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Facility name :"/>
+              </Properties>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JList" name="Facilitylist1_JList">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = { };&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JList" name="Facilitylist">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = { };&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Facility Details"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KYMMember_Spouse_Name">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SpouseName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Spouse Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Spouse Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Member_Spouse_Name">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SpouseName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Member_Dependent_Name">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DepName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername4">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Dependent Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Dependent Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="kymdependent">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="DepName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel51">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Sports :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_sports">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sports :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_spcltalent">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Specialtalent :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_sports2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Special Talent :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_EmailID">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Emailid:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel33">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="EmailID :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel44">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Profession:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_Profession">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Profession:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Date Of Marriage :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_date_of_marriage">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="dom:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mother Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername8">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Father Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_MotherName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MotherName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_FatherName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="FatherName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel48">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mobile  Type:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_MobileType">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mobiletype :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername9">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mother DOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_mother_date_of_birth">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MotherDOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername10">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Father DOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="KymMember_father_date_of_marriage">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fatherdob :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="memberMother_name">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MotherName :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername11">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mother Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="MOTHER_DOB_MEMBER">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MotherDOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername12">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mother DOB :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername13">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Father Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_father_name">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="FatherName:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername14">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Father Name :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="mem_father_dob">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="FatherDOB:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername15">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Date Of Marriage :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_dom">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dom:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Membername16">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Profession :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_profeesion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Profession:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel34">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="MobileType :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_mobiletype">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mobiletype :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel35">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="EmailID :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_emailid">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Emailid:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel52">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Sports:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_sports">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sports:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel53">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Special Talent"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="member_special_talent">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Specialtalent:"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

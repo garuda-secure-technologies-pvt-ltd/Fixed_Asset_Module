@@ -1,0 +1,36 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+report.setTitleKey("Product Wise");
+report.setReport("/com/openbravo/reports/waiterproductwise");
+report.setResourceBundle("com/openbravo/reports/chartsales_messages");
+
+report.setSentence("SELECT PRODUCT_NAME,SUM(QUANTITY),RATE,SUM(AMOUNT),CATNAME,PID,LOCNAME FROM (SELECT PRODUCTS.NAME AS PRODUCT_NAME,SUM(BILLITEM_ARV.DMULTIPLY)AS QUANTITY,BILLITEM_ARV.RATE AS RATE ,SUM(BILLITEM_ARV.DMULTIPLY*BILLITEM_ARV.RATE) AS AMOUNT,CATEGORIES.NAME AS CATNAME,PRODUCTS.ID AS PID,L.NAME AS LOCNAME "
+                    +" FROM BILL_ARV JOIN BILLITEM_ARV ON BILL_ARV.ID=BILLITEM_ARV.PARENTID JOIN PRODUCTS ON BILLITEM_ARV.PRODUCT=PRODUCTS.ID JOIN PEOPLE  ON BILL_ARV.CREATEDBY=PEOPLE.NAME JOIN CATEGORIES ON PRODUCTS.CATEGORY=CATEGORIES.ID JOIN LOCATIONS L ON L.ID = BILL_ARV.WAREHOUSE  "
+                    +"  WHERE  ?(QBF_FILTER) "
+                    +" GROUP BY PRODUCTS.ID ,PRODUCT_NAME ,BILLITEM_ARV.RATE,CATNAME "
+                    +" UNION ALL SELECT PRODUCTS.NAME AS PRODUCT_NAME,SUM(BILLITEM.DMULTIPLY)AS QUANTITY,BILLITEM.RATE AS RATE ,SUM(BILLITEM.DMULTIPLY*BILLITEM.RATE) AS AMOUNT,CATEGORIES.NAME AS CATNAME,PRODUCTS.ID AS PID,L.NAME AS LOCNAME "
+                    +" FROM BILL JOIN BILLITEM ON BILL.ID=BILLITEM.PARENTID JOIN PRODUCTS ON BILLITEM.PRODUCT=PRODUCTS.ID JOIN PEOPLE  ON BILL.CREATEDBY=PEOPLE.NAME JOIN CATEGORIES ON PRODUCTS.CATEGORY=CATEGORIES.ID  JOIN LOCATIONS L ON L.ID = BILL.WAREHOUSE "
+                    +"  WHERE  ?(QBF_FILTER) "
+                    +" GROUP BY PRODUCTS.ID ,PRODUCT_NAME ,BILLITEM.RATE,CATNAME "
+                    +"  )AS WAITERPRODUCT GROUP BY PID,PRODUCT_NAME,RATE,CATNAME    ORDER BY 5,1");
+
+report.addParameter("BILL_ARV.CREATEDDATE");
+report.addParameter("BILL_ARV.CREATEDDATE");
+report.addParameter("BILL_ARV.WAREHOUSE");
+report.addParameter("BILL.CREATEDDATE");
+report.addParameter("BILL.CREATEDDATE");
+report.addParameter("BILL.WAREHOUSE");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval(),2);
+
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsLocationWithFirst(),2);
+
+report.addField("PRODUCT_NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("QUANTITY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("RATE", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("AMOUNT", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CATNAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("PID", com.openbravo.data.loader.Datas.STRING);
+report.addField("LOCNAME", com.openbravo.data.loader.Datas.STRING);
+
+return report;

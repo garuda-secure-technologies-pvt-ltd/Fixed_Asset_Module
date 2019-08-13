@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="billdetail" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="186d8773-56b8-4b64-985d-c9ec9df7a743">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<import value="java.util.*"/>
+	<queryString>
+		<![CDATA[SELECT CUSTOMERS.NAME AS MEMBER,CUSTOMERS.SEARCHKEY AS SKEY,BILLITEM.PARENTID,PRODUCTS.NAME AS PRODUCT,BILLITEM.DMULTIPLY,BILLITEM.RATE,BILLITEM.TOTAL FROM BILL,BILLITEM,PRODUCTS,CUSTOMERS WHERE BILLITEM.PRODUCT=PRODUCTS.ID AND BILLITEM.PARENTID='RA4' AND CUSTOMERS.ID=BILL.CUSTOMER AND BILL.ID=BILLITEM.PARENTID]]>
+	</queryString>
+	<field name="SKEY" class="java.lang.String"/>
+	<field name="PARENTID" class="java.lang.String"/>
+	<field name="PRODUCT" class="java.lang.String"/>
+	<field name="DMULTIPLY" class="java.lang.Double"/>
+	<field name="RATE" class="java.lang.Double"/>
+	<field name="TOTAL" class="java.lang.Double"/>
+	<field name="TABLE" class="java.lang.String"/>
+	<field name="WAITER" class="java.lang.String"/>
+	<field name="MEMBER" class="java.lang.String"/>
+	<field name="CUSTOM" class="java.lang.String"/>
+	<field name="TAXTOTAL" class="java.lang.Double"/>
+	<field name="date" class="java.sql.Timestamp"/>
+	<variable name="gtotal" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
+		
+	</variable>
+	<variable name="Total" class="java.lang.Double">
+		<variableExpression><![CDATA[new java.lang.Double(  ($V{gtotal}.doubleValue()) +($F{TAXTOTAL}.doubleValue()) )]]></variableExpression>
+	</variable>
+	<group name="BILL">
+		<groupExpression><![CDATA[$F{PARENTID}]]></groupExpression>
+		<groupHeader>
+			<band height="74" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText-1" x="9" y="52" width="89" height="16" uuid="c02a58e9-93ec-4d0a-94db-a16b641b83cf"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Product Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-2" x="201" y="52" width="37" height="16" uuid="b97f8f25-6302-40a4-86bf-1b29b238cd15"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Qty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-3" x="298" y="51" width="50" height="16" uuid="8a588f85-75e9-4741-a4a1-242c239f9732"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Rate]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-4" x="406" y="52" width="74" height="16" uuid="c7897745-83d2-459a-872e-e8e07dc0f507"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Amount]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="398" y="0" width="85" height="18" uuid="89c8836d-0680-47da-8f06-abf702399fec"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="false" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PARENTID}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="49" y="0" width="112" height="18" uuid="80426566-26fa-4a7d-8f8e-f6533f29bbf9"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{MEMBER}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField" x="288" y="0" width="58" height="18" uuid="3c22d802-f627-4f88-a787-0ef05b70ca27"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{SKEY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-7" x="115" y="9" width="0" height="0" uuid="e2102fca-bcf4-488d-aa4f-26e2d3ca24d2"/>
+					<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-9" x="339" y="0" width="53" height="18" uuid="3de7b442-80be-47a2-a461-f8d40963f9c5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[Bill No :]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-2" x="398" y="22" width="83" height="18" uuid="852cdbaf-bc68-4bdb-8554-6d3fd32562ee"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{WAITER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-11" x="356" y="22" width="41" height="17" uuid="a1c4322d-c12f-4550-a403-e8077f741609"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[ServBy :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-12" x="10" y="2" width="39" height="17" uuid="0f82a244-3ec9-4510-b7d4-f9d3eb40a6a4"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Name :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-13" x="10" y="22" width="50" height="17" uuid="c30790d4-124e-4c0b-bcbc-eba8b29153d3"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[TABLE:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-3" x="64" y="22" width="76" height="18" uuid="9770f763-406f-4532-a346-f26d894a7d26"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{TABLE}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="false">
+					<reportElement key="textField-4" x="161" y="0" width="77" height="18" uuid="f675b02d-b500-4ced-98d9-bdfe7bde5deb"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{CUSTOM}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-15" x="238" y="0" width="50" height="17" uuid="586a86c3-e4fd-4250-8b61-ecabd2f67db6"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[MemNo :]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-2" x="0" y="72" width="540" height="1" uuid="223aee32-276a-49a0-82de-5646a335967c"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="74" splitType="Stretch">
+				<textField pattern="##0.00" isBlankWhenNull="false">
+					<reportElement key="textField" x="425" y="5" width="49" height="18" uuid="628f4ce1-1e9c-4a9f-a12c-25ebd802e990"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{gtotal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-14" x="325" y="5" width="74" height="18" uuid="dce6ee1c-0604-4594-9352-24c49b0e89b6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[SubTotal :  Rs.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" x="346" y="26" width="44" height="16" uuid="3b7fe871-36de-4a62-b261-072903a14a17"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Tax]]></text>
+				</staticText>
+				<textField pattern="##0.00" isBlankWhenNull="false">
+					<reportElement key="textField-5" x="425" y="26" width="50" height="18" uuid="16009af9-6579-4531-9ddb-698f88bfa798"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{TAXTOTAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-17" x="366" y="49" width="54" height="18" uuid="e7e733d3-54e9-42d8-8b5a-786289add19f"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Total :  Rs.]]></text>
+				</staticText>
+				<textField pattern="##0.00" isBlankWhenNull="false">
+					<reportElement key="textField-6" x="425" y="49" width="49" height="18" uuid="eadde519-ea5b-4e68-b523-b71a561f9a3b"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-1" x="0" y="49" width="540" height="1" uuid="9d6d86b5-e1f0-4370-a237-ca206fd2ff1d"/>
+				</line>
+				<line>
+					<reportElement key="line-3" x="-2" y="71" width="540" height="1" uuid="829a6519-2c8d-423f-a856-64b1bb24e6e4"/>
+				</line>
+				<line>
+					<reportElement key="line-4" x="1" y="3" width="540" height="1" uuid="0cc46710-0d18-429a-a3bc-b7b72112d0b6"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle-1" x="0" y="11" width="535" height="34" backcolor="#999900" uuid="5a0434e4-a4bc-4fd8-a26a-24358840d8fc"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-5" x="6" y="16" width="196" height="20" uuid="e6c9936a-ce78-4093-9999-9b1305fa94b0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Bill Details :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-7" x="390" y="20" width="100" height="18" uuid="7bdc1138-3dff-46ea-b7be-5aa48b411201"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="3" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="10" y="5" width="140" height="18" uuid="0dc3c439-e404-4d83-a08e-2772c5e1f399"/>
+				<textFieldExpression><![CDATA[$F{PRODUCT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="202" y="5" width="39" height="18" uuid="3def2830-5075-4712-ac15-69c1cb3c651c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{DMULTIPLY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="300" y="5" width="50" height="18" uuid="a698cd4e-cfe1-4c74-9ebc-394a1bbcc356"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{RATE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="405" y="5" width="74" height="18" uuid="e5c2a68d-16f5-444e-a616-0ff155bef71c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="4" splitType="Stretch"/>
+	</lastPageFooter>
+	<summary>
+		<band height="52" splitType="Stretch"/>
+	</summary>
+</jasperReport>

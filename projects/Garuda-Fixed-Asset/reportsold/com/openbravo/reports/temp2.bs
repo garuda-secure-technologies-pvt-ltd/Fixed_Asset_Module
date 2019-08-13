@@ -1,0 +1,15 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.Inventory2");
+report.setReport("/com/openbravo/reports/temp2");
+report.setResourceBundle("com/openbravo/reports/inventoryb_messages");
+
+report.setSentence("select parentid from qtitems");
+report.addField("PARENTID", com.openbravo.data.loader.Datas.STRING);
+
+
+
+return report;
+

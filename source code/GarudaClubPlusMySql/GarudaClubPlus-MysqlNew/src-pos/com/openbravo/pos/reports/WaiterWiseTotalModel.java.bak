@@ -1,0 +1,138 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.openbravo.pos.reports;
+
+import com.openbravo.basic.BasicException;
+import com.openbravo.data.loader.DataRead;
+import com.openbravo.data.loader.Datas;
+import com.openbravo.data.loader.PreparedSentence;
+import com.openbravo.data.loader.SerializableRead;
+import com.openbravo.data.loader.SerializerReadClass;
+import com.openbravo.data.loader.SerializerWriteBasic;
+import com.openbravo.data.loader.StaticSentence;
+import com.openbravo.pos.forms.AppView;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author swathi
+ */
+public class WaiterWiseTotalModel {
+    private  List<waiterTotalSales> waiterlist;
+    private waiterTotalSales wsales;
+
+    public WaiterWiseTotalModel(){
+
+    }
+    
+    public  WaiterWiseTotalModel loadInstance(AppView app,Object[] val) throws BasicException{
+        WaiterWiseTotalModel wm = new WaiterWiseTotalModel();
+        List<waiterTotalSales> li =  new StaticSentence(app.getSession(),
+                   "SELECT NAME,SUM(CASHAMOUNT+DEBTAMOUNT),ID,LNAME,SUM(DEBTAMOUNT),SUM(CASHAMOUNT) FROM " +
+                        "(SELECT WAITER.NAME, 0.0 AS AMOUNT,WAITER.ID,LOCATIONS.NAME AS LNAME,SUM(BILL.AMOUNT) AS DEBTAMOUNT,0.0 AS CASHAMOUNT " +
+                        "FROM BILL JOIN WAITER ON BILL.WAITER=WAITER.ID JOIN PEOPLE ON BILL.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID JOIN PAYMENTS P ON P.RECEIPT=BILL.RECEIPT " +
+                        "WHERE  P.PAYMENT='DEBT' AND BILL.CREATEDDATE>=? AND BILL.CREATEDDATE<=? AND BILL.WAREHOUSE=?  GROUP BY WAITER.ID,WAITER.NAME,LNAME " +
+                        "UNION ALL " +
+                        "SELECT WAITER.NAME, 0.0 AS AMOUNT,WAITER.ID,LOCATIONS.NAME AS LNAME,0.0 AS DEBTAMOUNT,SUM(BILL.AMOUNT) AS CASHAMOUNT " +
+                        "FROM BILL JOIN WAITER ON BILL.WAITER=WAITER.ID JOIN PEOPLE ON BILL.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID JOIN PAYMENTS P ON P.RECEIPT=BILL.RECEIPT " +
+                        "WHERE  P.PAYMENT!='DEBT' AND BILL.CREATEDDATE>=? AND BILL.CREATEDDATE<=? AND BILL.WAREHOUSE=?  GROUP BY WAITER.ID,WAITER.NAME,LNAME " +
+                        "UNION ALL " +
+                        "SELECT WAITER.NAME, 0.0 AS AMOUNT,WAITER.ID,LOCATIONS.NAME AS LNAME,SUM(BILL_ARV.AMOUNT) AS DEBTAMOUNT,0.0 AS CASHAMOUNT " +
+                        "FROM BILL_ARV JOIN WAITER ON BILL_ARV.WAITER=WAITER.ID JOIN PEOPLE ON BILL_ARV.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID JOIN PAYMENTS_ARV P ON P.RECEIPT=BILL_ARV.RECEIPT " +
+                        "WHERE  P.PAYMENT='DEBT' AND BILL_ARV.CREATEDDATE>=? AND BILL_ARV.CREATEDDATE<=? AND BILL_ARV.WAREHOUSE=?  GROUP BY WAITER.ID,WAITER.NAME,LNAME " +
+                        "UNION ALL " +
+                        "SELECT WAITER.NAME, 0.0 AS AMOUNT,WAITER.ID,LOCATIONS.NAME AS LNAME,0.0 AS DEBTAMOUNT,SUM(BILL_ARV.AMOUNT) AS CASHAMOUNT " +
+                        "FROM BILL_ARV JOIN WAITER ON BILL_ARV.WAITER=WAITER.ID JOIN PEOPLE ON BILL_ARV.CREATEDBY=PEOPLE.NAME JOIN LOCATIONS ON PEOPLE.PRCATEGORIES=LOCATIONS.ID JOIN PAYMENTS_ARV P ON P.RECEIPT=BILL_ARV.RECEIPT " +
+                        "WHERE  P.PAYMENT!='DEBT' AND BILL_ARV.CREATEDDATE>=? AND BILL_ARV.CREATEDDATE<=? AND BILL_ARV.WAREHOUSE=?  GROUP BY WAITER.ID,WAITER.NAME,LNAME ) " +
+                        "AS WAITERTOTAL GROUP BY ID,NAME,LNAME ORDER BY 4,1 ",
+                        new SerializerWriteBasic(new Datas[]{Datas.TIMESTAMP,Datas.TIMESTAMP,Datas.STRING,Datas.TIMESTAMP,Datas.TIMESTAMP,Datas.STRING,Datas.TIMESTAMP,Datas.TIMESTAMP,Datas.STRING,Datas.TIMESTAMP,Datas.TIMESTAMP,Datas.STRING}),new SerializerReadClass(waiterTotalSales.class)).list(val);
+         if(li==null){
+              wm.waiterlist =  new ArrayList<waiterTotalSales>();
+         }else{
+               wm.waiterlist  = li;
+         }
+        return wm;
+    }
+
+    public List<waiterTotalSales> getWaiterlist() {
+        return waiterlist;
+    }
+
+    public void setWaiterlist(List<waiterTotalSales> waiterlist) {
+        this.waiterlist = waiterlist;
+    }
+
+
+
+    public static class waiterTotalSales implements SerializableRead{
+        private String name;
+        private Double totalAmount;
+        private String id;
+        private String locationName;
+        private Double totalCreditAmount;
+         private Double totalCashAmount;
+
+        public void readValues(DataRead dr) throws BasicException {
+            name = dr.getString(1);
+            totalAmount = dr.getDouble(2);
+            id = dr.getString(3);
+            locationName = dr.getString(4);
+            totalCreditAmount = dr.getDouble(5);
+            totalCashAmount = dr.getDouble(6);
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getLocationName() {
+            return locationName;
+        }
+
+        public void setLocationName(String locationName) {
+            this.locationName = locationName;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Double getTotalAmount() {
+            return totalAmount;
+        }
+
+        public void setTotalAmount(Double totalAmount) {
+            this.totalAmount = totalAmount;
+        }
+
+        public Double getTotalCashAmount() {
+            return totalCashAmount;
+        }
+
+        public void setTotalCashAmount(Double totalCashAmount) {
+            this.totalCashAmount = totalCashAmount;
+        }
+
+        public Double getTotalCreditAmount() {
+            return totalCreditAmount;
+        }
+
+        public void setTotalCreditAmount(Double totalCreditAmount) {
+            this.totalCreditAmount = totalCreditAmount;
+        }
+
+    }
+
+}

@@ -1,0 +1,52 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.Inventory");
+report.setReport("/com/openbravo/reports/inventory");
+report.setResourceBundle("com/openbravo/reports/inventory_messages");
+
+report.setSentence("SELECT " +
+                "STOCKCURRENT.LOCATION AS LOCATIONID, " +
+                "LOCATIONS.NAME AS LOCATIONNAME, " +
+                "PRODUCTS.REFERENCE, " +
+                "PRODUCTS.NAME AS NAME, " +
+                "PRODUCTS.CATEGORY, " +
+                "CATEGORIES.NAME AS CATEGORYNAME, " +
+                "STOCKCURRENT.UNITS, " +
+                "PRODUCTS.PRICEBUY, " +
+                "PRODUCTS.PRICESELL, " +
+                "COALESCE(PRODUCTS.STOCKVOLUME, 0) AS STOCKVOLUME, " +
+                "COALESCE(PRODUCTS.STOCKCOST, 0) AS STOCKCOST, " +
+                "COALESCE(STOCKCURRENT.STOCKSECURITY, 0) AS STOCKSECURITY, " +
+                "COALESCE(STOCKCURRENT.STOCKMAXIMUM, 0) AS STOCKMAXIMUM " +
+                "FROM STOCKCURRENT " +
+                "JOIN LOCATIONs ON STOCKCURRENT.LOCATION = LOCATIONs.ID  " +
+                "JOIN PRODUCTS ON STOCKCURRENT.PRODUCT = PRODUCTS.ID " +
+                "JOIN CATEGORIES   ON PRODUCTS.CATEGORY = CATEGORIES.ID " +
+                "WHERE ?(QBF_FILTER) " +
+                "ORDER BY STOCKCURRENT.LOCATION, CATEGORIES.NAME, PRODUCTS.NAME");
+report.addParameter("PRODUCTS.NAME");
+report.addParameter("PRODUCTS.PRICEBUY");
+report.addParameter("PRODUCTS.PRICESELL");
+report.addParameter("PRODUCTS.CATEGORY");
+report.addParameter("PRODUCTS.CODE");
+report.addQBFFilter(new com.openbravo.pos.ticket.ProductFilter());
+report.addParameter("STOCKCURRENT.LOCATION");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsLocationWithFirst());
+
+report.addField("LOCATIONID", com.openbravo.data.loader.Datas.STRING);
+report.addField("LOCATIONNAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("REFERENCE", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("CATEGORY", com.openbravo.data.loader.Datas.STRING);
+report.addField("CATEGORYNAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("UNITS", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("PRICEBUY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("PRICESELL", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("STOCKVOLUME", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("STOCKCOST", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("STOCKSECURITY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("STOCKMAXIMUM", com.openbravo.data.loader.Datas.DOUBLE);
+
+return report;

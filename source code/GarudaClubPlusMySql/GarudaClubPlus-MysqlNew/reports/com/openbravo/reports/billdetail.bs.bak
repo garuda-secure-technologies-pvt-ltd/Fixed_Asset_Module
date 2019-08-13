@@ -1,0 +1,35 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Bill Detail");
+report.setReport("/com/openbravo/reports/billdetail");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+
+report.setSentence("SELECT MEMBER,SKEY,WAITER,TABLE1,PID,PRODUCT,MUL,RATE,TOTAL,CREATEDBY,FLOOR,DATE FROM (SELECT CUSTOMERS.NAME AS MEMBER,CUSTOMERS.SEARCHKEY AS SKEY,WAITER.NAME AS WAITER,PLACES.NAME AS TABLE1,BILLITEM_ARV.PARENTID AS PID,PRODUCTS.NAME AS PRODUCT,BILLITEM_ARV.DMULTIPLY AS MUL,BILLITEM_ARV.RATE AS RATE,BILLITEM_ARV.TOTAL AS TOTAL,BILL_ARV.CREATEDBY AS CREATEDBY,FLOORS.NAME AS FLOOR,BILL_ARV.CREATEDDATE AS DATE" +
+                  " FROM BILL_ARV,BILLITEM_ARV,PRODUCTS,CUSTOMERS,WAITER,PLACES,FLOORS" +
+                  " WHERE BILLITEM_ARV.PRODUCT=PRODUCTS.ID AND BILL_ARV.CUSTOMER LIKE CONCAT(CUSTOMERS.ID,'%') AND BILL_ARV.ID=BILLITEM_ARV.PARENTID AND  ?(QBF_FILTER) AND WAITER.ID=BILL_ARV.WAITER AND BILL_ARV.PLACE= PLACES.ID AND BILL_ARV.FLOOR=FLOORS.ID" +
+                  " UNION ALL SELECT CUSTOMERS.NAME AS MEMBER,CUSTOMERS.SEARCHKEY AS SKEY,WAITER.NAME AS WAITER,PLACES.NAME AS TABLE1,BILLITEM.PARENTID AS PID,PRODUCTS.NAME AS PRODUCT,BILLITEM.DMULTIPLY AS MUL,BILLITEM.RATE AS RATE,BILLITEM.TOTAL AS TOTAL,BILL_ARV.CREATEDBY AS CREATEDBY,FLOORS.NAME AS FLOOR,BILL_ARV.CREATEDDATE AS DATE" +
+                  " FROM BILL_ARV,BILL,BILLITEM,PRODUCTS,CUSTOMERS,WAITER,PLACES,FLOORS" +
+                  " WHERE BILLITEM.PRODUCT=PRODUCTS.ID AND BILL.CUSTOMER LIKE CONCAT(CUSTOMERS.ID,'%') AND BILL.ID=BILLITEM.PARENTID AND ?(QBF_FILTER) AND WAITER.ID=BILL_ARV.WAITER AND BILL_ARV.PLACE= PLACES.ID AND BILL_ARV.FLOOR=FLOORS.ID ) as billdetail");
+
+
+report.addParameter("BILLITEM_ARV.PARENTID");
+report.addParameter("BILLITEM.PARENTID");
+report.addQBFFilter(new com.openbravo.pos.ticket.BillNo(),2);
+report.addField("MEMBER", com.openbravo.data.loader.Datas.STRING);
+report.addField("SKEY", com.openbravo.data.loader.Datas.STRING);
+report.addField("WAITER", com.openbravo.data.loader.Datas.STRING);
+report.addField("TABLE", com.openbravo.data.loader.Datas.STRING);
+report.addField("PARENTID", com.openbravo.data.loader.Datas.STRING);
+report.addField("PRODUCT", com.openbravo.data.loader.Datas.STRING);
+report.addField("DMULTIPLY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("RATE", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CREATEDBY", com.openbravo.data.loader.Datas.STRING);
+report.addField("FLOOR", com.openbravo.data.loader.Datas.STRING);
+report.addField("date", com.openbravo.data.loader.Datas.TIMESTAMP);
+
+
+return report;
+

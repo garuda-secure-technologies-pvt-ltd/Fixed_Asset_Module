@@ -1,0 +1,20 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Trail Balance");
+report.setReport("/com/openbravo/reports/TrailBalanceMain");
+report.setResourceBundle("com/openbravo/reports/costing_messages");
+
+report.setSentence("SELECT AM.SEARCHKEY,AM.NAME,(SELECT SUM(A.AMOUNT) FROM ACCOUNTMASTER AM1,ACCOUNTJOURNAL A WHERE  A.ACCOUNTID=AM1.ID AND AM1.TYPE_=AM.TYPE_ AND A.TRANSTYPE='C' GROUP BY AM1.TYPE_)AS CTOTAL,(SELECT SUM(A.AMOUNT) FROM ACCOUNTMASTER AM1,ACCOUNTJOURNAL A WHERE  A.ACCOUNTID=AM1.ID AND AM1.TYPE_=AM.TYPE_ AND A.TRANSTYPE='D' GROUP BY AM1.TYPE_)AS DTOTAL "+
+                   " FROM ACCOUNTMASTER AM WHERE AM.PARENT IS NULL   ORDER BY AM.NAME" );
+
+
+report.addField("SEARCHKEY", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("CTOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("DTOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+
+
+return report;
+

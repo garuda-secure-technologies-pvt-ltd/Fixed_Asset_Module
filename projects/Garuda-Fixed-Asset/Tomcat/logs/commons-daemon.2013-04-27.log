@@ -1,0 +1,42 @@
+[2013-04-27 16:14:33] [info]  [ 4544] Commons Daemon procrun (1.0.13.0 64-bit) started
+[2013-04-27 16:14:33] [info]  [ 4544] Service Tomcat7 name Apache Tomcat 7.0 Tomcat7
+[2013-04-27 16:14:33] [error] [ 4544] The specified service already exists.
+[2013-04-27 16:14:33] [error] [ 4544] Failed installing 'Tomcat7' service
+[2013-04-27 16:14:33] [error] [ 4544] The specified service already exists.
+[2013-04-27 16:14:33] [error] [ 4544] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2013-04-27 16:14:33] [error] [ 4544] The specified service already exists.
+[2013-04-27 16:14:40] [info]  [ 6408] Commons Daemon procrun (1.0.13.0 64-bit) started
+[2013-04-27 16:14:40] [info]  [ 6408] Service Tomcat7 name Apache Tomcat 7.0 Tomcat7
+[2013-04-27 16:14:40] [error] [ 6408] The specified service already exists.
+[2013-04-27 16:14:40] [error] [ 6408] Failed installing 'Tomcat7' service
+[2013-04-27 16:14:40] [error] [ 6408] The specified service already exists.
+[2013-04-27 16:14:40] [error] [ 6408] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2013-04-27 16:14:40] [error] [ 6408] The specified service already exists.
+[2013-04-27 16:14:41] [info]  [ 6340] Commons Daemon procrun (1.0.13.0 64-bit) started
+[2013-04-27 16:14:41] [info]  [ 6340] Service Tomcat7 name Apache Tomcat 7.0 Tomcat7
+[2013-04-27 16:14:41] [error] [ 6340] The specified service already exists.
+[2013-04-27 16:14:41] [error] [ 6340] Failed installing 'Tomcat7' service
+[2013-04-27 16:14:41] [error] [ 6340] The specified service already exists.
+[2013-04-27 16:14:41] [error] [ 6340] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2013-04-27 16:14:41] [error] [ 6340] The specified service already exists.
+[2013-04-27 16:15:03] [info]  [ 6240] Commons Daemon procrun (1.0.13.0 64-bit) started
+[2013-04-27 16:15:03] [info]  [ 6240] Service Tomcat7 name Apache Tomcat 7.0 Tomcat7
+[2013-04-27 16:15:03] [error] [ 6240] The specified service already exists.
+[2013-04-27 16:15:03] [error] [ 6240] Failed installing 'Tomcat7' service
+[2013-04-27 16:15:03] [error] [ 6240] The specified service already exists.
+[2013-04-27 16:15:03] [error] [ 6240] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2013-04-27 16:15:03] [error] [ 6240] The specified service already exists.
+[2013-04-27 16:15:13] [info]  [ 6244] Commons Daemon procrun (1.0.13.0 64-bit) started
+[2013-04-27 16:15:13] [info]  [ 6244] Service Tomcat7 name Apache Tomcat 7.0 Tomcat7
+[2013-04-27 16:15:13] [error] [ 6244] The specified service already exists.
+[2013-04-27 16:15:13] [error] [ 6244] Failed installing 'Tomcat7' service
+[2013-04-27 16:15:13] [error] [ 6244] The specified service already exists.
+[2013-04-27 16:15:13] [error] [ 6244] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2013-04-27 16:15:13] [error] [ 6244] The specified service already exists.
+[2013-04-27 16:15:14] [info]  [  748] Commons Daemon procrun (1.0.13.0 64-bit) started
+[2013-04-27 16:15:14] [info]  [  748] Service Tomcat7 name Apache Tomcat 7.0 Tomcat7
+[2013-04-27 16:15:14] [error] [  748] The specified service already exists.
+[2013-04-27 16:15:14] [error] [  748] Failed installing 'Tomcat7' service
+[2013-04-27 16:15:14] [error] [  748] The specified service already exists.
+[2013-04-27 16:15:14] [error] [  748] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2013-04-27 16:15:14] [error] [  748] The specified service already exists.

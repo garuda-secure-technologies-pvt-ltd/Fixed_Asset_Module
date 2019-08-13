@@ -1,0 +1,26 @@
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.Inventory2");
+report.setReport("/com/openbravo/reports/PurchaseJournalReport");
+report.setResourceBundle("com/openbravo/reports/inventoryb_messages");
+
+report.setSentence("SELECT PM.CRDATE,V.NAME AS VNAME,PDT.NAME,P.QTY,P.RATE,P.TOTAL,PM.INVOICENO,PM.DELIVERYCHALLAN,PM.DOCUMENTREF FROM PURCHASEJOURNALMAIN PM JOIN PURCHASEJOURNAL P ON P.PARENT=PM.ID JOIN PRODUCTS PDT ON P.ITEM=PDT.ID JOIN VENDOR V ON PM.VENDOR=V.ID WHERE ?(QBF_FILTER) ORDER BY PM.CRDATE,V.NAME,PM.TNO");
+report.addParameter("PM.CRDATE");
+report.addParameter("PM.CRDATE");
+report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval());
+report.addParameter("PM.VENDOR");
+report.addQBFFilter(new com.openbravo.pos.reports.PurchasejournalReport());
+report.addField("CRDATE", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("VNAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("QTY", com.openbravo.data.loader.Datas.INT);
+report.addField("RATE", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("INVOICENO", com.openbravo.data.loader.Datas.STRING);
+report.addField("DELIVERYCHALLAN", com.openbravo.data.loader.Datas.STRING);
+report.addField("DOCUMENTREF", com.openbravo.data.loader.Datas.STRING);
+
+return report;
+

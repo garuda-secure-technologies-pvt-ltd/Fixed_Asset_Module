@@ -1,0 +1,188 @@
+
+
+package com.openbravo.pos.printer.javapos;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import javax.swing.JComponent;
+import jpos.CashDrawer;
+import jpos.JposException;
+import jpos.POSPrinter;
+import jpos.POSPrinterConst;
+import com.openbravo.data.loader.ImageUtils;
+import com.openbravo.pos.printer.DevicePrinter;
+import com.openbravo.pos.printer.TicketPrinterException;
+import javax.swing.JOptionPane;
+
+public class DevicePrinterJavaPOS  implements DevicePrinter {
+    
+    private static final String JPOS_SIZE0 = "\u001b|1C";
+    private static final String JPOS_SIZE1 = "\u001b|2C";
+    private static final String JPOS_SIZE2 = "\u001b|3C";
+    private static final String JPOS_SIZE3 = "\u001b|4C";
+    private static final String JPOS_LF = "\n";
+    private static final String JPOS_BOLD = "\u001b|bC";
+    private static final String JPOS_UNDERLINE = "\u001b|uC";
+    private static final String JPOS_CUT = "\u001b|100fP";
+    
+    private String m_sName;
+    
+    private POSPrinter m_printer;
+    private CashDrawer m_drawer;
+    
+    private StringBuffer m_sline;
+
+    /** Creates a new instance of DevicePrinterJavaPOS */
+    public DevicePrinterJavaPOS(String sDevicePrinterName, String sDeviceDrawerName) throws TicketPrinterException {
+        m_sName = sDevicePrinterName; 
+        
+        m_printer = new POSPrinter();
+        m_drawer = new CashDrawer();
+        try {       
+            m_printer.open(sDevicePrinterName);
+            m_printer.claim(10000);
+            m_printer.setDeviceEnabled(true);
+            m_printer.setMapMode(POSPrinterConst.PTR_MM_METRIC);  // unit = 1/100 mm - i.e. 1 cm = 10 mm = 10 * 100 units
+           
+            m_drawer.open(sDeviceDrawerName);
+            m_drawer.claim(10000);
+            m_drawer.setDeviceEnabled(true);
+        } catch (JposException e) {
+            throw new TicketPrinterException(e.getMessage(), e);
+        }
+    }
+   
+    public String getPrinterName() {
+        return m_sName;
+    }
+    public String getPrinterDescription() {
+        return null;
+    }   
+    public JComponent getPrinterComponent() {
+        return null;
+    }
+    public void reset() {
+    }
+    
+    public void beginReceipt() {
+        try {
+            m_printer.transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
+        } catch (JposException e) {
+        }
+    }
+    
+    public void printImage(BufferedImage image) {
+        try {
+            if (m_printer.getCapRecBitmap()) { // si podemos imprimir bitmaps.
+                
+                File f = File.createTempFile("jposimg", ".png");
+                OutputStream out = new FileOutputStream(f);
+                out.write(ImageUtils.writeImage(image));
+                out.close();
+                
+                m_printer.printBitmap(POSPrinterConst.PTR_S_RECEIPT, f.getAbsolutePath(), POSPrinterConst.PTR_BM_ASIS, POSPrinterConst.PTR_BM_CENTER);
+            }
+        } catch (IOException eIO) {
+        } catch (JposException e) {
+        }
+    }
+    
+    public void printBarCode(String type, String position, String code) {
+        try {
+            if (m_printer.getCapRecBarCode()) { // si podemos imprimir codigos de barras
+                if (DevicePrinter.POSITION_NONE.equals(position)) {                
+                    m_printer.printBarCode(POSPrinterConst.PTR_S_RECEIPT, code, POSPrinterConst.PTR_BCS_EAN13, 10 * 100, 60 * 100, POSPrinterConst.PTR_BC_CENTER, POSPrinterConst.PTR_BC_TEXT_NONE);
+                } else {
+                    m_printer.printBarCode(POSPrinterConst.PTR_S_RECEIPT, code, POSPrinterConst.PTR_BCS_EAN13, 10 * 100, 60 * 100, POSPrinterConst.PTR_BC_CENTER, POSPrinterConst.PTR_BC_TEXT_BELOW);
+                }
+            }
+        } catch (JposException e) {
+        }
+    }
+    
+    public void beginLine(int iTextSize) {
+        m_sline = new StringBuffer();
+        if (iTextSize == DevicePrinter.SIZE_0) {
+            m_sline.append(JPOS_SIZE0);
+        } else if (iTextSize == DevicePrinter.SIZE_1) {
+            m_sline.append(JPOS_SIZE1);
+        } else if (iTextSize == DevicePrinter.SIZE_2) {
+            m_sline.append(JPOS_SIZE2);
+        } else if (iTextSize == DevicePrinter.SIZE_3) {
+            m_sline.append(JPOS_SIZE3);
+        } else {
+            m_sline.append(JPOS_SIZE0);
+        }
+    }
+    
+    public void printText(int iStyle, String sText) {
+        
+        if ((iStyle & DevicePrinter.STYLE_BOLD) != 0) {
+            m_sline.append(JPOS_BOLD);
+        }
+        if ((iStyle & DevicePrinter.STYLE_UNDERLINE) != 0) {
+            m_sline.append(JPOS_UNDERLINE);
+        }
+        m_sline.append(sText);
+    }
+    
+    public void endLine() {
+        
+        m_sline.append(JPOS_LF);
+        try {
+            m_printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, m_sline.toString());
+        } catch (JposException e) {
+        }
+        m_sline = null;
+    }
+    
+    public void endReceipt() {
+        try {
+            // cut the receipt
+            m_printer.printNormal(POSPrinterConst.PTR_S_RECEIPT, JPOS_CUT);
+            
+            // end of the transaction
+            m_printer.transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_NORMAL);
+        } catch (JposException e) {
+        }
+    }     
+    
+    public void openDrawer() {
+        try {
+            m_drawer.openDrawer();
+        } catch (JposException e) {
+        }
+    }
+    
+    public void finalize() throws Throwable {
+       
+        m_printer.setDeviceEnabled(false);
+        m_printer.release();
+        m_printer.close();
+        
+        m_drawer.setDeviceEnabled(false);
+        m_drawer.release();
+        m_drawer.close();
+        
+        super.finalize();
+    }
+
+    public void beginLine(int iTextSize, int width) {
+        //JOptionPane.showMessageDialog(null, "Error");
+         m_sline = new StringBuffer();
+        if (iTextSize == DevicePrinter.SIZE_0) {
+            m_sline.append(JPOS_SIZE0);
+        } else if (iTextSize == DevicePrinter.SIZE_1) {
+            m_sline.append(JPOS_SIZE1);
+        } else if (iTextSize == DevicePrinter.SIZE_2) {
+            m_sline.append(JPOS_SIZE2);
+        } else if (iTextSize == DevicePrinter.SIZE_3) {
+            m_sline.append(JPOS_SIZE3);
+        } else {
+            m_sline.append(JPOS_SIZE0);
+        }
+    }
+}

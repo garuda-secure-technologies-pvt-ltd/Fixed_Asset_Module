@@ -1,0 +1,3 @@
+alter table tokencombination add column image varbinary 
+
+alter table games add constraint uq_games_name unique(name)alter table games add constraint uq_games_name unique(name)
