@@ -1,4 +1,5 @@
 package com.openbravo.pos.forms;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
@@ -81,7 +82,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
 /**
  *
  * @author adrianromero
@@ -125,7 +125,9 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         initOldClasses();
     }
 
-    /** Creates new form JRootApp */
+    /**
+     * Creates new form JRootApp
+     */
     public JRootApp() {
 
         m_aBeanFactories = new HashMap<String, BeanFactory>();
@@ -147,7 +149,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             String warehouse = null;
             if (obj != null) {
                 warehouse = obj.toString();
-            } 
+            }
             //praveen or sameer write a query to get the print categories from the waiter counter
             AppUser user = new AppUser(id, name, role, warehouse);
             //warehouse changes -end
@@ -160,13 +162,12 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
     }
 
-     public void cardswiped(String custCard) {
-         AppUser user1 = new AppUser(custCard, "MEMBERS", null, null);
-         user1.setTypeOfUser(2);
-            cr.setData("");
-         openAppView(user1);
-         
-         
+    public void cardswiped(String custCard) {
+        AppUser user1 = new AppUser(custCard, "MEMBERS", null, null);
+        user1.setTypeOfUser(2);
+        cr.setData("");
+        openAppView(user1);
+
     }
     //praveen:cardreader function
 
@@ -202,8 +203,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             if (temp1.length > 1) {
                 host = temp1[2];
             }
-        //ComputePi.Configure(host);
-
+            //ComputePi.Configure(host);
 
         } catch (Exception e1) {
             JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_DANGER, e1.getMessage(), e1));
@@ -221,7 +221,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         if (!AppLocal.APP_VERSION.equals(sDBVersion)) {
 
             // Create or upgrade database
-
             String sScript = sDBVersion == null
                     ? m_dlSystem.getInitScript() + "-create.sql"
                     : m_dlSystem.getInitScript() + "-upgrade-" + sDBVersion + ".sql";
@@ -280,7 +279,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         // Inicializo la impresora...
         m_TP = new DeviceTicket(m_props);
         double value = 0.0;//reader variance
-      /*  rcard= new CardReader("COM5",value);
+        /*  rcard= new CardReader("COM5",value);
         try {
         rcard.ConfigurePort();
         } catch (Exception ex) {
@@ -329,185 +328,32 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         }
         jButton1.setText("Company List");
 
-
         //praveen: added to load openfinancialyear
-        try {
-           
-
-             Timestamp ts = new Timestamp(new Date().getTime());
-        try {
-
-            Statement s = session.getConnection().createStatement();
-            ResultSet r = s.executeQuery("select curdate() date"); //getting server time for the first time when app is started
-            if (r.next()) {
-                ts = r.getTimestamp("date");
-               // System.out.println(ts);
-            }
-
-
-        } catch (SQLException ex) {
-            Logger.getLogger(RetrieveData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-            final Date todaydate = ts;
-            Calendar cal1 = Calendar.getInstance();
-            cal1.setTime(todaydate);
-            cal1.set(Calendar.HOUR_OF_DAY, 00);
-            cal1.set(Calendar.MINUTE, 00);
-            cal1.set(Calendar.SECOND, 00);
-            cal1.set(Calendar.MILLISECOND, 00);
-            cal1.getTime();
-            System.out.println(cal1.getTime());
-            Object[] obj = (Object[]) new PreparedSentence(session, "SELECT TODAYDATE,FLAG FROM garudaconame.COMPANY  WHERE ID=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.TIMESTAMP, Datas.BOOLEAN})).find(cinfo.getId());
-            Date date1 = (Date) obj[0];
-            Boolean flag1 = (Boolean) obj[1];
-
-            Calendar cal2 = Calendar.getInstance();
-            cal2.setTime(date1);
-            cal2.set(Calendar.HOUR_OF_DAY, 00);
-            cal2.set(Calendar.MINUTE, 00);
-            cal2.set(Calendar.SECOND, 00);
-            cal2.set(Calendar.MILLISECOND, 00);
-            cal2.getTime();
-            System.out.println(cal2.getTime());
-
-            if (cal1.compareTo(cal2) == 0 && flag1 == true) {
-                showLogin1();
-            }
-            else if (cal1.compareTo(cal2) == 0 && flag1 == false) {
-                
-                  Object[] obj1 = (Object[]) new PreparedSentence(session, "SELECT CRDATE , LOCATION FROM garudaconame.COMPANY  WHERE ID=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.TIMESTAMP, Datas.STRING})).find(cinfo.getId());
-                Date Currdate = (Date) obj1[0];
-                Date Timer_date = (Timestamp)obj1[0];
-                Date Timer_Curr_date = new Date();
-                Long x1 = getDateDiff(Timer_date,Timer_Curr_date,TimeUnit.MINUTES);
-                
-                
-                String loca = obj1[1].toString();
-                String [] temp = loca.split("#");
-                String compName = temp[0];
-                String IpAddr = temp[1]; 
-                   
-             Date yesterday = new SimpleDateFormat("yyyyMMdd").parse(
-             ""+(Integer.parseInt(new SimpleDateFormat("yyyyMMdd").format(new Date()))-1));
-            
-             
-             
-             int x =  JOptionPane.showConfirmDialog(this, "Calculating facility matrix from last " +x1+ " minutes  by host :- "+compName+ "(" + IpAddr+" ) .  \n Login after some time. \n If you want to restart facility matrix calculation press YES", "Facility Matrix Calculation Warning Message..!!", JOptionPane.YES_NO_OPTION);
-             
-             
-             
-             
-             if(x==JOptionPane.YES_OPTION){
-             new PreparedSentence(session, "UPDATE garudaconame.COMPANY SET TODAYDATE=?,FLAG=? WHERE ID=?",
-             new SerializerWriteBasic(new Datas[]{Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING})).exec(new Object[]{yesterday,true , cinfo.getId()});
-                 
-             }  
-              
-                
-                
-                
-              
-            }
-            else {
-                w = new waitDialog(new JFrame(), true);
-                int h = w.getSize().height;
-                int w1 = w.getSize().width;
-                Toolkit toolkit = Toolkit.getDefaultToolkit();
-                Dimension scrnsize = toolkit.getScreenSize();
-                w.setLocation(scrnsize.width / 2 - w1, scrnsize.height / 2 - h);
-
-                Thread t = new Thread(
-                        new Runnable() {
-
-                            public void run() {
-                                try {
-                                    
-                                    String computerName=null;
-                                    String IpAddress = null;
-                                    String Final_addr = null;
-                                    
-                                    try {
-                                          computerName = InetAddress.getLocalHost().getHostName();
-                                          IpAddress = InetAddress.getLocalHost().getHostAddress();
-                                          
-                                        }
-
-                                        catch(Exception ex) {
-    
-                                        }
-                                    Final_addr = computerName+"#"+IpAddress;
-                                    
-                                    
-                                    
-                                    
-                                    new PreparedSentence(session, "UPDATE garudaconame.COMPANY SET TODAYDATE=?,FLAG=? , LOCATION=? WHERE ID=?",
-                                            new SerializerWriteBasic(new Datas[]{Datas.TIMESTAMP, Datas.BOOLEAN,Datas.STRING ,  Datas.STRING})).exec(new Object[]{todaydate, false,Final_addr , cinfo.getId()});
-                                    new PreparedSentence(session, "DELETE FROM FACILITYLIMITMASTER").exec();
-                                    CaluculateLimit c = new CaluculateLimit();
-                                    c.calculateFacilityLimitToAll(session);
-                                    ///aaa
-                                    c.calculateLimit1(session);
-                                    ///aaa
-                                    new PreparedSentence(session, "UPDATE garudaconame.COMPANY SET FLAG=? WHERE ID=?",
-                                            new SerializerWriteBasic(new Datas[]{Datas.BOOLEAN, Datas.STRING})).exec(new Object[]{true, cinfo.getId()});
-                                    if (w != null) {
-                                        w.hideDialog();
-                                    }
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                    try {
-                                        new PreparedSentence(session, "UPDATE garudaconame.COMPANY SET FLAG=? WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.BOOLEAN, Datas.STRING})).exec(new Object[]{true, cinfo.getId()});
-                                        if (w != null) {
-                                            w.hideDialog();
-                                        }
-
-                                    //JOptionPane.showMessageDialog(JRViewer300.this, getBundleString("error.printing"));
-                                    } catch (BasicException ex1) {
-                                        ex1.printStackTrace();
-                                    }
-                                //JOptionPane.showMessageDialog(JRViewer300.this, getBundleString("error.printing"));
-                                }
-                            }
-                        });
-                t.start();
-                w.showDialog("Please wait.Calculating Facility Matrix....and dont close till it compleates");
-                w.hideDialog();
-                showLogin1();
-
-                
-
-            }
-        } catch (Exception e) {
-            JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_DANGER, AppLocal.getIntString("Database.ScriptError"), e));
-            e.printStackTrace();
-        }
         
-        
+        showLogin1();
         return "true";
     }
 
-    public  long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
-            long diffInMillies = date2.getTime() - date1.getTime();
-    return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
-}
-    
-    
+    public long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    }
+
     public String initApp(
             AppProperties props) {
         jButton1.setText("Create Company");
         flag = false;
 
-        m_props =
-                props;
+        m_props
+                = props;
 
         // support for different component orientation languages.
         applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
         try {
             String url = m_props.getProperty("db.URL");
-            session =
-                    AppViewConnection.createSession(m_props, url, true);
+            session
+                    = AppViewConnection.createSession(m_props, url, true);
         } catch (Exception e1) {
             JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_DANGER, e1.getMessage(), e1));
             return "false";
@@ -524,8 +370,8 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             jPanel3.revalidate();
             jPanel3.repaint();
             m_jPanelContainer.remove(ulpage);
-            m_principalapp =
-                    null;
+            m_principalapp
+                    = null;
         }
 
         m_principalapp = new JPrincipalApp(this, user);
@@ -556,16 +402,16 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         if (closeAppView()) {
 
             // success. continue with the shut down
-
             // apago el visor
             if (flag == true) {
                 m_TP.getDeviceDisplay().clearVisor();
             }
             // me desconecto de la base de datos.
             session.close();
-            if(cr==null)
-                cr=new CardReader();
-            if(cr.getSerialConnection()!=null){
+            if (cr == null) {
+                cr = new CardReader();
+            }
+            if (cr.getSerialConnection() != null) {
                 cr.closeconnection();
             }
 
@@ -618,12 +464,12 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
     public void setActiveCash(String sIndex, int iSeq, Date dStart, Date dEnd) {
         m_sActiveCashIndex = sIndex;
-        m_iActiveCashSequence =
-                iSeq;
-        m_dActiveCashDateStart =
-                dStart;
-        m_dActiveCashDateEnd =
-                dEnd;
+        m_iActiveCashSequence
+                = iSeq;
+        m_dActiveCashDateStart
+                = dStart;
+        m_dActiveCashDateEnd
+                = dEnd;
 
         m_propsdb.setProperty("activecash", m_sActiveCashIndex);
         m_dlSystem.setResourceAsProperties(m_props.getHost() + "/properties", m_propsdb);
@@ -638,7 +484,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
         // For backwards compatibility
         beanfactory = mapNewClass(beanfactory);
-
 
         BeanFactory bf = m_aBeanFactories.get(beanfactory);
         if (bf == null) {
@@ -656,13 +501,12 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
                     } else {
                         // the old construction for beans...
 
-
                         Constructor constMyView = bfclass.getConstructor(new Class[]{AppView.class});
 
                         Object bean = constMyView.newInstance(new Object[]{this});
 
-                        bf =
-                                new BeanFactoryObj(bean);
+                        bf
+                                = new BeanFactoryObj(bean);
                     }
 
                 } catch (Exception e) {
@@ -734,7 +578,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             m_TP.getDeviceDisplay().writeVisor(AppLocal.APP_NAME, AppLocal.APP_VERSION);
         } else {
             try {
-      m_TTP.printTicket(sresource);
+                m_TTP.printTicket(sresource);
             } catch (TicketPrinterException eTP) {
                 m_TP.getDeviceDisplay().writeVisor(AppLocal.APP_NAME, AppLocal.APP_VERSION);
             }
@@ -747,7 +591,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         try {
             //Date todatedate=new Date();
 
-
             jScrollPane1.getViewport().setView(null);
 
             JFlowPanel jPeople = new JFlowPanel();
@@ -755,9 +598,8 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
             java.util.List people = m_dlSystem.listPeopleVisible();
 
-
-            for (int i = 0; i <
-                    people.size(); i++) {
+            for (int i = 0; i
+                    < people.size(); i++) {
 
                 AppUser user = (AppUser) people.get(i);
 
@@ -780,143 +622,120 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             ee.printStackTrace();
         }
 
-
-
     }
-    
-  
-     public void CheckExpiredDate() throws BasicException{
-          Object[] objEXP = (Object[]) new StaticSentence(session, "SELECT VALUE FROM GENERALTABLE where NAME='Validate'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find();
-                    if(objEXP!=null){  
-                       if(objEXP!=null){ 
-                        String vEXP = (String)objEXP[0].toString();
-                        String []ArrDate = vEXP.split("#");
-                        int year = Integer.parseInt( ArrDate[0].toString());
-                        int Month = Integer.parseInt( ArrDate[1].toString()); 
-                        int Day = Integer.parseInt( ArrDate[2].toString());
-                        int y2 = year/13;
-                        int m2 = Month/13;
-                        int D2 = Day/13;
-                        
-                        Calendar c1 = GregorianCalendar.getInstance();
-                        c1.set(y2, m2, D2);  //January 30th 2000
-                        Date sDate = c1.getTime();
-                            
-                        Date CurrDate = new Date();
-                        
-                        
-                        
-                        if(sDate.before(CurrDate)){
-                            
-                           JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-                            JDialog dialog = pane.createDialog(null, "Warning");
-                            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                            dialog.setVisible(true);
-                            tryToClose();
 
-                        }
-                        
-                        
-                       }
-                       else{
-                          JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-                            JDialog dialog = pane.createDialog(null, "Warning");
-                            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                            dialog.setVisible(true);
-                            tryToClose();
+    public void CheckExpiredDate() throws BasicException {
+        Object[] objEXP = (Object[]) new StaticSentence(session, "SELECT VALUE FROM GENERALTABLE where NAME='Validate'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find();
+        if (objEXP != null) {
+            if (objEXP != null) {
+                String vEXP = (String) objEXP[0].toString();
+                String[] ArrDate = vEXP.split("#");
+                int year = Integer.parseInt(ArrDate[0].toString());
+                int Month = Integer.parseInt(ArrDate[1].toString());
+                int Day = Integer.parseInt(ArrDate[2].toString());
+                int y2 = year / 13;
+                int m2 = Month / 13;
+                int D2 = Day / 13;
 
-                       }
-                    }
-                    else{
-                        JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-                            JDialog dialog = pane.createDialog(null, "Warning");
-                            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                            dialog.setVisible(true);
-                            tryToClose();
+                Calendar c1 = GregorianCalendar.getInstance();
+                c1.set(y2, m2, D2);  //January 30th 2000
+                Date sDate = c1.getTime();
 
-                    }
-     }
-    
-    
-    
-    public List<Object[]> geturl() throws BasicException{
-         List<Object[]> obj=(List<Object[]>)new PreparedSentence(session, "SELECT S.ID,S.URL,S.USERNAME,S.PASSWORD,S.ACTIVE,S.API_KEY,S.SENDERID,S.URLREF FROM SMSURL_TABLE S WHERE S.ACTIVE=TRUE AND S.URLREF='SEND_URL'",SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING,Datas.STRING,Datas.STRING,Datas.STRING,Datas.BOOLEAN,Datas.STRING,Datas.STRING,Datas.STRING})).list();
-    
-     
+                Date CurrDate = new Date();
+
+                if (sDate.before(CurrDate)) {
+
+                    JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
+                    JDialog dialog = pane.createDialog(null, "Warning");
+                    dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                    dialog.setVisible(true);
+                    tryToClose();
+
+                }
+
+            } else {
+                JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
+                JDialog dialog = pane.createDialog(null, "Warning");
+                dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                dialog.setVisible(true);
+                tryToClose();
+
+            }
+        } else {
+            JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
+            JDialog dialog = pane.createDialog(null, "Warning");
+            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            dialog.setVisible(true);
+            tryToClose();
+
+        }
+    }
+
+    public List<Object[]> geturl() throws BasicException {
+        List<Object[]> obj = (List<Object[]>) new PreparedSentence(session, "SELECT S.ID,S.URL,S.USERNAME,S.PASSWORD,S.ACTIVE,S.API_KEY,S.SENDERID,S.URLREF FROM SMSURL_TABLE S WHERE S.ACTIVE=TRUE AND S.URLREF='SEND_URL'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING})).list();
+
         return obj;
     }
-    
-    public List<Object[]> getmsg()
-    {
-        List<Object[]> obj=null;
+
+    public List<Object[]> getmsg() {
+        List<Object[]> obj = null;
         try {
-          obj=new PreparedSentence(session, "SELECT A.ID,A.MESSAGE,A.SENDTO FROM activemsgtable A ",SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING,Datas.STRING,Datas.STRING})).list();
-       
-         
+            obj = new PreparedSentence(session, "SELECT A.ID,A.MESSAGE,A.SENDTO FROM activemsgtable A ", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING})).list();
+
         } catch (BasicException ex) {
             Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
-    
-    public void updateToSentMsgTable(String details, Object[] obj)
-    {
+
+    public void updateToSentMsgTable(String details, Object[] obj) {
         try {
-            new PreparedSentence(session, "INSERT INTO sentmsgtable(ID, MESSAGE, SENTTO, SENTDETAILS) VALUES (?,?,?,?) "
-                           ,new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING,Datas.STRING,Datas.STRING})
-                           ).exec(new Object[]{obj[0],obj[1],obj[2],details});
+            new PreparedSentence(session, "INSERT INTO sentmsgtable(ID, MESSAGE, SENTTO, SENTDETAILS) VALUES (?,?,?,?) ",
+                    new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})
+            ).exec(new Object[]{obj[0], obj[1], obj[2], details});
         } catch (BasicException ex) {
             Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
-    public void deletefromactivemsg(String msgid)
-    {
+
+    public void deletefromactivemsg(String msgid) {
         try {
             new StaticSentence(session, "DELETE FROM activemsgtable WHERE ID = ?", SerializerWriteString.INSTANCE).exec(msgid);
         } catch (BasicException ex) {
             Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     // GET FLAG FROM ACTIVE MESS TABLE
-      public int getFlag(String ID)
-    {
-        Object obj=null;
-        int Flag=0;
+    public int getFlag(String ID) {
+        Object obj = null;
+        int Flag = 0;
         try {
-          obj=new PreparedSentence(session, "SELECT A.FLAG FROM activemsgtable a WHERE A.ID=?",SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(ID);
-       
-         
+            obj = new PreparedSentence(session, "SELECT A.FLAG FROM activemsgtable a WHERE A.ID=?", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(ID);
+
         } catch (BasicException ex) {
             Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
         }
         Flag = Integer.parseInt(obj.toString());
         return Flag;
     }
-    
+
     // UPDATE FLAG TO 1 AFTER MESSEGE IS SEND.... 
-      
-     public void updateFlagToActiveMsg(String MesID)
-    {
+    public void updateFlagToActiveMsg(String MesID) {
         try {
-            new PreparedSentence(session, "UPDATE ACTIVEMSGTABLE SET FLAG=1 WHERE ID =? "
-                           ,new SerializerWriteBasic(new Datas[]{Datas.STRING})
-                           ).exec(new Object[]{MesID});
+            new PreparedSentence(session, "UPDATE ACTIVEMSGTABLE SET FLAG=1 WHERE ID =? ",
+                    new SerializerWriteBasic(new Datas[]{Datas.STRING})
+            ).exec(new Object[]{MesID});
         } catch (BasicException ex) {
             Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      
-      
-      
-    
+
     //SMS sending code-ends
     private java.util.List getActiveCompanies() throws BasicException {
         java.util.List<CompanyInfo> list = null;
         int timeRange = 10000;
-    /*      Date d = new Date();
+        /*      Date d = new Date();
         Timestamp ts = new Timestamp(new Date().getTime());
         try {
             
@@ -946,50 +765,43 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        */
+         */
         list = new StaticSentence(session, "SELECT ID,NAME,DESCR,DATABASEPATH,CRDATE,URL,ADDRESS,TODAYDATE,FLAG, TIMERANGE FROM company WHERE ACTIVE=TRUE", null, new SerializerReadClass(CompanyInfo.class)).list();
-        if(list.size()>0)
-        {
+        if (list.size() > 0) {
             timeRange = list.get(0).getTimeRange();
         }
-        
-        final int timeDif = timeRange;
-        ScheduledExecutorService  executorService = Executors.newScheduledThreadPool(1);
-                executorService.scheduleWithFixedDelay(new Runnable() {
 
-                public void run() {
-                     
-                    try {
-                        //sms sending
-                        // Connection();
-                        Statement s = session.getConnection().createStatement();
+        final int timeDif = timeRange;
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+        executorService.scheduleWithFixedDelay(new Runnable() {
+
+            public void run() {
+
+                try {
+                    //sms sending
+                    // Connection();
+                    Statement s = session.getConnection().createStatement();
                     ResultSet r = s.executeQuery("select now() date");
                     Timestamp ts = new Timestamp(new Date().getTime());
                     Date d = new Date();
-                while(r.next())
-                {
-                   ts = r.getTimestamp("date");
-                }
-                
-                long dif = ts.getTime() - d.getTime();
-               
-                if((dif>timeDif || dif < -timeDif))
-                {
-                    JOptionPane.showMessageDialog(null, "System Date is incorrect. Please change system date to  "+ts+"  and then try again.", ts.toString(), JOptionPane.ERROR_MESSAGE);
-                    tryToClose();
-                    System.exit(0);
-                }   } catch (SQLException ex) {
-                        Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
+                    while (r.next()) {
+                        ts = r.getTimestamp("date");
                     }
+
+                    long dif = ts.getTime() - d.getTime();
+
+                    if ((dif > timeDif || dif < -timeDif)) {
+                        JOptionPane.showMessageDialog(null, "System Date is incorrect. Please change system date to  " + ts + "  and then try again.", ts.toString(), JOptionPane.ERROR_MESSAGE);
+                        tryToClose();
+                        System.exit(0);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }, 1, 1, TimeUnit.SECONDS);
-                
-              
-                
-                
-        
-        
-         return list;
+            }
+        }, 1, 1, TimeUnit.SECONDS);
+
+        return list;
     }
 
     private void listCompanies() {
@@ -1003,9 +815,8 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
             java.util.List company = getActiveCompanies();
 
-
-            for (int i = 0; i <
-                    company.size(); i++) {
+            for (int i = 0; i
+                    < company.size(); i++) {
 
                 CompanyInfo comp = (CompanyInfo) company.get(i);
 
@@ -1027,14 +838,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         } catch (BasicException ee) {
             ee.printStackTrace();
         }
-
-
-
-
-
-
-
-
 
     }
     // La accion del selector
@@ -1071,7 +874,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
                     if (m_actionuser.authenticate()) {
                         // p'adentro directo, no tiene password
                         openAppView(m_actionuser);
-                    //TODO update login time
+                        //TODO update login time
                     } else {
                         // comprobemos la clave antes de entrar...
                         String sPassword = JPasswordDialog.showEditPassword(JRootApp.this,
@@ -1087,7 +890,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
                                 ,SerializerWriteString.INSTANCE
                                 ,new SerializerReadClass( StockTransferTable.Transferline.class )).list();*/
                                 openAppView(m_actionuser);
-                            //TODO update login time
+                                //TODO update login time
                             } else {
                                 MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.BadPassword"));
                                 msg.show(JRootApp.this);
@@ -1231,13 +1034,12 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
             // remove the card
             m_jPanelContainer.remove(ulpage);
-            m_principalapp =
-                    null;
+            m_principalapp
+                    = null;
 
             showLogin1();
 
         }
-
 
     }
 
@@ -1255,8 +1057,8 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
             // remove the card
             m_jPanelContainer.remove(m_principalapp);
-            m_principalapp =
-                    null;
+            m_principalapp
+                    = null;
 
             showLogin1();
 
@@ -1266,24 +1068,22 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
     }
 
     private void showLogin() {
-              
-        
+
         // Show Login
         // listPeople();
         listCompanies();
         showView("login", m_jPanelContainer);
 
         // show welcome message
-       /* printerStart();*/
-
+        /* printerStart();*/
         // keyboard listener activation
-        inputtext =
-                new StringBuffer();
+        inputtext
+                = new StringBuffer();
         m_txtKeys.setText(null);
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-               m_txtKeys.requestFocus();
+                m_txtKeys.requestFocus();
             }
         });
     }
@@ -1305,8 +1105,8 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         printerStart();
 
 // keyboard listener activation
-        inputtext =
-                new StringBuffer();
+        inputtext
+                = new StringBuffer();
         m_txtKeys.setText(null);
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -1316,8 +1116,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         });
     }
 
-   
-    
     private void processKey(char c) {
 
         if (c == '\n') {
@@ -1325,18 +1123,18 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
             AppUser user = null;
             String receptionString = inputtext.toString();
             try {
-               // user = m_dlSystem.findPeopleByCard(inputtext.toString());
-                
-                 if (cardAccessOnlyFlag) {
-                        if (LookupUtilityImpl.getInstance(null).getAppView().getAppUserView() == null) {
+                // user = m_dlSystem.findPeopleByCard(inputtext.toString());
 
-                            waiterinfo = (WaiterInfo) new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT W.ID, W.NAME,W.COUNTER,P.NAME FROM WAITER W,PEOPLE P WHERE P.ROLE=W.COUNTER AND W.CARDNO = ? AND P.VISIBLE=TRUE", SerializerWriteString.INSTANCE, new SerializerReadClass(WaiterInfo.class)).find(receptionString);
-                            if (waiterinfo != null) {
-                                cardswiped(waiterinfo);
-                            }
-                            
-                        } 
+                if (cardAccessOnlyFlag) {
+                    if (LookupUtilityImpl.getInstance(null).getAppView().getAppUserView() == null) {
+
+                        waiterinfo = (WaiterInfo) new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT W.ID, W.NAME,W.COUNTER,P.NAME FROM WAITER W,PEOPLE P WHERE P.ROLE=W.COUNTER AND W.CARDNO = ? AND P.VISIBLE=TRUE", SerializerWriteString.INSTANCE, new SerializerReadClass(WaiterInfo.class)).find(receptionString);
+                        if (waiterinfo != null) {
+                            cardswiped(waiterinfo);
+                        }
+
                     }
+                }
             } catch (BasicException e) {
                 e.printStackTrace();
             }
@@ -1348,7 +1146,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 //            } else {
 //                openAppView(user);
 //            }
-
             inputtext = new StringBuffer();
         } else {
             inputtext.append(c);
@@ -1356,10 +1153,10 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the FormEditor.
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the FormEditor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
