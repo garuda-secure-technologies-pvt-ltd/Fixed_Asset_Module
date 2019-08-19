@@ -8,7 +8,6 @@ import com.openbravo.data.loader.Datas;
 import com.openbravo.data.loader.PreparedSentence;
 import com.openbravo.data.loader.SerializerWriteBasic;
 import com.openbravo.data.loader.Transaction;
-import com.openbravo.pos.Booking.HallBookingMaster;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.panels.JProductFinder;
@@ -406,7 +405,6 @@ public class ActivateKitchenProd extends javax.swing.JDialog {
 
                         }
                      catch (BasicException ex) {                    
-                                Logger.getLogger(HallBookingMaster.class.getName()).log(Level.SEVERE, null, ex);             
                                 ex.printStackTrace();
                                 new MessageInf(ex).show(new JFrame());
 

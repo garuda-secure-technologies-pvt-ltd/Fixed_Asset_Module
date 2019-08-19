@@ -10,7 +10,6 @@ import com.openbravo.data.loader.SerializerReadString;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.BookedHallStatusTableModel;
 import com.openbravo.pos.clubmang.DataSourceProvider;
 import com.openbravo.pos.clubmang.JasperReportNew;
 import com.openbravo.pos.forms.AppView;

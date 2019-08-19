@@ -19,22 +19,7 @@ import com.openbravo.pos.Accounts.DataSourceForjBrStatements;
 import com.openbravo.pos.Accounts.DatasourceTaxReports;
 import com.openbravo.pos.Accounts.DueListDataSource;
 import com.openbravo.pos.Accounts.OBSource;
-import com.openbravo.pos.Booking.CancellationReportTableModel;
-import com.openbravo.pos.Booking.DataSourceForAdvancePaymentReport;
-import com.openbravo.pos.Booking.DataSourceForAdvancePaymentReportRoom;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Halls;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Halls_Hori;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Rooms;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Rooms_Hori;
-import com.openbravo.pos.Booking.DataSourceForCancellationReport_Room;
-import com.openbravo.pos.Booking.DataSourceForGuestRoomCheckIN;
-import com.openbravo.pos.Booking.DataSourceForHallBookingSituation;
-import com.openbravo.pos.Booking.DataSourceForHallCheckIn;
-import com.openbravo.pos.Booking.DataSourceForRoomBookingReport;
-import com.openbravo.pos.Booking.DataSourceForUtilizationReport_Hall;
-import com.openbravo.pos.Booking.DataSourceForUtilizationReport1;
-import com.openbravo.pos.Booking.DataSourceForUtilizationReportRoomAll;
-import com.openbravo.pos.Booking.DataSourceforCancellationReport;
+
 
 import com.openbravo.pos.CardsRoom.DataSource3;
 import com.openbravo.pos.inventory.DataSourceForConsolidateStock;
@@ -85,8 +70,7 @@ import com.openbravo.pos.FixedAssetRegistration.DataSourceForAMCDetail;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeGenrator;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForListOfFADetail;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForNonAMCReport;
-import com.openbravo.pos.Library.DataSourceForBookDetail;
-import com.openbravo.pos.Library.DataSourceForBookReport;
+
 
 import com.openbravo.pos.panels.ConsolidateStockCloseSaleModel;
 ;
@@ -97,7 +81,6 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 import com.openbravo.pos.reports.DataSourceForQtDetailReport;
 import com.openbravo.pos.reports.DataSourceForCustomerProductReport;
@@ -106,17 +89,6 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
-import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
-//import com.openbravo.pos.reports.DataSourceProductTotal;
-import com.openbravo.pos.reports.DataSourceForQtDetailReport;
-import com.openbravo.pos.reports.DataSourceForCustomerProductReport;
-import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
-
-import com.openbravo.pos.sales.DataSourceforConsumableProductList;
-import com.openbravo.pos.reports.DataSourceForBotReports;
-import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 import com.openbravo.pos.reports.DataSourceForQtDetailReport;
 import com.openbravo.pos.reports.DataSourceForCustomerProductReport;
@@ -125,7 +97,14 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
+import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
+import com.openbravo.pos.reports.DataSourceForQtDetailReport;
+import com.openbravo.pos.reports.DataSourceForCustomerProductReport;
+import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
+
+import com.openbravo.pos.sales.DataSourceforConsumableProductList;
+import com.openbravo.pos.reports.DataSourceForBotReports;
+import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 //import com.openbravo.pos.reports.DataSourceProductTotal;
 import com.openbravo.pos.reports.DataSourceForQtDetailReport;
@@ -135,7 +114,6 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 import com.openbravo.pos.reports.DataSourceForQtDetailReport;
 import com.openbravo.pos.reports.DataSourceForCustomerProductReport;
@@ -144,7 +122,6 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 //import com.openbravo.pos.reports.DataSourceProductTotal;
 import com.openbravo.pos.reports.DataSourceForQtDetailReport;
@@ -154,7 +131,6 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 import com.openbravo.pos.reports.DataSourceForQtDetailReport;
 import com.openbravo.pos.reports.DataSourceForCustomerProductReport;
@@ -163,7 +139,6 @@ import com.openbravo.pos.panels.DataSourceForConsolidateStockCloseSale;
 import com.openbravo.pos.sales.DataSourceforConsumableProductList;
 import com.openbravo.pos.reports.DataSourceForBotReports;
 import com.openbravo.pos.reports.DataSourceForMemberReceivableReport;
-import com.openbravo.pos.Library.DataSourceForIssueReturnReport;
 import com.openbravo.pos.FixedAssetRegistration.DataSourceForBarcodeDataSheet;
 
 public class DataSourceProvider implements JRDataSourceProvider {
@@ -439,13 +414,6 @@ public class DataSourceProvider implements JRDataSourceProvider {
     public void setDataSource(DataSourceForCurrentStock ds) {
             this.datasource=ds;
     }
-     public void setDataSource(DataSourceForGuestRoomCheckIN ds) {    // AAKASH : ADDED FOR GUESTROOM BILLING
-            this.datasource=ds;
-    }
-     
-     public void setDataSource(DataSourceForHallCheckIn ds) {    // AAKASH : ADDED FOR HALL BILLING
-            this.datasource=ds;
-    }
      
       public void setDataSource(DataSourceForMemberStatement3 datasource){ //AAKSH:added for printing detail ledger  list
         this.datasource = datasource;
@@ -458,48 +426,7 @@ public class DataSourceProvider implements JRDataSourceProvider {
             this.datasource=ds;
     }
      
-    public void setDataSource(DataSourceForHallBookingSituation ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    }
-    
-     public void setDataSource(DataSourceForRoomBookingReport ds) {    //AAKASH:added for  PRINTING REPORTS FOR ROOM BOOKED
-            this.datasource=ds;
-    }
-     public void setDataSource(DataSourceForUtilizationReport_Hall ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-            
-    }
-     public void setDataSource(DataSourceForUtilizationReport1 ds) {    //AAKASH:added for  PRINTING REPORTS FOR ROOM BOOKED
-            this.datasource=ds;
-    }
-     
-    public void setDataSource(DataSourceForUtilizationReportRoomAll ds) {    //AAKASH:added for  PRINTING REPORTS FOR ROOM BOOKED
-            this.datasource=ds;
-    }
-    public void setDataSource(DataSourceForAdvancePaymentReport ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    } 
-    public void setDataSource(DataSourceForAdvancePaymentReportRoom ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    }
-    public void setDataSource(DataSourceForBilledReports_Rooms ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    } 
-    public void setDataSource(DataSourceForBilledReports_Halls ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    } 
-    public void setDataSource(DataSourceForBilledReports_Rooms_Hori ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    } 
-   public void setDataSource(DataSourceForBilledReports_Halls_Hori ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    }
-    public void setDataSource(DataSourceforCancellationReport ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    } 
-    public void setDataSource(DataSourceForCancellationReport_Room ds) {    //AAKASH:added for  PRINTING REPORTS FOR HALL BOOKED
-            this.datasource=ds;
-    } 
+  
    
     public void setDataSource(DataSourceForProdCatelog2 ds) {    
             this.datasource=ds;
@@ -578,15 +505,7 @@ public class DataSourceProvider implements JRDataSourceProvider {
     public void setDataSource(DataSourceForMemberReceivableReport  ds) {
             this.datasource=ds;
     }
-    public void setDataSource(DataSourceForIssueReturnReport  ds) {
-            this.datasource=ds;
-    }
-    public void setDataSource(DataSourceForBookReport  ds) {
-            this.datasource=ds;
-    }
-    public void setDataSource(DataSourceForBookDetail  ds) {
-            this.datasource=ds;
-    }
+   
     public void setDataSource(DataSourceForBarcodeGenrator  ds) {
             this.datasource=ds;
     }

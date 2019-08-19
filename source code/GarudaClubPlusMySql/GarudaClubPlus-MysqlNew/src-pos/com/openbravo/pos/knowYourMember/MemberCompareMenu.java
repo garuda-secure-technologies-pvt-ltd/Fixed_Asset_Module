@@ -52,7 +52,6 @@ public class MemberCompareMenu extends javax.swing.JPanel implements JPanelView,
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
-        guestRoomBookingRequstTableModel1 = new com.openbravo.pos.Booking.GuestRoomBookingRequstTableModel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -184,10 +183,10 @@ public class MemberCompareMenu extends javax.swing.JPanel implements JPanelView,
         jLabel5.setText("jLabel5");
 
         jPanel1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 jPanel1CaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -949,8 +948,8 @@ public class MemberCompareMenu extends javax.swing.JPanel implements JPanelView,
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1139, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1624,7 +1623,6 @@ public class MemberCompareMenu extends javax.swing.JPanel implements JPanelView,
     private javax.swing.JTextArea Xarr;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel city;
-    private com.openbravo.pos.Booking.GuestRoomBookingRequstTableModel guestRoomBookingRequstTableModel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -11,8 +11,6 @@ import com.openbravo.data.loader.SerializerWriteBasic;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.BookingSituationReport;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Rooms;
 import com.openbravo.pos.clubmang.DataSourceProvider;
 import com.openbravo.pos.clubmang.JasperReportNew;
 import com.openbravo.pos.forms.AppView;
@@ -815,7 +813,6 @@ public class QTDetails extends javax.swing.JPanel implements JPanelView,BeanFact
                             FrmDate =  (Date) Formats.TIMESTAMP.parseValue(BillDateFrom_text.getText());
                             ToDate =  (Date) Formats.TIMESTAMP.parseValue(BillDateUpto_text.getText());
                         } catch (BasicException ex) {
-                            Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                         }
                    
                    
@@ -884,7 +881,6 @@ public class QTDetails extends javax.swing.JPanel implements JPanelView,BeanFact
                             FrmDate =  (Date) Formats.TIMESTAMP.parseValue(qtFromdate_text.getText());
                             ToDate =  (Date) Formats.TIMESTAMP.parseValue(QtToDate_Text.getText());
                         } catch (BasicException ex) {
-                            Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                         }
                 
                 

@@ -11,10 +11,7 @@ import com.openbravo.data.gui.ComboBoxValModel;
 import com.openbravo.data.loader.SerializerReadString;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
-import com.openbravo.pos.Booking.CheckInTableModel;
-import com.openbravo.pos.Booking.GuestRoomBillModel;
-import com.openbravo.pos.Booking.GuestRoomTableModel;
-import com.openbravo.pos.Booking.hallTableModel;
+
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.customers.DataLogicCustomers;
 import com.openbravo.pos.forms.AppView;

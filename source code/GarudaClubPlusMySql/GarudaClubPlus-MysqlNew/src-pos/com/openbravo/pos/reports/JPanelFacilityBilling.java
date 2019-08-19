@@ -11,8 +11,6 @@ import com.openbravo.data.loader.SerializerReadString;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.BilledReportsTableModel;
-import com.openbravo.pos.Booking.BookingSituationReport;
 import com.openbravo.pos.clubmang.DataSourceProvider;
 import com.openbravo.pos.clubmang.JasperReportNew;
 import com.openbravo.pos.forms.AppView;
@@ -1071,7 +1069,6 @@ public class JPanelFacilityBilling extends javax.swing.JPanel implements JPanelV
                              FrmDate =  (Date) Formats.TIMESTAMP.parseValue(frm_dt.getText());
                              ToDate =  (Date) Formats.TIMESTAMP.parseValue(to_dt.getText());
                         } catch (BasicException ex) {
-                            Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                         }
                          Date FrmDate1 = new Date() ;
                         Date ToDate1 = new Date();
@@ -1079,7 +1076,6 @@ public class JPanelFacilityBilling extends javax.swing.JPanel implements JPanelV
                              FrmDate1 =  (Date) Formats.TIMESTAMP.parseValue(frm_dt1.getText());
                              ToDate1 =  (Date) Formats.TIMESTAMP.parseValue(to_dt1.getText());
                         } catch (BasicException ex) {
-                            Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
        

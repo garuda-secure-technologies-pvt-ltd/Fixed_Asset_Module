@@ -13,9 +13,7 @@ import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.data.loader.Transaction;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.BuildingTableModel;
-import com.openbravo.pos.Booking.GuestRoomLinkMaster;
-import com.openbravo.pos.Booking.HallBookingMaster;
+
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.BeanFactoryApp;
 import com.openbravo.pos.forms.BeanFactoryException;
@@ -1056,7 +1054,6 @@ public class GreetingWishesMaster extends javax.swing.JPanel implements JPanelVi
 
                                }
                             catch (BasicException ex) {                    
-                                       Logger.getLogger(HallBookingMaster.class.getName()).log(Level.SEVERE, null, ex);             
                                        ex.printStackTrace();
                                        new MessageInf(ex).show(new JFrame());
                                        
@@ -1181,7 +1178,6 @@ public class GreetingWishesMaster extends javax.swing.JPanel implements JPanelVi
 
                                }
                             catch (BasicException ex) {                    
-                                       Logger.getLogger(HallBookingMaster.class.getName()).log(Level.SEVERE, null, ex);             
                                        ex.printStackTrace();
                                        new MessageInf(ex).show(new JFrame());
                                        
@@ -1318,7 +1314,6 @@ public class GreetingWishesMaster extends javax.swing.JPanel implements JPanelVi
 
                                }
                             catch (BasicException ex) {                    
-                                       Logger.getLogger(HallBookingMaster.class.getName()).log(Level.SEVERE, null, ex);             
                                        ex.printStackTrace();
                                        new MessageInf(ex).show(new JFrame());
                                        
@@ -1431,7 +1426,6 @@ public class GreetingWishesMaster extends javax.swing.JPanel implements JPanelVi
                       JOptionPane.showMessageDialog(this, "De-Activated Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
                       
                } catch (BasicException ex) {
-                      Logger.getLogger(GuestRoomLinkMaster.class.getName()).log(Level.SEVERE, null, ex);
                        ex.printStackTrace();
                        new MessageInf(ex).show(new JFrame());
                   }
@@ -1472,7 +1466,6 @@ public class GreetingWishesMaster extends javax.swing.JPanel implements JPanelVi
                       JOptionPane.showMessageDialog(this, "De-Activated Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
                       
                } catch (BasicException ex) {
-                      Logger.getLogger(GuestRoomLinkMaster.class.getName()).log(Level.SEVERE, null, ex);
                        ex.printStackTrace();
                        new MessageInf(ex).show(new JFrame());
                   }

@@ -14,7 +14,6 @@ import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.Session;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.BilledReportsTableModel;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.BeanFactoryDataSingle;
 import java.util.ArrayList;

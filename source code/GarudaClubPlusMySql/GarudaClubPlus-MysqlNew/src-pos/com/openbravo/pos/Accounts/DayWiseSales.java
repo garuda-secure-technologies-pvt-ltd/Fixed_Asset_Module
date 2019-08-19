@@ -16,7 +16,6 @@ import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.data.loader.Transaction;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.HallBookingMaster;
 import com.openbravo.pos.clubmang.DataSourceProvider;
 import com.openbravo.pos.clubmang.JasperReportNew;
 import com.openbravo.pos.forms.AppView;

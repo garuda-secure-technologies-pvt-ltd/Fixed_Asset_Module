@@ -14,12 +14,7 @@ import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.data.loader.Transaction;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Booking.BookingSituationReport;
-import com.openbravo.pos.Booking.CheckInTableModel;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Halls;
-import com.openbravo.pos.Booking.GuestRoomBillModel;
-import com.openbravo.pos.Booking.GuestRoomTableModel;
-import com.openbravo.pos.Booking.hallTableModel;
+
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.clubmang.DataSourceProvider;
 import com.openbravo.pos.clubmang.JasperReportNew;
@@ -520,7 +515,6 @@ public class PurchaseJournalReportNew extends javax.swing.JPanel implements JPan
                     FrmDate =  (Date) Formats.TIMESTAMP.parseValue(fromdate_text.getText());
                     ToDate =  (Date) Formats.TIMESTAMP.parseValue(todate_text.getText());
                 } catch (BasicException ex) {
-                    Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 
@@ -532,7 +526,6 @@ public class PurchaseJournalReportNew extends javax.swing.JPanel implements JPan
                      } 
 
                      catch (BasicException ex) {
-                         Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                      }
                          PurchaseDetail_list  =  (List<PurchaseJournalReportNewTableModel.PurchaseInfo>) PurchaseJournalReportNew_Table_Model.getList();
                          
@@ -769,7 +762,6 @@ public class PurchaseJournalReportNew extends javax.swing.JPanel implements JPan
                      } 
 
                      catch (BasicException ex) {
-                         Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                      }
                          PJ_taxwiseList  =  (List<PJ_taxwiseReportTableModel.PurchaseInfo>) PJ_taxwiseReport_Table_Model.getList();
                          

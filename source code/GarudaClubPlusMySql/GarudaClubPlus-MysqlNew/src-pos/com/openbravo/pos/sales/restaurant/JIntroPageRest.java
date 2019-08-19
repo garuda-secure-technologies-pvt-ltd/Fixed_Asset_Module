@@ -42,7 +42,6 @@ import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.Session;
 import com.openbravo.data.loader.Transaction;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.ESSLDisplay.RetrieveData;
 import com.openbravo.pos.admin.CardReader;
 import com.openbravo.pos.admin.SerialConnection;
 import com.openbravo.pos.clubmang.FacilityLimitCheck;
@@ -1688,7 +1687,6 @@ public class JIntroPageRest extends JTicketsBag implements CardSwipeNotifier {
                 }
                 catch (SQLException ex) 
                 {
-                    Logger.getLogger(RetrieveData.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 final Date d = ts;

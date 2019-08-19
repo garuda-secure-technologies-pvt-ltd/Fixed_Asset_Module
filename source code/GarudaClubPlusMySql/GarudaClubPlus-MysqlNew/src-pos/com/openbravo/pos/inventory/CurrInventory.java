@@ -6,9 +6,6 @@ import com.openbravo.data.gui.ComboBoxValModel;
 import com.openbravo.data.loader.SerializerReadString;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
-import com.openbravo.pos.Booking.BilledReportsTableModel;
-import com.openbravo.pos.Booking.BookingSituationReport;
-import com.openbravo.pos.Booking.DataSourceForBilledReports_Halls;
 import com.openbravo.pos.clubmang.DataSourceProvider;
 import com.openbravo.pos.clubmang.JasperReportNew;
 import com.openbravo.pos.forms.AppView;
@@ -251,7 +248,6 @@ public class CurrInventory extends javax.swing.JPanel implements JPanelView,Bean
                } 
 
                catch (BasicException ex) {
-                       Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 CurrStock_List  =  (List<CurrentInventoryTableModel.InventoryInfo>) CurrentInventory_Table_Model.getList();
 
@@ -294,7 +290,6 @@ public class CurrInventory extends javax.swing.JPanel implements JPanelView,Bean
                     
                     } 
                      catch (BasicException ex) {
-                             Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                       }
                       CurrStock_List  =  (List<CurrentInventoryTableModel.InventoryInfo>) CurrentInventory_Table_Model.getList();
 
@@ -327,7 +322,6 @@ public class CurrInventory extends javax.swing.JPanel implements JPanelView,Bean
                           }
                      } 
                      catch (BasicException ex) {
-                             Logger.getLogger(BookingSituationReport.class.getName()).log(Level.SEVERE, null, ex);
                       }
                       CurrStock_List  =  (List<CurrentInventoryTableModel.InventoryInfo>) CurrentInventory_Table_Model.getList();
 

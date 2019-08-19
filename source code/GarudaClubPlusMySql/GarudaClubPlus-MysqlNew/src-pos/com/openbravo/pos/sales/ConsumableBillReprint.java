@@ -42,7 +42,6 @@ import javax.swing.JComponent;
 import net.sf.jasperreports.engine.JasperPrint;
 import com.openbravo.pos.panels.ConsumableBillReprintTableModel;
 import com.openbravo.beans.JCalendarDialog;
-import com.openbravo.pos.Booking.BookingSituationReport;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Color;
@@ -538,21 +537,21 @@ public class ConsumableBillReprint extends javax.swing.JPanel implements JPanelV
                 
                 
                 
-                String MainHeader = "Close Sale Seq : "+SequenceNo+" . (From "+s1+ "  to "+s2+" .)";
-                DataSourceProvider data1 = new DataSourceProvider(ProductList);
-                DataSourceforConsumableProductList dsfc = new DataSourceforConsumableProductList(ProductList);
-                data1.setDataSource(dsfc);
-                Map reportparams = new HashMap();
-                reportparams.put("CLUBNAME", m_App.getSession().getCompanyName());
-                reportparams.put("ADDR", m_App.getSession().getCompanyAddress());
-
-                reportparams.put("TITLE","Consumable voucher wise close day Report. Seq no :" +SequenceNo);
-                reportparams.put("MainHeader",MainHeader);
-                 
-                String CreatedDate = "As on "+(Formats.TIMESTAMP.formatValue(new Date()));
-                reportparams.put("CreatedDate",CreatedDate);
-
-                JasperPrint jp = JasperReportNew.runReport(m_App, "./reports/com/openbravo/reports/ConsumableCloseDayReport.jrxml", reportparams, false, data1, true, null);
+//                String MainHeader = "Close Sale Seq : "+SequenceNo+" . (From "+s1+ "  to "+s2+" .)";
+//                DataSourceProvider data1 = new DataSourceProvider(ProductList);
+//                DataSourceforConsumableProductList dsfc = new DataSourceforConsumableProductList(ProductList);
+//                data1.setDataSource(dsfc);
+//                Map reportparams = new HashMap();
+//                reportparams.put("CLUBNAME", m_App.getSession().getCompanyName());
+//                reportparams.put("ADDR", m_App.getSession().getCompanyAddress());
+//
+//                reportparams.put("TITLE","Consumable voucher wise close day Report. Seq no :" +SequenceNo);
+//                reportparams.put("MainHeader",MainHeader);
+//                 
+//                String CreatedDate = "As on "+(Formats.TIMESTAMP.formatValue(new Date()));
+//                reportparams.put("CreatedDate",CreatedDate);
+//
+//                JasperPrint jp = JasperReportNew.runReport(m_App, "./reports/com/openbravo/reports/ConsumableCloseDayReport.jrxml", reportparams, false, data1, true, null);
 
          }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -748,21 +747,21 @@ public class ConsumableBillReprint extends javax.swing.JPanel implements JPanelV
                 }
                 CloseDayList  =  (List<ConsumableBillReprintTableModel.CloseDayInfo>) ConsumableCloseDay_Table_Model.getCloseDayList();
                
-                String MainHeader = "From "+fromdate_text.getText()+ "  to "+todate_text.getText()+" .";
-                DataSourceProvider data1 = new DataSourceProvider(CloseDayList);
-                DataSourceProviderCloseDay dsfc = new DataSourceProviderCloseDay(CloseDayList);
-                data1.setDataSource(dsfc);
-                Map reportparams = new HashMap();
-                reportparams.put("CLUBNAME", m_App.getSession().getCompanyName());
-                reportparams.put("ADDR", m_App.getSession().getCompanyAddress());
-
-                reportparams.put("TITLE","Consumable Close Day Report");
-                reportparams.put("MainHeader",MainHeader);
-                 
-                String CreatedDate = "As on "+(Formats.TIMESTAMP.formatValue(new Date()));
-                reportparams.put("CreatedDate",CreatedDate);
-
-                JasperPrint jp = JasperReportNew.runReport(m_App, "./reports/com/openbravo/reports/ConsumableCloseDayReport.jrxml", reportparams, false, data1, true, null);
+//                String MainHeader = "From "+fromdate_text.getText()+ "  to "+todate_text.getText()+" .";
+//                DataSourceProvider data1 = new DataSourceProvider(CloseDayList);
+//                DataSourceProviderCloseDay dsfc = new DataSourceProviderCloseDay(CloseDayList);
+//                data1.setDataSource(dsfc);
+//                Map reportparams = new HashMap();
+//                reportparams.put("CLUBNAME", m_App.getSession().getCompanyName());
+//                reportparams.put("ADDR", m_App.getSession().getCompanyAddress());
+//
+//                reportparams.put("TITLE","Consumable Close Day Report");
+//                reportparams.put("MainHeader",MainHeader);
+//                 
+//                String CreatedDate = "As on "+(Formats.TIMESTAMP.formatValue(new Date()));
+//                reportparams.put("CreatedDate",CreatedDate);
+//
+//                JasperPrint jp = JasperReportNew.runReport(m_App, "./reports/com/openbravo/reports/ConsumableCloseDayReport.jrxml", reportparams, false, data1, true, null);
 
                 
                 
@@ -803,24 +802,24 @@ public class ConsumableBillReprint extends javax.swing.JPanel implements JPanelV
                 
                 VoucherList  =  (List<ConsumableBillReprintTableModel.VoucherListInfo>) VoucherListTable_Model.getVoucherList();
                
-                
-                 String MainHeader = "From "+fromdate_text.getText()+ "  to "+todate_text.getText()+" .";
-                DataSourceProvider data1 = new DataSourceProvider(VoucherList);
-                DataSourceforConsumableVoucherList dsfc = new DataSourceforConsumableVoucherList(VoucherList);
-                data1.setDataSource(dsfc);
-                Map reportparams = new HashMap();
-                reportparams.put("CLUBNAME", m_App.getSession().getCompanyName());
-                reportparams.put("ADDR", m_App.getSession().getCompanyAddress());
-
-                reportparams.put("TITLE","Consumable voucher wise close day Report. Seq no :" +SequenceNo);
-                reportparams.put("MainHeader",MainHeader);
-                 
-                String CreatedDate = "As on "+(Formats.TIMESTAMP.formatValue(new Date()));
-                reportparams.put("CreatedDate",CreatedDate);
-
-                JasperPrint jp = JasperReportNew.runReport(m_App, "./reports/com/openbravo/reports/ConsumableCloseDayReport.jrxml", reportparams, false, data1, true, null);
-
-                
+//                
+//                 String MainHeader = "From "+fromdate_text.getText()+ "  to "+todate_text.getText()+" .";
+//                DataSourceProvider data1 = new DataSourceProvider(VoucherList);
+//                DataSourceforConsumableVoucherList dsfc = new DataSourceforConsumableVoucherList(VoucherList);
+//                data1.setDataSource(dsfc);
+//                Map reportparams = new HashMap();
+//                reportparams.put("CLUBNAME", m_App.getSession().getCompanyName());
+//                reportparams.put("ADDR", m_App.getSession().getCompanyAddress());
+//
+//                reportparams.put("TITLE","Consumable voucher wise close day Report. Seq no :" +SequenceNo);
+//                reportparams.put("MainHeader",MainHeader);
+//                 
+//                String CreatedDate = "As on "+(Formats.TIMESTAMP.formatValue(new Date()));
+//                reportparams.put("CreatedDate",CreatedDate);
+//
+//                JasperPrint jp = JasperReportNew.runReport(m_App, "./reports/com/openbravo/reports/ConsumableCloseDayReport.jrxml", reportparams, false, data1, true, null);
+//
+//                
                 
                 
                 

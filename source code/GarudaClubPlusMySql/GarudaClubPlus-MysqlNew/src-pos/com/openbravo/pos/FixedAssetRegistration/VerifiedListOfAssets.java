@@ -16,7 +16,6 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import com.openbravo.basic.BasicException;
 import com.openbravo.data.gui.ComboBoxValModel;
-import com.openbravo.pos.Library.LibDataLogicFacilitiesCreate;
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
@@ -63,7 +62,6 @@ public class VerifiedListOfAssets extends javax.swing.JPanel implements JPanelVi
     private Date fromDate;
     private Date toDat;
     private Date asonDate;
-    private LibDataLogicFacilitiesCreate dlfac;
     private ComboBoxValModel assetListModel;
     private String header = null;
     private String perioddate;

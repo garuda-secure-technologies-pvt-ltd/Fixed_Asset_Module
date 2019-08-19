@@ -22,7 +22,6 @@ import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.data.loader.Transaction;
 import com.openbravo.data.user.DirtyManager;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.Library.BookMaster;
 import com.openbravo.pos.clubmang.KIOSKSettings;
 import com.openbravo.pos.forms.AppConfig;
 import com.openbravo.pos.forms.AppView;

@@ -14,7 +14,6 @@ import com.openbravo.data.loader.SerializerWriteBasic;
 import com.openbravo.data.loader.SerializerReadBasic;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
-import com.openbravo.pos.Library.LibDataLogicFacilitiesCreate;
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
@@ -66,7 +65,6 @@ public class AssetImageJarStart extends javax.swing.JPanel implements JPanelView
 
     private AppView m_App;
     private static DataLogicFacilities dmang;
-    private LibDataLogicFacilitiesCreate dlfac;
     private String name;
   
       int j=0;

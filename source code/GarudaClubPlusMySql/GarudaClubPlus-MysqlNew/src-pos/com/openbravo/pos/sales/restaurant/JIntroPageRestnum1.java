@@ -47,7 +47,6 @@ import com.openbravo.data.loader.SerializerWriteString;
 //import com.openbravo.data.user.DirtyManager;
 //import com.openbravo.pos.mant.FloorsInfo;
 import com.openbravo.data.loader.Session;
-import com.openbravo.pos.ESSLDisplay.RetrieveData;
 import com.openbravo.pos.admin.CardReader;
 import com.openbravo.pos.admin.SerialConnection;
 import com.openbravo.pos.clubmang.FacilityLimitCheck;
@@ -1198,7 +1197,6 @@ public class JIntroPageRestnum1 extends JTicketsBagnum1 implements CardSwipeNoti
 
 
         } catch (SQLException ex) {
-            Logger.getLogger(RetrieveData.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             final Date d = ts;

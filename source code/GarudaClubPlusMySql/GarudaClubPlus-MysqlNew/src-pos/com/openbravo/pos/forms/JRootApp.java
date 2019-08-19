@@ -42,7 +42,6 @@ import com.openbravo.pos.Accounts.CompanyCreator;
 import com.openbravo.pos.Accounts.CompanyInfo;
 import com.openbravo.pos.Accounts.OpenFinancialYear;
 import com.openbravo.pos.Accounts.waitDialog;
-import com.openbravo.pos.ESSLDisplay.RetrieveData;
 import com.openbravo.pos.Networking.ListenerSocket;
 import com.openbravo.pos.Networking.SocketInfo;
 import com.openbravo.pos.UserInterface.LoginPage;

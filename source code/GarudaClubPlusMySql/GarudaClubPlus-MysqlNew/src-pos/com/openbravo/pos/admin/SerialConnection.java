@@ -85,15 +85,15 @@ public class SerialConnection implements SerialPortEventListener,
     //  }
 
     /**
-    Creates a SerialConnection object and initilizes variables passed in
-    as params.
-
-    @param parent A SerialDemo object.
-    @param parameters A SerialParameters object.
-    @param messageAreaOut The TextArea that messages that are to be sent out
-    of the serial port are entered into.
-    @param messageAreaIn The TextArea that messages comming into the serial
-    port are displayed on.
+     * Creates a SerialConnection object and initilizes variables passed in as
+     * params.
+     *
+     * @param parent A SerialDemo object.
+     * @param parameters A SerialParameters object.
+     * @param messageAreaOut The TextArea that messages that are to be sent out
+     * of the serial port are entered into.
+     * @param messageAreaIn The TextArea that messages comming into the serial
+     * port are displayed on.
      */
     public SerialConnection(SerialParameters parameters, JTextField text, JTextField fac, JTextField cardno, boolean cardAccessOnly) {
         this.parameters = parameters;
@@ -105,122 +105,87 @@ public class SerialConnection implements SerialPortEventListener,
     }
 
     /**
-    Attempts to open a serial connection and streams using the parameters
-    in the SerialParameters object. If it is unsuccesfull at any step it
-    returns the port to a closed state, throws a
-    <code>SerialConnectionException</code>, and returns.
-
-    Gives a timeout of 30 seconds on the portOpen to allow other applications
-    to reliquish the port if have it open and no longer need it.
+     * Attempts to open a serial connection and streams using the parameters in
+     * the SerialParameters object. If it is unsuccesfull at any step it returns
+     * the port to a closed state, throws a
+     * <code>SerialConnectionException</code>, and returns.
+     *
+     * Gives a timeout of 30 seconds on the portOpen to allow other applications
+     * to reliquish the port if have it open and no longer need it.
      */
     public void openConnection() throws SerialConnectionException, PortInUseException, UnsupportedCommOperationException {
 
-        // System.out.println("OK 0 ");
-        // Obtain a CommPortIdentifier object for the port you want to open.
-
-        try {
-            // System.out.println(parameters.getPortName());
-            portId = CommPortIdentifier.getPortIdentifier(parameters.getPortName());
-            //portId = portId.getPortIdentifier(parameters.getPortName());
-
-        } catch (NoSuchPortException e) {
-            // System.out.println("Yes the problem is here 1 ");
-            e.printStackTrace();
-        // throw new SerialConnectionException(e.getMessage());
-        } catch (Exception e) {
-            //  System.out.println("ErrorErrorErrorError");
-            e.printStackTrace();
-        }
-        //System.out.println(portId);
-        //System.out.println("OK 1 ");
-        // Open the port represented by the CommPortIdentifier object. Give
-        // the open call a relatively long timeout of 30 seconds to allow
-        // a different application to reliquish the port if the user
-        // wants to.
-        try {
-           // sPort.close();
-            sPort = (SerialPort) portId.open("RFID", 30000);
-
-//        sPort.disableReceiveFraming();
-//        sPort.disableReceiveTimeout();
-//        sPort.enableReceiveThreshold(16);
-
-        } catch (PortInUseException e) {
-
-            throw new SerialConnectionException(e.getMessage());
-        }
-        //System.out.println("OK 2 ");
-        //  sPort.sendBreak(1000);
-
-        // Set the parameters of the connection. If they won't set, close the
-        // port before throwing an exception.
-        try {
-            setConnectionParameters();
-        } catch (SerialConnectionException e) {
-            sPort.close();
-            throw e;
-        }
-        // System.out.println("OK 3 "); 
-        // Open the input and output streams for the connection. If they won't
-        // open, close the port before throwing an exception.
-        try {
-            os = sPort.getOutputStream();
-            is = sPort.getInputStream();
-
-        } catch (IOException e) {
-            sPort.close();
-            e.printStackTrace();
-            throw new SerialConnectionException("Error opening i/o streams");
-        }
-//System.out.println("OK 4 ");
-/*
-        // Create a new KeyHandler to respond to key strokes in the
-        // messageAreaOut. Add the KeyHandler as a keyListener to the
-        // messageAreaOut.
-        keyHandler = new KeyHandler(os);
-        messageAreaOut.addKeyListener(keyHandler);
-         */
-        // Add this object as an event listener for the serial port.
-        try {
-            sPort.addEventListener(this);
-        } catch (TooManyListenersException e) {
-            sPort.close();
-            throw new SerialConnectionException("too many listeners added");
-        }
-//System.out.println("OK 5 ");
-        // Set notifyOnDataAvailable to true to allow event driven input.
-        sPort.notifyOnDataAvailable(true);
-
-        // Set notifyOnBreakInterrup to allow event driven break handling.
-        sPort.notifyOnBreakInterrupt(true);
-
-
-        sPort.notifyOnCarrierDetect(true);
-        sPort.notifyOnCTS(true);
-        sPort.notifyOnDSR(true);
-        sPort.notifyOnFramingError(true);
-        sPort.notifyOnOverrunError(true);
-        sPort.notifyOnParityError(true);
-        sPort.notifyOnRingIndicator(true);
-        // Set receive timeout to allow breaking out of polling loop during
-        sPort.sendBreak(10000);
-        // input handling.
-        try {
-            sPort.enableReceiveTimeout(30);
-        } catch (UnsupportedCommOperationException e) {
-        }
-//System.out.println("OK 6 ");
-        // Add ownership listener to allow ownership event handling.
-        portId.addPortOwnershipListener(this);
-
-        open = true;
+        
+//        try {
+//            
+//            portId = CommPortIdentifier.getPortIdentifier(parameters.getPortName());
+//            
+//
+//        } catch (NoSuchPortException e) {
+//           
+//            e.printStackTrace();
+//            
+//        } catch (Exception e) {
+//            
+//            e.printStackTrace();
+//        }
+//     
+//        try {
+//            // sPort.close();
+//            sPort = (SerialPort) portId.open("RFID", 30000);
+//
+//
+//        } catch (PortInUseException e) {
+//
+//            throw new SerialConnectionException(e.getMessage());
+//        }
+//        
+//        try {
+//            setConnectionParameters();
+//        } catch (SerialConnectionException e) {
+//            sPort.close();
+//            throw e;
+//        }
+//        
+//        try {
+//            os = sPort.getOutputStream();
+//            is = sPort.getInputStream();
+//
+//        } catch (IOException e) {
+//            sPort.close();
+//            e.printStackTrace();
+//            throw new SerialConnectionException("Error opening i/o streams");
+//        }
+//
+//        try {
+//            sPort.addEventListener(this);
+//        } catch (TooManyListenersException e) {
+//            sPort.close();
+//            throw new SerialConnectionException("too many listeners added");
+//        }
+//        sPort.notifyOnDataAvailable(true);
+//
+//       
+//        sPort.notifyOnBreakInterrupt(true);
+//
+//        sPort.notifyOnCarrierDetect(true);
+//        sPort.notifyOnCTS(true);
+//        sPort.notifyOnDSR(true);
+//        sPort.notifyOnFramingError(true);
+//        sPort.notifyOnOverrunError(true);
+//        sPort.notifyOnParityError(true);
+//        sPort.notifyOnRingIndicator(true);
+//        sPort.sendBreak(10000);
+//        try {
+//            sPort.enableReceiveTimeout(30);
+//        } catch (UnsupportedCommOperationException e) {
+//        }
+//        portId.addPortOwnershipListener(this);
+//
+//        open = true;
     }
 
-    /**
-    Sets the connection parameters to the setting in the parameters object.
-    If set fails return the parameters object to origional settings and
-    throw exception.
-     */
+   
     public void setConnectionParameters() throws SerialConnectionException {
 
         // Save state of parameters before trying a set.
@@ -230,8 +195,7 @@ public class SerialConnection implements SerialPortEventListener,
         int oldParity = sPort.getParity();
         int oldFlowControl = sPort.getFlowControlMode();
 
-        // Set connection parameters, if set fails return parameters object
-        // to original state.
+        
         try {
             sPort.setSerialPortParams(parameters.getBaudRate(),
                     parameters.getDatabits(),
@@ -245,7 +209,6 @@ public class SerialConnection implements SerialPortEventListener,
             throw new SerialConnectionException("Unsupported parameter");
         }
 
-        // Set flow control.
         try {
             sPort.setFlowControlMode(parameters.getFlowControlIn() | parameters.getFlowControlOut());
         } catch (UnsupportedCommOperationException e) {
@@ -253,19 +216,14 @@ public class SerialConnection implements SerialPortEventListener,
         }
     }
 
-    /**
-    Close the port and clean up associated elements.
-     */
+    
     public void closeConnection() {
         // If port is alread closed just return.
         if (!open) {
             return;
         }
 
-        // Remove the key listener.
-//	messageAreaOut.removeKeyListener(keyHandler);
-
-        // Check to make sure sPort has reference to avoid a NPE.
+     
         if (sPort != null) {
             try {
                 // close the i/o streams.
@@ -275,10 +233,8 @@ public class SerialConnection implements SerialPortEventListener,
                 System.err.println(e);
             }
 
-            // Close the port.
             sPort.close();
 
-            // Remove the ownership listener.
             portId.removePortOwnershipListener(this);
         }
 
@@ -286,26 +242,27 @@ public class SerialConnection implements SerialPortEventListener,
     }
 
     /**
-    Send a one second break signal.
+     * Send a one second break signal.
      */
     public void sendBreak() {
         sPort.sendBreak(1000);
     }
 
     /**
-    Reports the open status of the port.
-    @return true if port is open, false if port is closed.
+     * Reports the open status of the port.
+     *
+     * @return true if port is open, false if port is closed.
      */
     public boolean isOpen() {
         return open;
     }
 
     /**
-    Handles SerialPortEvents. The two types of SerialPortEvents that this
-    program is registered to listen for are DATA_AVAILABLE and BI. During
-    DATA_AVAILABLE the port buffer is read until it is drained, when no more
-    data is availble and 30ms has passed the method returns. When a BI
-    event occurs the words BREAK RECEIVED are written to the messageAreaIn.
+     * Handles SerialPortEvents. The two types of SerialPortEvents that this
+     * program is registered to listen for are DATA_AVAILABLE and BI. During
+     * DATA_AVAILABLE the port buffer is read until it is drained, when no more
+     * data is availble and 30ms has passed the method returns. When a BI event
+     * occurs the words BREAK RECEIVED are written to the messageAreaIn.
      */
     public static byte reverseBits(byte in) {
         byte out = 0;
@@ -331,7 +288,7 @@ public class SerialConnection implements SerialPortEventListener,
             case SerialPortEvent.DATA_AVAILABLE:
                 System.out.println("Data");
                 //   String a=null,b="",c="";
-         /*   try {
+                /*   try {
                 while(is.available() >0) {
                 // Read the RFID data and store in the byte array
                 is.read(rbuffer);
@@ -344,7 +301,7 @@ public class SerialConnection implements SerialPortEventListener,
                 System.out.print(Integer.toHexString(rbuffer[m] & 255));
                  */
                 // byte[] readBuffer = new byte[20];
-         /*   try {
+                /*   try {
                 while(is.available() >0) {
                 is.read(rbuffer);
                 }
@@ -392,15 +349,13 @@ public class SerialConnection implements SerialPortEventListener,
                             waiterinfo = (WaiterInfo) new PreparedSentence(LookupUtilityImpl.getInstance(null).getAppView().getSession(), "SELECT W.ID, W.NAME,W.COUNTER,P.NAME FROM WAITER W,PEOPLE P WHERE P.ROLE=W.COUNTER AND W.CARDNO = ? AND P.VISIBLE=TRUE", SerializerWriteString.INSTANCE, new SerializerReadClass(WaiterInfo.class)).find(receptionString);
                             if (waiterinfo != null) {
                                 cardSwipeNotifier.cardswiped(waiterinfo);
-                            }
-                            else
-                            {
+                            } else {
                                 cardSwipeNotifier.cardswiped(receptionString);
                             }
                         } else {
                             cardSwipeNotifier.cardswiped(receptionString);
                         }
-                    }else if( cardSwipeNotifier != null){
+                    } else if (cardSwipeNotifier != null) {
                         cardSwipeNotifier.cardswiped(receptionString);
                     }
                 } catch (BasicException ex) {
@@ -443,7 +398,6 @@ public class SerialConnection implements SerialPortEventListener,
 
                 //  }
                 //  while (true);
-
                 text.setText(receptionString);
                 //this.getIncommingString();
                 //rcard.execute(receptionString);
@@ -512,10 +466,9 @@ public class SerialConnection implements SerialPortEventListener,
     }
 
     /**
-    Handles ownership events. If a PORT_OWNERSHIP_REQUESTED event is
-    received a dialog box is created asking the user if they are
-    willing to give up the port. No action is taken on other types
-    of ownership events.
+     * Handles ownership events. If a PORT_OWNERSHIP_REQUESTED event is received
+     * a dialog box is created asking the user if they are willing to give up
+     * the port. No action is taken on other types of ownership events.
      */
     public void ownershipChange(int type) {
         /*
@@ -526,18 +479,19 @@ public class SerialConnection implements SerialPortEventListener,
     }
 
     /**
-    A class to handle <code>KeyEvent</code>s generated by the messageAreaOut.
-    When a <code>KeyEvent</code> occurs the <code>char</code> that is
-    generated by the event is read, converted to an <code>int</code> and
-    writen to the <code>OutputStream</code> for the port.
+     * A class to handle <code>KeyEvent</code>s generated by the messageAreaOut.
+     * When a <code>KeyEvent</code> occurs the <code>char</code> that is
+     * generated by the event is read, converted to an <code>int</code> and
+     * writen to the <code>OutputStream</code> for the port.
      */
     class KeyHandler extends KeyAdapter {
 
         OutputStream os;
 
         /**
-        Creates the KeyHandler.
-        @param os The OutputStream for the port.
+         * Creates the KeyHandler.
+         *
+         * @param os The OutputStream for the port.
          */
         public KeyHandler(OutputStream os) {
             super();
@@ -545,10 +499,10 @@ public class SerialConnection implements SerialPortEventListener,
         }
 
         /**
-        Handles the KeyEvent.
-        Gets the <code>char</char> generated by the <code>KeyEvent</code>,
-        converts it to an <code>int</code>, writes it to the <code>
-        OutputStream</code> for the port.
+         * Handles the KeyEvent. Gets the <code>char</char> generated by the
+         * <code>KeyEvent</code>, converts it to an <code>int</code>, writes it
+         * to the <code>
+         * OutputStream</code> for the port.
          */
         public void keyTyped(KeyEvent evt) {
             char newCharacter = evt.getKeyChar();
@@ -580,10 +534,7 @@ public class SerialConnection implements SerialPortEventListener,
             }
 
         }
-    //System.out.println (">'" +message +"' sent");
-
-
-
+        //System.out.println (">'" +message +"' sent");
 
     }
 }

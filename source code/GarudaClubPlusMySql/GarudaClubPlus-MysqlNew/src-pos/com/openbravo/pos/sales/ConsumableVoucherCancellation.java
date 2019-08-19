@@ -13,7 +13,6 @@ import javax.swing.JComponent;
 import net.sf.jasperreports.engine.JasperPrint;
 import com.openbravo.pos.panels.ConsumableBillReprintTableModel;
 import com.openbravo.beans.JCalendarDialog;
-import com.openbravo.pos.Booking.BookingSituationReport;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Color;

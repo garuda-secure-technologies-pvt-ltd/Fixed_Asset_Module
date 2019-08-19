@@ -4,7 +4,6 @@
  */
 package com.openbravo.pos.Accounts;
 
-import com.openbravo.pos.Booking.HallBillModel;
 import java.util.List;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;

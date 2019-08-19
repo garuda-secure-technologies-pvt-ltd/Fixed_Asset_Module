@@ -28,7 +28,6 @@ import com.openbravo.data.user.EditorRecord;
 import com.openbravo.data.user.DirtyManager;
 import com.openbravo.pos.Accounts.AccountMaster;
 import com.openbravo.pos.Accounts.AccountMasterExt;
-import com.openbravo.pos.Booking.BookGuestRoom;
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;

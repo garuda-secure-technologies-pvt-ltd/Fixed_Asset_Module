@@ -10,7 +10,6 @@ import com.openbravo.data.gui.ComboBoxValModel;
 import com.openbravo.data.loader.SerializerReadString;
 import com.openbravo.data.loader.SerializerWriteString;
 import com.openbravo.data.loader.StaticSentence;
-import com.openbravo.pos.Library.LibDataLogicFacilitiesCreate;
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
@@ -54,7 +53,6 @@ public class AssetBarcodeDataSheet extends javax.swing.JPanel implements JPanelV
     private Date fromDate;
     private Date toDat;
     private Date asonDate;
-    private LibDataLogicFacilitiesCreate dlfac;
     private String header = null;
     private String perioddate;
     private String subsidiar = null;

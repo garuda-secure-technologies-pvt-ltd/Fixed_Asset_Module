@@ -4,7 +4,6 @@
  */
 package com.openbravo.pos.reports;
 
-import com.openbravo.pos.Booking.BilledReportsTableModel;
 import java.text.DecimalFormat;
 import java.util.List;
 import net.sf.jasperreports.engine.JRDataSource;

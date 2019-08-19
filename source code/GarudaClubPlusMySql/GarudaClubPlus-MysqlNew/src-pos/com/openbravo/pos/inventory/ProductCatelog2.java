@@ -7,9 +7,6 @@
     package com.openbravo.pos.inventory;
 
 import com.openbravo.basic.BasicException;
-import com.openbravo.pos.Booking.CheckInTableModel;
-import com.openbravo.pos.Booking.GuestRoomBillModel;
-import com.openbravo.pos.Booking.GuestRoomTableModel;
 import com.openbravo.pos.clubmang.DataLogicFacilities;
 import com.openbravo.pos.customers.DataLogicCustomers;
 import com.openbravo.pos.forms.AppView;
