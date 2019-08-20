@@ -54,7 +54,6 @@ public class ClubMangIntroPage extends javax.swing.JPanel implements JPanelView,
     }
 
     public void activate() throws BasicException {
-        jLabel13.setText(null);
         loadData();
     }
 
@@ -86,10 +85,6 @@ public class ClubMangIntroPage extends javax.swing.JPanel implements JPanelView,
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        birthday_notification_label = new javax.swing.JEditorPane();
 
         setLayout(null);
 
@@ -147,7 +142,7 @@ public class ClubMangIntroPage extends javax.swing.JPanel implements JPanelView,
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("* Please choose from the menu on the left");
         add(jLabel2);
-        jLabel2.setBounds(210, 510, 390, 20);
+        jLabel2.setBounds(200, 420, 390, 20);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/greenled.png"))); // NOI18N
         add(jLabel11);
@@ -157,39 +152,14 @@ public class ClubMangIntroPage extends javax.swing.JPanel implements JPanelView,
         jLabel12.setText("Inventory Management");
         add(jLabel12);
         jLabel12.setBounds(270, 360, 210, 20);
-
-        jLabel13.setForeground(new java.awt.Color(153, 153, 0));
-        jLabel13.setText("jLabel13");
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
-            }
-        });
-        add(jLabel13);
-        jLabel13.setBounds(100, 560, 560, 17);
-        add(jSeparator1);
-        jSeparator1.setBounds(0, 540, 700, 10);
-
-        birthday_notification_label.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        birthday_notification_label.setForeground(new java.awt.Color(227, 12, 12));
-        jScrollPane2.setViewportView(birthday_notification_label);
-
-        add(jScrollPane2);
-        jScrollPane2.setBounds(100, 580, 670, 50);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-
-    }//GEN-LAST:event_jLabel13MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JEditorPane birthday_notification_label;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -200,8 +170,6 @@ public class ClubMangIntroPage extends javax.swing.JPanel implements JPanelView,
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     public List getMemberNos() throws BasicException {

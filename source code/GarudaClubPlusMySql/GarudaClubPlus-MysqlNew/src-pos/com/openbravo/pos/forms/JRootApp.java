@@ -299,13 +299,8 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         m_jLblTitle.setIcon(imgicon == null ? null : new ImageIcon(imgicon));
         m_jLblTitle.setText(m_dlSystem.getResourceAsText("Window.Title"));
 
-        String sWareHouse;
-        try {
-            sWareHouse = m_dlSystem.findLocationName(m_sInventoryLocation);
-        } catch (BasicException e) {
-            JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_DANGER, AppLocal.getIntString("Database.ScriptError"), e));
-            sWareHouse = null; // no he encontrado el almacen principal
-        }
+        String sWareHouse = "";
+        
 
         // Show Hostname, Warehouse and URL in taskbar
         String url;
@@ -624,50 +619,50 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
     }
 
     public void CheckExpiredDate() throws BasicException {
-        Object[] objEXP = (Object[]) new StaticSentence(session, "SELECT VALUE FROM GENERALTABLE where NAME='Validate'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find();
-        if (objEXP != null) {
-            if (objEXP != null) {
-                String vEXP = (String) objEXP[0].toString();
-                String[] ArrDate = vEXP.split("#");
-                int year = Integer.parseInt(ArrDate[0].toString());
-                int Month = Integer.parseInt(ArrDate[1].toString());
-                int Day = Integer.parseInt(ArrDate[2].toString());
-                int y2 = year / 13;
-                int m2 = Month / 13;
-                int D2 = Day / 13;
-
-                Calendar c1 = GregorianCalendar.getInstance();
-                c1.set(y2, m2, D2);  //January 30th 2000
-                Date sDate = c1.getTime();
-
-                Date CurrDate = new Date();
-
-                if (sDate.before(CurrDate)) {
-
-                    JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-                    JDialog dialog = pane.createDialog(null, "Warning");
-                    dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                    dialog.setVisible(true);
-                    tryToClose();
-
-                }
-
-            } else {
-                JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-                JDialog dialog = pane.createDialog(null, "Warning");
-                dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                dialog.setVisible(true);
-                tryToClose();
-
-            }
-        } else {
-            JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-            JDialog dialog = pane.createDialog(null, "Warning");
-            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            dialog.setVisible(true);
-            tryToClose();
-
-        }
+//        Object[] objEXP = (Object[]) new StaticSentence(session, "SELECT VALUE FROM GENERALTABLE where NAME='Validate'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find();
+//        if (objEXP != null) {
+//            if (objEXP != null) {
+//                String vEXP = (String) objEXP[0].toString();
+//                String[] ArrDate = vEXP.split("#");
+//                int year = Integer.parseInt(ArrDate[0].toString());
+//                int Month = Integer.parseInt(ArrDate[1].toString());
+//                int Day = Integer.parseInt(ArrDate[2].toString());
+//                int y2 = year / 13;
+//                int m2 = Month / 13;
+//                int D2 = Day / 13;
+//
+//                Calendar c1 = GregorianCalendar.getInstance();
+//                c1.set(y2, m2, D2);  //January 30th 2000
+//                Date sDate = c1.getTime();
+//
+//                Date CurrDate = new Date();
+//
+//                if (sDate.before(CurrDate)) {
+//
+//                    JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
+//                    JDialog dialog = pane.createDialog(null, "Warning");
+//                    dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//                    dialog.setVisible(true);
+//                    tryToClose();
+//
+//                }
+//
+//            } else {
+//                JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
+//                JDialog dialog = pane.createDialog(null, "Warning");
+//                dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//                dialog.setVisible(true);
+//                tryToClose();
+//
+//            }
+//        } else {
+//            JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
+//            JDialog dialog = pane.createDialog(null, "Warning");
+//            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//            dialog.setVisible(true);
+//            tryToClose();
+//
+//        }
     }
 
     public List<Object[]> geturl() throws BasicException {
@@ -977,23 +972,23 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
                 if (flag1 == true) {
                     //JIntroPageRest intropage=new JIntroPageRest(this);
 
-                    int port = 0;
-                    sSocketActive = true;
-
-                    ListenerSocket l
-                            = new ListenerSocket(user.getName());
-                    Thread t
-                            = new Thread(l);
-                    t.start();
-
-                    t.sleep(2000);
-
-                    while (port == 0) {
-                        port = l.getPort();
-                    }
-
-                    InetAddress lhost = InetAddress.getLocalHost();
-                    user.setIpAdddr(lhost.getHostAddress() + " : " + port);
+//                    int port = 0;
+//                    sSocketActive = true;
+//
+//                    ListenerSocket l
+//                            = new ListenerSocket(user.getName());
+//                    Thread t
+//                            = new Thread(l);
+//                    t.start();
+//
+//                    t.sleep(2000);
+//
+//                    while (port == 0) {
+//                        port = l.getPort();
+//                    }
+//
+//                    InetAddress lhost = InetAddress.getLocalHost();
+//                    user.setIpAdddr(lhost.getHostAddress() + " : " + port);
                     m_dlSystem.updateUser(user);
 
                     if (closeAppView()) {

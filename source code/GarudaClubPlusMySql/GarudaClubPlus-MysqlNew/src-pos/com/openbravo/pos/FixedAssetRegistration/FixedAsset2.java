@@ -59,6 +59,7 @@ import org.apache.commons.beanutils.BeanComparator;
 import java.util.Iterator;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 /**
  *
  * @author dev3
@@ -88,13 +89,13 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     private String deac_id;
     private FixedAssetTableModel fxd_table;
     private String docum;
-   private int fsd;
+    private int fsd;
     private static AccountTable acctablemodel;
     private List<String> namelist = new ArrayList<String>();
-      private List<String> barcodelist = new ArrayList<String>();
-    boolean updateFlag=false;
-    
-     private static DataLogicFacilities dlf;
+    private List<String> barcodelist = new ArrayList<String>();
+    boolean updateFlag = false;
+
+    private static DataLogicFacilities dlf;
     private static String a_SearchkeyWithoutDot;
     static Object[] fetch_data;
     static String ss;
@@ -109,7 +110,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     private List<String> searchkey_list1 = new ArrayList<String>();
     private List<String> barcode_listFaMaster = new ArrayList<String>();
     List<String> searchkey_listBarcode = new ArrayList<String>();
-    static int max=0;
+    static int max = 0;
     static String ffa_id;
     protected Session s;
     private static String a_id;
@@ -130,9 +131,8 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     private static String acchead1;
     private static String existed_barcode;
     private static String created_barcode;
-    private static String existed_barcode1=null;
+    private static String existed_barcode1 = null;
     private static int savech_max;
-    
 
     public List<MaintenanceInfo> MaintenanceInfoList = new ArrayList<MaintenanceInfo>();
     File documentfile;
@@ -154,13 +154,13 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     private List<String> vendorList = new ArrayList<String>();
     private ComboBoxValModel vendorListModel;
     private ComboBoxValModel assetListModel;
-    
+
     ////////////////////////////////
     List< AccountMasterExt> mainHeadList;
-     List< AccountMasterExt> breakdownsList;
-      List< AccountMaster> accList;      
+    List< AccountMasterExt> breakdownsList;
+    List< AccountMaster> accList;
     /////////////////////////////////
-    
+
     public static String idf;
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
     DecimalFormat df = new DecimalFormat("#0.00" + "%");
@@ -1300,7 +1300,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     private void document_butActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_document_butActionPerformed
 
         try {
-            
+
             File file1 = new File(linktxt.getText().replace("./", ""));;
             if (file1.exists() == true) {
 
@@ -1329,7 +1329,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
         if (result == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileChooser.getSelectedFile();
             filename = selectedFile.getAbsolutePath();
-           
+
             linktxt.setText(filename);
             file = new File(filename);
 
@@ -1339,25 +1339,25 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
 
     private void mainheadsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_mainheadsItemStateChanged
         if (mainheads.getSelectedItem() == null) {
-              breakdowns.setSelectedIndex(-1);
+            breakdowns.setSelectedIndex(-1);
             breakdowns.setModel(new DefaultComboBoxModel());
             acccombo.setSelectedIndex(-1);
             acccombo.setModel(new DefaultComboBoxModel());
         }
         if (mainheads.getSelectedIndex() != -1) {
             try {
-                
+
                 AccountMasterExt mele = (AccountMasterExt) mainheads.getSelectedItem();
                 //added by pratima
                 breakdownsModel = new ComboBoxValModel(dmang.getaccountBreakpoints(mele.getSerachkey()));
-                 breakdownsList=dmang.getaccountBreakpoints(mele.getSerachkey());
+                breakdownsList = dmang.getaccountBreakpoints(mele.getSerachkey());
                 breakdowns.setModel(breakdownsModel);
                 breakdowns.setSelectedIndex(-1);
-                 accountheadlistModel = new ComboBoxValModel(dmang.getSubaccounts1(mele.getSearchkey()));
+                accountheadlistModel = new ComboBoxValModel(dmang.getSubaccounts1(mele.getSearchkey()));
                 acccombo.setModel(accountheadlistModel);
                 acccombo.setSelectedIndex(-1);
-                
-              //ended by pratima
+
+                //ended by pratima
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1365,18 +1365,18 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     }//GEN-LAST:event_mainheadsItemStateChanged
 
     private void breakdownsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_breakdownsItemStateChanged
-       //by pratima
-       if (breakdowns.getSelectedItem() == null) {
-             acccombo.setSelectedIndex(-1);
-             acccombo.setModel(new DefaultComboBoxModel());
+        //by pratima
+        if (breakdowns.getSelectedItem() == null) {
+            acccombo.setSelectedIndex(-1);
+            acccombo.setModel(new DefaultComboBoxModel());
         }
-           if (breakdowns.getSelectedIndex() != -1) {
+        if (breakdowns.getSelectedIndex() != -1) {
             try {
                 AccountMasterExt mele = (AccountMasterExt) breakdowns.getSelectedItem();
                 accountheadlistModel = new ComboBoxValModel(dmang.getSubaccounts1(mele.getSearchkey()));
                 acccombo.setModel(accountheadlistModel);
                 acccombo.setSelectedIndex(-1);
-               
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -1631,28 +1631,29 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                     String name = showdata.getname();
                     String barcode = showdata.getbarcode();
                     existed_barcode = barcode;
-                    
-                  String maj=null;
-                   String subhead=null;
-                   String sub=null;
-                  // String acchead=null;
-                    try{
-                    maj = dmang.getaccountbyid(showdata.getmajor_cls()).getName();
-                    maj1 = maj;
-                    
-                     subhead = dmang.getaccountbyid(showdata.getsub_head()).getName();
-                     subhead1 = subhead;
-                     
-                        sub =dmang.getaccountbyid( showdata.getsub_cls()).getName();
+
+                    String maj = null;
+                    String subhead = null;
+                    String sub = null;
+                    // String acchead=null;
+                    try {
+                        maj = dmang.getaccountbyid(showdata.getmajor_cls()).getName();
+                        maj1 = maj;
+
+                        subhead = dmang.getaccountbyid(showdata.getsub_head()).getName();
+                        subhead1 = subhead;
+
+                        sub = dmang.getaccountbyid(showdata.getsub_cls()).getName();
                         sub1 = sub;
-                     
-                 //   acchead = dmang.getaccountbyid(showdata.getac_head()).getName();
-                    }catch(Exception e){}
+
+                        //   acchead = dmang.getaccountbyid(showdata.getac_head()).getName();
+                    } catch (Exception e) {
+                    }
 //                    String subhead = showdata.getsub_head();
 //                    String sub = showdata.getsub_cls();
-                String acchead = showdata.getac_head();
+                    String acchead = showdata.getac_head();
                     acchead1 = acchead;
-                  
+
                     String vendor = showdata.getvendor();
                     int standalne = showdata.getstand_alone();
                     String dop = showdata.getdop();
@@ -1669,15 +1670,18 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                     Double rop = showdata.getrod();
                     Double wdv = showdata.getwdv();
                     String link = showdata.getlink();
-                    
+
                     String cos = Formats.DOUBLE.formatValue(cost);
-                    if(showdata.getMake()!=null)
-                    jTextFieldMake.setText(showdata.getMake());
-                     if(showdata.getModel()!=null)
-                    jTextFieldModel.setText(showdata.getModel());
-                     if(showdata.getWdvDate()!=null)
-                    wdvDate.setText(showdata.getWdvDate());
-                      
+                    if (showdata.getMake() != null) {
+                        jTextFieldMake.setText(showdata.getMake());
+                    }
+                    if (showdata.getModel() != null) {
+                        jTextFieldModel.setText(showdata.getModel());
+                    }
+                    if (showdata.getWdvDate() != null) {
+                        wdvDate.setText(showdata.getWdvDate());
+                    }
+
                     if (docum.equals("")) {
                         document_but.setVisible(false);
 
@@ -1829,21 +1833,20 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                 int row = jTable1.getSelectedRow();
                 FixedAssetInfo showdata = fxd_table.getList().get(row);
                 assetlink = showdata.getname();
-                
-                
+
                 try {
 
-                 assetlist = (List<String>) new StaticSentence(m_App.getSession(), "select link from fa_master where active=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
-                 } catch (Exception e) {
-                 e.printStackTrace();
-                 }
+                    assetlist = (List<String>) new StaticSentence(m_App.getSession(), "select link from fa_master where active=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (assetlist.contains(assetlink)) {
-                    
+
                     JOptionPane.showMessageDialog(this, "This asset is linked to another asset,change that linked asset and Deactivate..", null, JOptionPane.OK_OPTION);
 
                 } else {
-                  deac_id = showdata.getId();
-                    deactFixedast();  
+                    deac_id = showdata.getId();
+                    deactFixedast();
                 }
 
                 /*  try {
@@ -1867,68 +1870,63 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     }//GEN-LAST:event_deactivate_butActionPerformed
 
     private void savecha_butActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savecha_butActionPerformed
-        
+
         try {
-          
+
             //if (jTextField10.getText() != null && jTextField10.getText().trim().length() > 0) {
-              //  if (jTextField9.getText() != null && jTextField9.getText().trim().length() > 0) {
-               //     if ((date.getText() != null && date.getText().trim().length() > 0) && (instdate.getText() != null && instdate.getText().trim().length() > 0) && (putdate.getText() != null && putdate.getText().trim().length() > 0) && (commdate.getText() != null && commdate.getText().trim().length() > 0) && (captdate.getText() != null && captdate.getText().trim().length() > 0)) {
-                        if (name_txt.getText() != null && name_txt.getText().trim().length() > 0) {
-                            if (barcode_txt.getText() != null && barcode_txt.getText().trim().length() > 0) {
-                                if (jTextFieldMake.getText() != null && jTextFieldMake.getText().trim().length() > 0) {
-                                    if (jTextFieldModel.getText() != null && jTextFieldModel.getText().trim().length() > 0) {
-                                    //if ((elements.getSelectedIndex() != -1 && elements.getSelectedItem() != null) && (acccombo.getSelectedIndex() != -1 && acccombo.getSelectedItem() != null) && (vendorcombo.getSelectedIndex() != -1 && vendorcombo.getSelectedItem() != null)) {
+            //  if (jTextField9.getText() != null && jTextField9.getText().trim().length() > 0) {
+            //     if ((date.getText() != null && date.getText().trim().length() > 0) && (instdate.getText() != null && instdate.getText().trim().length() > 0) && (putdate.getText() != null && putdate.getText().trim().length() > 0) && (commdate.getText() != null && commdate.getText().trim().length() > 0) && (captdate.getText() != null && captdate.getText().trim().length() > 0)) {
+            if (name_txt.getText() != null && name_txt.getText().trim().length() > 0) {
+                if (barcode_txt.getText() != null && barcode_txt.getText().trim().length() > 0) {
+                    if (jTextFieldMake.getText() != null && jTextFieldMake.getText().trim().length() > 0) {
+                        if (jTextFieldModel.getText() != null && jTextFieldModel.getText().trim().length() > 0) {
+                            //if ((elements.getSelectedIndex() != -1 && elements.getSelectedItem() != null) && (acccombo.getSelectedIndex() != -1 && acccombo.getSelectedItem() != null) && (vendorcombo.getSelectedIndex() != -1 && vendorcombo.getSelectedItem() != null)) {
 
-                                        //try {
-                                           
+                            //try {
+                            //   namelist = (List<String>) new StaticSentence(m_App.getSession(), "select name from fa_master where active=true and id!= ?", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(id);
+                            //  } catch (Exception e) {
+                            //    e.printStackTrace();
+                            // }
+                            // if (namelist.contains(name_txt.getText().trim())) {
+                            //   JOptionPane.showMessageDialog(null, "Fixed asset with the name " + name_txt.getText().trim() + " already exist", null, JOptionPane.OK_OPTION);
+                            //} else {
+                            //       if (anotherassetradio.isSelected()) {
+                            //     if (assetcombo.getSelectedIndex() != -1 && assetcombo.getSelectedItem() != null) {
+                            Transaction t = new Transaction(m_App.getSession()) {
+                                @Override
+                                protected Object transact() throws BasicException {
+                                    int row = jTable1.getSelectedRow();
+                                    FixedAssetTableModel.FixedAssetInfo data = fxd_table.getList().get(row);
 
-                                         //   namelist = (List<String>) new StaticSentence(m_App.getSession(), "select name from fa_master where active=true and id!= ?", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(id);
-                                      //  } catch (Exception e) {
-                                        //    e.printStackTrace();
-                                       // }
-                                       // if (namelist.contains(name_txt.getText().trim())) {
-                                         //   JOptionPane.showMessageDialog(null, "Fixed asset with the name " + name_txt.getText().trim() + " already exist", null, JOptionPane.OK_OPTION);
+                                    id = data.getId();
+                                    Double costval = null;
+                                    Double rod = null;
+                                    Double wdv = null;
+                                    Double cor = null;
+                                    String brk = null;
+                                    String brkdwn = null;
+                                    String mainhcom = null;
+                                    String asset1 = null;
+                                    String fadifid = UUID.randomUUID().toString();
+                                    String acchead = null;
+                                    asset1 = assetcombo.getSelectedItem().toString();
+                                    String make = jTextFieldMake.getText();
+                                    String model = jTextFieldModel.getText();
 
-                                        //} else {
+                                    int stndal;
+                                    int strt;
+                                    //   String ele = elements.getSelectedItem().toString();
+                                    String ele = dmang.getaccountElements().get(elements.getSelectedIndex()).getId();
+                                    if (breakdowns.getSelectedIndex() != -1) {
+                                        //   brkdwn = breakdowns.getSelectedItem().toString();
+                                        brkdwn = breakdownsList.get(breakdowns.getSelectedIndex()).getId();
+                                    } else {
 
-                                     //       if (anotherassetradio.isSelected()) {
+                                        brkdwn = "";
 
-                                           //     if (assetcombo.getSelectedIndex() != -1 && assetcombo.getSelectedItem() != null) {
-                                                    Transaction t = new Transaction(m_App.getSession()) {
-                                                        @Override
-                                                        protected Object transact() throws BasicException {
-                                                      int row = jTable1.getSelectedRow();
-                                                    FixedAssetTableModel.FixedAssetInfo data = fxd_table.getList().get(row);
-                                                       
-                                                             id = data.getId();
-                                                            Double costval = null;
-                                                            Double rod = null;
-                                                            Double wdv = null;
-                                                            Double cor = null;
-                                                            String brk = null;
-                                                            String brkdwn = null;
-                                                            String mainhcom = null;
-                                                            String asset1 = null;
-                                                            String fadifid = UUID.randomUUID().toString();
-                                                            String acchead = null;
-                                                            asset1 = assetcombo.getSelectedItem().toString();
-                                                            String make=jTextFieldMake.getText();
-                                                            String model =jTextFieldModel.getText();
-                                                            
-                                                            int stndal;
-                                                            int strt;
-                                                         //   String ele = elements.getSelectedItem().toString();
-                                                            String  ele = dmang.getaccountElements().get(elements.getSelectedIndex()).getId();
-                                                            if (breakdowns.getSelectedIndex() != -1) {
-                                                             //   brkdwn = breakdowns.getSelectedItem().toString();
-                                                               brkdwn =  breakdownsList.get(breakdowns.getSelectedIndex()).getId();
-                                                            } else {
+                                    }
 
-                                                                brkdwn = "";
-
-                                                            }
-                                                              
-                                                            if (assetcombo.getSelectedItem() != null) {
+                                    if (assetcombo.getSelectedItem() != null) {
                                         asset = assetcombo.getSelectedItem().toString();
 
                                     } else {
@@ -1936,347 +1934,318 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                                         asset = " ";
 
                                     }
-                                                            if (mainheads.getSelectedIndex() != -1) {
-                                                              //  mainhcom = mainheads.getSelectedItem().toString();
-                                                               mainhcom = mainHeadList.get( mainheads.getSelectedIndex()).getId();
-                                                            } else {
+                                    if (mainheads.getSelectedIndex() != -1) {
+                                        //  mainhcom = mainheads.getSelectedItem().toString();
+                                        mainhcom = mainHeadList.get(mainheads.getSelectedIndex()).getId();
+                                    } else {
 
-                                                                mainhcom = "";
+                                        mainhcom = "";
 
-                                                            }
-
-                                                            if (standaloneradio.isSelected()) {
-                                                                stndal = 1;
-                                                            } else {
-                                                                stndal = 0;
-                                                            }
-                                                            if (strtlineradio.isSelected()) {
-                                                                strt = 1;
-                                                            } else {
-                                                                strt = 0;
-                                                            }
-
-                                                            costval = (Double) Formats.DOUBLE.parseValue(cost_txt.getText());
-                                                            rod = (Double) Formats.DOUBLE.parseValue(jTextField9.getText());
-                                                            cor = (Double) Formats.DOUBLE.parseValue(cstreplc_txt.getText());
-                                                            wdv = (Double) Formats.DOUBLE.parseValue(jTextField10.getText());
-                                                            Date purchasedate = new Date();
-                                                            Date commistiondate = new Date();
-                                                            Date installationdate = new Date();
-                                                            Date putdated = new Date();
-                                                            Date captdated = new Date();
-                                                            Date effectivedate = new Date();
-                                                            Calendar cal = Calendar.getInstance();
-                                                            cal.setTimeInMillis(purchasedate.getTime());
-                                                            cal.setTimeInMillis(commistiondate.getTime());
-                                                            cal.setTimeInMillis(installationdate.getTime());
-                                                            cal.setTimeInMillis(putdated.getTime());
-                                                            cal.setTimeInMillis(captdated.getTime());
-
-                                                            cal.set(Calendar.HOUR_OF_DAY, 00);
-                                                            cal.set(Calendar.MINUTE, 00);
-                                                            cal.set(Calendar.SECOND, 00);
-                                                            cal.set(Calendar.MILLISECOND, 00);
-                                                            Date wdvDate1=new Date();
-                                                            if(wdvDate.getText()!=null){
-                                                             
-                                                             wdvDate1.setTime(cal.getTimeInMillis());
-                                                           wdvDate1=(Date) Formats.TIMESTAMP.parseValue(wdvDate.getText());
-                                                            }else{
-                                                            wdvDate1=null;
-                                                            }
-                                                             if(date.getText()!=null){
-                                    purchasedate.setTime(cal.getTimeInMillis());
-                                    purchasedate = (Date) Formats.TIMESTAMP.parseValue(date.getText());
-                                    }else{
-                                     purchasedate=null;
                                     }
-                                    
-                                    if(commdate.getText()!=null){
-                                    commistiondate.setTime(cal.getTimeInMillis());
-                                    commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
-                                    }else{
-                                            commistiondate=null;
+
+                                    if (standaloneradio.isSelected()) {
+                                        stndal = 1;
+                                    } else {
+                                        stndal = 0;
+                                    }
+                                    if (strtlineradio.isSelected()) {
+                                        strt = 1;
+                                    } else {
+                                        strt = 0;
+                                    }
+
+                                    costval = (Double) Formats.DOUBLE.parseValue(cost_txt.getText());
+                                    rod = (Double) Formats.DOUBLE.parseValue(jTextField9.getText());
+                                    cor = (Double) Formats.DOUBLE.parseValue(cstreplc_txt.getText());
+                                    wdv = (Double) Formats.DOUBLE.parseValue(jTextField10.getText());
+                                    Date purchasedate = new Date();
+                                    Date commistiondate = new Date();
+                                    Date installationdate = new Date();
+                                    Date putdated = new Date();
+                                    Date captdated = new Date();
+                                    Date effectivedate = new Date();
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTimeInMillis(purchasedate.getTime());
+                                    cal.setTimeInMillis(commistiondate.getTime());
+                                    cal.setTimeInMillis(installationdate.getTime());
+                                    cal.setTimeInMillis(putdated.getTime());
+                                    cal.setTimeInMillis(captdated.getTime());
+
+                                    cal.set(Calendar.HOUR_OF_DAY, 00);
+                                    cal.set(Calendar.MINUTE, 00);
+                                    cal.set(Calendar.SECOND, 00);
+                                    cal.set(Calendar.MILLISECOND, 00);
+                                    Date wdvDate1 = new Date();
+                                    if (wdvDate.getText() != null) {
+
+                                        wdvDate1.setTime(cal.getTimeInMillis());
+                                        wdvDate1 = (Date) Formats.TIMESTAMP.parseValue(wdvDate.getText());
+                                    } else {
+                                        wdvDate1 = null;
+                                    }
+                                    if (date.getText() != null) {
+                                        purchasedate.setTime(cal.getTimeInMillis());
+                                        purchasedate = (Date) Formats.TIMESTAMP.parseValue(date.getText());
+                                    } else {
+                                        purchasedate = null;
+                                    }
+
+                                    if (commdate.getText() != null) {
+                                        commistiondate.setTime(cal.getTimeInMillis());
+                                        commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
+                                    } else {
+                                        commistiondate = null;
+                                    }
+
+                                    if (instdate.getText() != null) {
+                                        installationdate.setTime(cal.getTimeInMillis());
+                                        installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
+                                    } else {
+                                        installationdate = null;
+                                    }
+                                    if (putdate.getText() != null) {
+                                        putdated.setTime(cal.getTimeInMillis());
+                                        putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
+                                    } else {
+                                        putdated = null;
+                                    }
+
+                                    if (captdate.getText() != null) {
+                                        captdated.setTime(cal.getTimeInMillis());
+                                        captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
+                                    } else {
+                                        captdated = null;
+                                    }
+                                    //how to copy paste document files to particular folder
+                                    String string = UUID.randomUUID().toString();
+                                    String[] parts = string.split("-");
+                                    String part1 = parts[0];
+                                    String part2 = parts[1];
+
+                                    String flnm = linktxt.getText();
+                                    System.out.println("linktext svch" + linktxt.getText());
+                                    String name = "";
+                                    String x = "";
+                                    if (flnm.equals("")) {
+                                        name = "";
+                                    } else {
+
+                                        // String arr[] = flnm.split("/");
+                                        //added by pratima
+                                        char[] c = flnm.toCharArray();
+                                        int j = 0;
+                                        int l[] = new int[50];
+
+                                        for (int i = 0; i < c.length - 1; i++) {
+                                            if (c[i] == '\\') {
+                                                l[j] = i;
+                                                j++;
                                             }
-                                    
-                                    if(instdate.getText()!=null){
-                                    installationdate.setTime(cal.getTimeInMillis());
-                                    installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
-                                    }else{
-                                        installationdate =null;
-                                    }
-                                    if(putdate.getText()!=null){
-                                    putdated.setTime(cal.getTimeInMillis());
-                                    putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
-                                    }else{
-                                         putdated = null;
-                                    }
-                                    
-                                    if(captdate.getText()!=null){
-                                    captdated.setTime(cal.getTimeInMillis());
-                                    captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
-                                    }else{
-                                        captdated =null;
-                                    }
-                                                            //how to copy paste document files to particular folder
-                                                            String string = UUID.randomUUID().toString();
-                                                            String[] parts = string.split("-");
-                                                            String part1 = parts[0];
-                                                            String part2 = parts[1];
-                                                          
-                                                            String flnm = linktxt.getText();
-                                                            System.out.println("linktext svch" +linktxt.getText());
-                                                            String name = "";
-                                                            String x = "";
-                                                            if (flnm.equals("")) {
-                                                                name = "";
-                                                            } else {
+                                        }
+                                        if (j >= 1) {
+                                            x = "asset" + part1 + "" + flnm.substring((l[j - 1]) + 1, (flnm.length()));
+                                        } else {
 
-                                                               // String arr[] = flnm.split("/");
-                                       //added by pratima
-                                      
-                                         char[] c =flnm.toCharArray();
-                                         int j=0;
-                                         int l[]= new int[50];
-                                         
-                                        for(int i=0;i<c.length-1;i++) {
-                                        if(c[i] == '\\') {
-                                        l[j]=i;
-                                        j++;
+                                            x = "asset" + part1 + "" + flnm.substring(flnm.lastIndexOf(".") + 1, (flnm.length()));
                                         }
-                                        }
-                                        if(j>=1)
-                                        {
-                                            x = "asset" + part1+"" + flnm.substring((l[j-1])+1,(flnm.length()));
-                                        }else{
-                                      
-                                    
-                                         x = "asset" + part1+"" + flnm.substring(flnm.lastIndexOf(".")+1,(flnm.length()));
-                                        }
-                                         
-                                        
-                                         String filePath="./Asset Documents/"+ x;
-                                         File fi= new File(filePath);
-                                       //ended by pratima
-                                       
-                                      //  x = "asset" + part1 + arr[arr.length - 1];
+
+                                        String filePath = "./Asset Documents/" + x;
+                                        File fi = new File(filePath);
+                                        //ended by pratima
+
+                                        //  x = "asset" + part1 + arr[arr.length - 1];
                                         name = "./Asset Documents/" + x;
-                                        System.out.println("name"+name);
-                                   
-                                    
-                                                            }
-                                                             if ((installationdate!=null)&&(purchasedate!=null) ) {
-                                                            if ((installationdate.compareTo(purchasedate) >= 0)) {
-                                                                installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
-                                                                p = 1;
-                                                                msgdlg4.setVisible(false);
-                                                            } else {
-                                                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                                                msgdlg4.setVisible(true);
-                                                                p = 0;
-                                                                instdate.setText("");
-                                                            }
-                                                        }
-                                                             if ((putdated!=null)&&(installationdate!=null)&&(commistiondate!=null)) {
-                                                            if ((putdated.compareTo(installationdate) >= 0) && (putdated.compareTo(commistiondate) >= 0)) {
-                                                                putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
-                                                                k = 1;
-                                                                msgdlg.setVisible(false);
-                                                            } else {
-                                                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                                                msgdlg.setVisible(true);
-                                                                k = 0;
-                                                                putdate.setText("");
-                                                            }
-                                                        }
-                                                            if ((commistiondate!=null)&&(installationdate!=null)) {
-                                                             if ((commistiondate.compareTo(installationdate) >= 0)) {
-                                                                commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
-                                                                y = 1;
-                                                                msgdlg1.setVisible(false);
-                                                            } else {
-                                                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                                                msgdlg1.setVisible(true);
+                                        System.out.println("name" + name);
 
-                                                                y = 0;
-                                                                commdate.setText("");
-                                                            }
-                                                        }
-                                                            
-                                                            if ((captdated!=null)&&(installationdate!=null)&&(commistiondate!=null)&&(putdated!=null)) {
-                                                            if ((captdated.compareTo(installationdate) >= 0) && (captdated.compareTo(commistiondate) >= 0) && (captdated.compareTo(putdated) >= 0)) {
-                                                                captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
-                                                                z = 1;
-                                                                msgdlg2.setVisible(false);
-                                                            } else {
-                                                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                                                msgdlg2.setVisible(true);
-                                                                z = 0;
-                                                                captdate.setText("");
-                                                            }
-                                                        }
-                                                           // if ((k == 1) && (y == 1) && (z == 1) && (p == 1)) {
-                                                           
-                                                                Object[] param = new Object[]{fadifid, barcode_txt.getText().trim(), name_txt.getText().trim(), ele, mainhcom, brkdwn, getaccId(), stndal, asset1, getvendId(), purchasedate, costval, name, commistiondate, installationdate, putdated, captdated, strt, rod, wdv, cor, calcu_txt.getText().trim(), agency_txt.getText().trim(), m_App.getAppUserView().getUser().getName(), new Date(), true,  id,make,model,wdvDate1};
-                                                   //    if(  compareObjectfa(param, data)){
-                                                                int updatefa_master=new PreparedSentence(m_App.getSession(), "insert into fa_master(id,barcode,name,maj_classification,sub_head_class,sub_classification,account_head,is_stand_alone_asset,link,vendor,date_of_purchase,total_cost,scanned_doc,date_of_commission,date_of_installetion,date_put_to_use,date_of_capitalization,straightline_or_wdv,rate_of_deprecation,wdv_date_of_far,cost_of_replacement,how_calculated,agency_for_replacement,created_by,created_date,active,daecreference,make,model,wdvdate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING,Datas.TIMESTAMP})).exec(param);
-                                                                if(updatefa_master>0){
-                                                                int update_fixed_master = new PreparedSentence(m_App.getSession(), "update fa_master set active=false where id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{id});
-                                                                int update_AMC = new PreparedSentence(m_App.getSession(), "update fa_amc set fa_id=? where fa_id=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                int update_NonAMC = new PreparedSentence(m_App.getSession(), "update fa_nonamc set fa_id=? where fa_id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                int update_Maintnc = new PreparedSentence(m_App.getSession(), "update fa_maintenance set fa_id=? where fa_id=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                int update_Photo = new PreparedSentence(m_App.getSession(), "update fa_photograph set fa_id=? where fa_id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                int update_physcver = new PreparedSentence(m_App.getSession(), "update fa_physicalverification set fa_id=? where fa_id=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                int update_Reval = new PreparedSentence(m_App.getSession(), "update fa_revaluation set fa_id=? where fa_id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                int update_writeoff = new PreparedSentence(m_App.getSession(), "update fa_write_off_details set faid=? where faid=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
-                                                                assetListModel = new ComboBoxValModel(getAssetList());
-                                                                assetcombo.setModel(assetListModel);
-                                                                //ADDED BY GURUGANI
-                                                                int bbarcode = JOptionPane.showConfirmDialog(jPanel1, " Do you want to CREATE BARCODE ", "Barcode", JOptionPane.YES_NO_OPTION);
-                                                               if (bbarcode == JOptionPane.YES_OPTION) {
-try
-{
-       
-        FixedAsset2 fa=new FixedAsset2();
-        
-        String id=FixedAsset2.acc_id;
-        dlf=(DataLogicFacilities)m_App.getBean("com.openbravo.pos.clubmang.DataLogicFacilitiesCreate");
-            
-        fl=(Object[])new StaticSentence(m_App.getSession(), "SELECT searchkey FROM accountmaster WHERE id=?" , SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(id);  
-       
-        for (Object string1 : fl) 
-        {
-              // System.out.println(string.toString());
-              ss=string1.toString();
-        }
-        String barsequence_id = UUID.randomUUID().toString();
-        barcode2=fa.create_Barcode();
-        created_barcode=barcode2;
-        StringBuffer sb= new StringBuffer(barcode2);
-        System.out.println(barcode2);
-        barcode_listFaMaster=(List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
-       
+                                    }
+                                    if ((installationdate != null) && (purchasedate != null)) {
+                                        if ((installationdate.compareTo(purchasedate) >= 0)) {
+                                            installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
+                                            p = 1;
+                                            msgdlg4.setVisible(false);
+                                        } else {
+                                            //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                            msgdlg4.setVisible(true);
+                                            p = 0;
+                                            instdate.setText("");
+                                        }
+                                    }
+                                    if ((putdated != null) && (installationdate != null) && (commistiondate != null)) {
+                                        if ((putdated.compareTo(installationdate) >= 0) && (putdated.compareTo(commistiondate) >= 0)) {
+                                            putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
+                                            k = 1;
+                                            msgdlg.setVisible(false);
+                                        } else {
+                                            //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                            msgdlg.setVisible(true);
+                                            k = 0;
+                                            putdate.setText("");
+                                        }
+                                    }
+                                    if ((commistiondate != null) && (installationdate != null)) {
+                                        if ((commistiondate.compareTo(installationdate) >= 0)) {
+                                            commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
+                                            y = 1;
+                                            msgdlg1.setVisible(false);
+                                        } else {
+                                            //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                            msgdlg1.setVisible(true);
 
-           searchkey_listBarcode=(List<String>) new StaticSentence(m_App.getSession(), " select  a_searchkey from barcode_sequence", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
-           
-           String[] strarray = (String[]) searchkey_listBarcode.toArray(new String[0]);
-           int count = 0;
-           
-           if(searchkey_listBarcode.contains(ss))
-           {
-                Object[] fetchidmax_bysearchkey=(Object[]) new StaticSentence(m_App.getSession(), " select  id from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(ss);
-           
-                for (Object idd : fetchidmax_bysearchkey) 
-                {
-                    // System.out.println(string.toString());
-                    a_id=(String)idd;
-                }
-                Object[] fetchidmax_bysearchkey1=(Object[]) new StaticSentence(m_App.getSession(), " select  a_max from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.INT})).find(ss);
-           
-                for (Object max1 : fetchidmax_bysearchkey1) 
-                {
-                    // System.out.println(string.toString());
-                    a_max=(int)max1;
-                }
-                a_max=a_max+1;
-           
-                
-           
-                max=a_max;
-                if(max>=0&&max<=9)
-                    barcode1=sb.append("000").append(max);
-                else if(max>=10&&max<=99)
-                    barcode1=sb.append("00").append(max);
-                else if(max>=100&&max<=999)
-                    barcode1=sb.append("0").append(max);
-                else
-                    barcode1=sb.append(max);
-                Object[] param1 = new Object[]{a_id,max};
-               
-                 savech_max=max;       
-                 
-                //    if(  compareObjectfa(param, data)){
-              //fetch_data=param;
-                   
-                max =0;
-           }
-           else 
-           {
-               
-               max = max+1;
-               barcode1=sb.append("000"+""+max);
-               Object[] param2 = new Object[]{barsequence_id,ss,max};
+                                            y = 0;
+                                            commdate.setText("");
+                                        }
+                                    }
+
+                                    if ((captdated != null) && (installationdate != null) && (commistiondate != null) && (putdated != null)) {
+                                        if ((captdated.compareTo(installationdate) >= 0) && (captdated.compareTo(commistiondate) >= 0) && (captdated.compareTo(putdated) >= 0)) {
+                                            captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
+                                            z = 1;
+                                            msgdlg2.setVisible(false);
+                                        } else {
+                                            //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                            msgdlg2.setVisible(true);
+                                            z = 0;
+                                            captdate.setText("");
+                                        }
+                                    }
+                                    // if ((k == 1) && (y == 1) && (z == 1) && (p == 1)) {
+
+                                    Object[] param = new Object[]{fadifid, barcode_txt.getText().trim(), name_txt.getText().trim(), ele, mainhcom, brkdwn, getaccId(), stndal, asset1, getvendId(), purchasedate, costval, name, commistiondate, installationdate, putdated, captdated, strt, rod, wdv, cor, calcu_txt.getText().trim(), agency_txt.getText().trim(), m_App.getAppUserView().getUser().getName(), new Date(), true, id, make, model, wdvDate1};
+                                    //    if(  compareObjectfa(param, data)){
+                                    int updatefa_master = new PreparedSentence(m_App.getSession(), "insert into fa_master(id,barcode,name,maj_classification,sub_head_class,sub_classification,account_head,is_stand_alone_asset,link,vendor,date_of_purchase,total_cost,scanned_doc,date_of_commission,date_of_installetion,date_put_to_use,date_of_capitalization,straightline_or_wdv,rate_of_deprecation,wdv_date_of_far,cost_of_replacement,how_calculated,agency_for_replacement,created_by,created_date,active,daecreference,make,model,wdvdate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP})).exec(param);
+                                    if (updatefa_master > 0) {
+                                        int update_fixed_master = new PreparedSentence(m_App.getSession(), "update fa_master set active=false where id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{id});
+                                        int update_AMC = new PreparedSentence(m_App.getSession(), "update fa_amc set fa_id=? where fa_id=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        int update_NonAMC = new PreparedSentence(m_App.getSession(), "update fa_nonamc set fa_id=? where fa_id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        int update_Maintnc = new PreparedSentence(m_App.getSession(), "update fa_maintenance set fa_id=? where fa_id=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        int update_Photo = new PreparedSentence(m_App.getSession(), "update fa_photograph set fa_id=? where fa_id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        int update_physcver = new PreparedSentence(m_App.getSession(), "update fa_physicalverification set fa_id=? where fa_id=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        int update_Reval = new PreparedSentence(m_App.getSession(), "update fa_revaluation set fa_id=? where fa_id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        int update_writeoff = new PreparedSentence(m_App.getSession(), "update fa_write_off_details set faid=? where faid=?  ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{fadifid, idf});
+                                        assetListModel = new ComboBoxValModel(getAssetList());
+                                        assetcombo.setModel(assetListModel);
+                                        //ADDED BY GURUGANI
+                                        int bbarcode = JOptionPane.showConfirmDialog(jPanel1, " Do you want to CREATE BARCODE ", "Barcode", JOptionPane.YES_NO_OPTION);
+                                        if (bbarcode == JOptionPane.YES_OPTION) {
+                                            try {
+
+                                                FixedAsset2 fa = new FixedAsset2();
+
+                                                String id = FixedAsset2.acc_id;
+                                                dlf = (DataLogicFacilities) m_App.getBean("com.openbravo.pos.clubmang.DataLogicFacilitiesCreate");
+
+                                                fl = (Object[]) new StaticSentence(m_App.getSession(), "SELECT searchkey FROM accountmaster WHERE id=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(id);
+
+                                                for (Object string1 : fl) {
+                                                    // System.out.println(string.toString());
+                                                    ss = string1.toString();
+                                                }
+                                                String barsequence_id = UUID.randomUUID().toString();
+                                                barcode2 = fa.create_Barcode();
+                                                created_barcode = barcode2;
+                                                StringBuffer sb = new StringBuffer(barcode2);
+                                                System.out.println(barcode2);
+                                                barcode_listFaMaster = (List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+
+                                                searchkey_listBarcode = (List<String>) new StaticSentence(m_App.getSession(), " select  a_searchkey from barcode_sequence", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+
+                                                String[] strarray = (String[]) searchkey_listBarcode.toArray(new String[0]);
+                                                int count = 0;
+
+                                                if (searchkey_listBarcode.contains(ss)) {
+                                                    Object[] fetchidmax_bysearchkey = (Object[]) new StaticSentence(m_App.getSession(), " select  id from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(ss);
+
+                                                    for (Object idd : fetchidmax_bysearchkey) {
+                                                        // System.out.println(string.toString());
+                                                        a_id = (String) idd;
+                                                    }
+                                                    Object[] fetchidmax_bysearchkey1 = (Object[]) new StaticSentence(m_App.getSession(), " select  a_max from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.INT})).find(ss);
+
+                                                    for (Object max1 : fetchidmax_bysearchkey1) {
+                                                        // System.out.println(string.toString());
+                                                        a_max = (int) max1;
+                                                    }
+                                                    a_max = a_max + 1;
+
+                                                    max = a_max;
+                                                    if (max >= 0 && max <= 9) {
+                                                        barcode1 = sb.append("000").append(max);
+                                                    } else if (max >= 10 && max <= 99) {
+                                                        barcode1 = sb.append("00").append(max);
+                                                    } else if (max >= 100 && max <= 999) {
+                                                        barcode1 = sb.append("0").append(max);
+                                                    } else {
+                                                        barcode1 = sb.append(max);
+                                                    }
+                                                    Object[] param1 = new Object[]{a_id, max};
+
+                                                    savech_max = max;
+
+                                                    //    if(  compareObjectfa(param, data)){
+                                                    //fetch_data=param;
+                                                    max = 0;
+                                                } else {
+
+                                                    max = max + 1;
+                                                    barcode1 = sb.append("000" + "" + max);
+                                                    Object[] param2 = new Object[]{barsequence_id, ss, max};
 //                    if(  compareObjectfa(param, data)){
 //                    fetch_data=param;
-               new PreparedSentence(m_App.getSession(), "INSERT INTO barcode_sequence(id,a_searchkey,a_max) VALUES(?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING, Datas.INT})).exec(param2);
-                    
-               
-           }
-           
-           //Object[] param = new Object[]{barcode_txt.getText().trim(), };
-            
-            
-           if(existed_barcode.length()==10||existed_barcode.length()==14||existed_barcode.length()==18)
-           {
-              
-                existed_barcode1=existed_barcode.substring(0,existed_barcode.length()-4 );
-           }
-           if(created_barcode.equals(existed_barcode1))
-           {
-                 String barcode1_copy=existed_barcode;
-                 if(new PreparedSentence(m_App.getSession(), "UPDATE fa_master SET BARCODE=?  WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING})).exec(new Object[]{barcode1_copy, fadifid})>=0)
-                 {
-                        
-                        JOptionPane.showMessageDialog(null, "Existing Barcode Correct", "Success", JOptionPane.INFORMATION_MESSAGE);
-                 }
-                
-            }
-           
-           else
-           {
-                 new PreparedSentence(m_App.getSession(), "UPDATE barcode_sequence SET a_max=? WHERE id=?", new SerializerWriteBasic(new Datas[]{Datas.INT,Datas.STRING})).exec(new Object[]{savech_max, a_id});
-                
-                String barcode1_copy=barcode1.toString();
-               
-                if(barcode_listFaMaster.contains(barcode1_copy)) 
-                {
-                   
-                   JOptionPane.showMessageDialog(null, "Barcode  already  existed..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else
-                {
-                    //Object[] param = new Object[]{barcode_txt.getText().trim(), };
-                    String fffa_id=fadifid;
-                    System.out.println(fffa_id); 
-                    new PreparedSentence(m_App.getSession(), "UPDATE fa_master SET BARCODE=?  WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING})).exec(new Object[]{barcode1_copy, fadifid});
-                    
-                    fa.reset();
-                }
-           }
-}
- catch(Exception e)
- {
-      e.printStackTrace();
- }
-                                                                }
-                                                              updateFlag=true;
-                                                            }
+                                                    new PreparedSentence(m_App.getSession(), "INSERT INTO barcode_sequence(id,a_searchkey,a_max) VALUES(?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.INT})).exec(param2);
 
-                                                            //continuation of copy paste doc
-                                                            if (linktxt.getText() != null) {
-                                                                File srcDir = new File(linktxt.getText());
-                                                                FileInputStream fii;
-                                                                FileOutputStream fio;
-                                                                try {
+                                                }
 
-                                                                   fii = new FileInputStream(srcDir);
+                                                //Object[] param = new Object[]{barcode_txt.getText().trim(), };
+                                                if (existed_barcode.length() == 10 || existed_barcode.length() == 14 || existed_barcode.length() == 18) {
+
+                                                    existed_barcode1 = existed_barcode.substring(0, existed_barcode.length() - 4);
+                                                }
+                                                if (created_barcode.equals(existed_barcode1)) {
+                                                    String barcode1_copy = existed_barcode;
+                                                    if (new PreparedSentence(m_App.getSession(), "UPDATE fa_master SET BARCODE=?  WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{barcode1_copy, fadifid}) >= 0) {
+
+                                                        JOptionPane.showMessageDialog(null, "Existing Barcode Correct", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                                    }
+
+                                                } else {
+                                                    new PreparedSentence(m_App.getSession(), "UPDATE barcode_sequence SET a_max=? WHERE id=?", new SerializerWriteBasic(new Datas[]{Datas.INT, Datas.STRING})).exec(new Object[]{savech_max, a_id});
+
+                                                    String barcode1_copy = barcode1.toString();
+
+                                                    if (barcode_listFaMaster.contains(barcode1_copy)) {
+
+                                                        JOptionPane.showMessageDialog(null, "Barcode  already  existed..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                                    } else {
+                                                        //Object[] param = new Object[]{barcode_txt.getText().trim(), };
+                                                        String fffa_id = fadifid;
+                                                        System.out.println(fffa_id);
+                                                        new PreparedSentence(m_App.getSession(), "UPDATE fa_master SET BARCODE=?  WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{barcode1_copy, fadifid});
+
+                                                        fa.reset();
+                                                    }
+                                                }
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        updateFlag = true;
+                                    }
+
+                                    //continuation of copy paste doc
+                                    if (linktxt.getText() != null) {
+                                        File srcDir = new File(linktxt.getText());
+                                        FileInputStream fii;
+                                        FileOutputStream fio;
+                                        try {
+
+                                            fii = new FileInputStream(srcDir);
 
                                             fio = new FileOutputStream("./Asset Documents/" + x + "");
                                             byte[] b = new byte[1024];
                                             //int i = 0;
                                             int length;
                                             try {
-                                               // while ((fii.read(b)) > 0) {
+                                                // while ((fii.read(b)) > 0) {
                                                 while ((length = fii.read(b)) > 0) {//added by pratima
                                                     fio.write(b);
                                                     //fio.write(b,0,length);//added by pratima
@@ -2289,34 +2258,33 @@ try
                                                 Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
 
                                             }
-                                                   
-                                                            } catch (Exception e) {
-                                                                    e.printStackTrace();
 
-                                                                    Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
 
-                                                                }
-                                                            }
-                                                           // }//compare end
-                                                            return null;
-                                                        }
-                                                    };
-                                                    t.execute();
-                                                   // if ((k == 1) && (y == 1) && (z == 1) && (p == 1) ) {
-                                                   if(updateFlag==true){    
-                                                       JOptionPane.showMessageDialog(this, "Updated Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                                                        reset();
-                                                       updateFlag=false;
-                                                     }else{
-                                                               JOptionPane.showMessageDialog(this, "No changes are found.!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                                                    
-                                                               }
-                                                    
+                                            Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
+
+                                        }
+                                    }
+                                    // }//compare end
+                                    return null;
+                                }
+                            };
+                            t.execute();
+                            // if ((k == 1) && (y == 1) && (z == 1) && (p == 1) ) {
+                            if (updateFlag == true) {
+                                JOptionPane.showMessageDialog(this, "Updated Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                reset();
+                                updateFlag = false;
+                            } else {
+                                JOptionPane.showMessageDialog(this, "No changes are found.!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+
 //                                                } else {
 //                                                    JOptionPane.showMessageDialog(this, "Please select asset which is the link to another asset", null, JOptionPane.OK_OPTION);
 //
 //                                                }
-
 //                                            } else {
 //
 //                                                Transaction t = new Transaction(m_App.getSession()) {
@@ -2518,25 +2486,23 @@ try
 //                                                }
 //
 //                                            }
-
-                                       // }
-
-                                    //}
-                                    //else {
-                                 //       JOptionPane.showMessageDialog(this, "Please ensure that account head and vendor should not be empty", null, JOptionPane.OK_OPTION);
-                                  //  }
-                                    } else {
-                                    JOptionPane.showMessageDialog(this, "Please ensure that Model is not empty", null, JOptionPane.OK_OPTION);
-                                }
-                                } else {
-                                    JOptionPane.showMessageDialog(this, "Please ensure that Make is not empty", null, JOptionPane.OK_OPTION);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Please ensure that barcode is not empty", null, JOptionPane.OK_OPTION);
-                            }
+                            // }
+                            //}
+                            //else {
+                            //       JOptionPane.showMessageDialog(this, "Please ensure that account head and vendor should not be empty", null, JOptionPane.OK_OPTION);
+                            //  }
                         } else {
-                            JOptionPane.showMessageDialog(this, "Please ensure that Name is not empty", null, JOptionPane.OK_OPTION);
+                            JOptionPane.showMessageDialog(this, "Please ensure that Model is not empty", null, JOptionPane.OK_OPTION);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Please ensure that Make is not empty", null, JOptionPane.OK_OPTION);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please ensure that barcode is not empty", null, JOptionPane.OK_OPTION);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please ensure that Name is not empty", null, JOptionPane.OK_OPTION);
+            }
 
 //                    } else {
 //                        JOptionPane.showMessageDialog(this, "Select  Date ", "incomplte form", JOptionPane.WARNING_MESSAGE);
@@ -2577,31 +2543,30 @@ try
             if (name_txt.getText() != null && name_txt.getText().trim().length() > 0) {
                 if (barcode_txt.getText() != null && barcode_txt.getText().trim().length() > 0) {
                     if (jTextFieldMake.getText() != null && jTextFieldMake.getText().trim().length() > 0) {
-                        if (jTextFieldModel.getText() != null && jTextFieldModel.getText().trim().length() > 0 ) {
-                            if (elements.getSelectedIndex() != -1 && elements.getSelectedItem() != null && acccombo.getSelectedIndex() != -1 && acccombo.getSelectedItem() != null ){
-                                    //&& vendorcombo.getSelectedIndex() != -1 && vendorcombo.getSelectedItem() != null) {
-                               try {
-                                            namelist = (List<String>) new StaticSentence(m_App.getSession(), "select name from fa_master where active=true ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
-                                            barcodelist =(List<String>) new StaticSentence(m_App.getSession(), "select barcode from fa_master  ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
-                                      
-                                        
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    
-                                    if ((anotherassetradio.isSelected())) {
+                        if (jTextFieldModel.getText() != null && jTextFieldModel.getText().trim().length() > 0) {
+                            if (elements.getSelectedIndex() != -1 && elements.getSelectedItem() != null && acccombo.getSelectedIndex() != -1 && acccombo.getSelectedItem() != null) {
+                                //&& vendorcombo.getSelectedIndex() != -1 && vendorcombo.getSelectedItem() != null) {
+                                try {
+                                    namelist = (List<String>) new StaticSentence(m_App.getSession(), "select name from fa_master where active=true ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+                                    barcodelist = (List<String>) new StaticSentence(m_App.getSession(), "select barcode from fa_master  ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                if ((anotherassetradio.isSelected())) {
                                     if (assetcombo.getSelectedIndex() != -1 && assetcombo.getSelectedItem() != null) {
-                                       
+
                                         if (namelist.contains(name_txt.getText().trim())) {
                                             JOptionPane.showMessageDialog(null, "Facility with the name " + name_txt.getText() + " already exist", null, JOptionPane.OK_OPTION);
-                                            
+
                                         } else {
-                                            if( barcodelist.contains(barcode_txt.getText().trim())){
-                                             
+                                            if (barcodelist.contains(barcode_txt.getText().trim())) {
+
                                                 JOptionPane.showMessageDialog(null, "Facility with the Barcode" + barcode_txt.getText() + " already exist", null, JOptionPane.OK_OPTION);
-                                            
-                                            }else{
-                                            insertlib_asset();
+
+                                            } else {
+                                                insertlib_asset();
                                             }
                                         }
 
@@ -2620,15 +2585,15 @@ try
                                     if (namelist.contains(name_txt.getText().trim())) {
                                         JOptionPane.showMessageDialog(null, "Facility with the name " + name_txt.getText() + " already exist", null, JOptionPane.OK_OPTION);
 
-                                    }else {
-                                            if( barcodelist.contains(barcode_txt.getText().trim())){
-                                             
-                                                JOptionPane.showMessageDialog(null, "Facility with the Barcode" + barcode_txt.getText() + " already exist", null, JOptionPane.OK_OPTION);
-                                            
-                                            } else {
+                                    } else {
+                                        if (barcodelist.contains(barcode_txt.getText().trim())) {
 
-                                        insertlib_asset();
-                                            }
+                                            JOptionPane.showMessageDialog(null, "Facility with the Barcode" + barcode_txt.getText() + " already exist", null, JOptionPane.OK_OPTION);
+
+                                        } else {
+
+                                            insertlib_asset();
+                                        }
                                     }
 
                                 }
@@ -2653,7 +2618,7 @@ try
             e.printStackTrace();
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
-           // JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+            // JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -2716,7 +2681,7 @@ try
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void submit_butActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_butActionPerformed
-        flag=1;        
+        flag = 1;
         JOptionPane.showMessageDialog(this, "Fixed Asset Registered Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
         reset();
     }//GEN-LAST:event_submit_butActionPerformed
@@ -2829,16 +2794,16 @@ try
 
                 AccountMasterExt mele = (AccountMasterExt) elements.getSelectedItem();
                 mainheadsModel = new ComboBoxValModel(dmang.getaccountMainHeads1(mele.getSerachkey()));
-                mainHeadList=dmang.getaccountMainHeads1(mele.getSerachkey());
+                mainHeadList = dmang.getaccountMainHeads1(mele.getSerachkey());
                 mainheads.setModel(mainheadsModel);
                 mainheads.setSelectedIndex(-1);
                 //added by pratima
                 breakdownsModel = new ComboBoxValModel(dmang.getaccountBreakpoints(mele.getSerachkey()));
-                breakdownsList=dmang.getaccountBreakpoints(mele.getSerachkey());
+                breakdownsList = dmang.getaccountBreakpoints(mele.getSerachkey());
                 breakdowns.setModel(breakdownsModel);
                 breakdowns.setSelectedIndex(-1);
                 accountheadlistModel = new ComboBoxValModel(dmang.getSubaccounts1(mele.getSearchkey()));
-                 accList=dmang.getSubaccounts1(mele.getSearchkey());
+                accList = dmang.getSubaccounts1(mele.getSearchkey());
                 acccombo.setModel(accountheadlistModel);
                 acccombo.setSelectedIndex(-1);
                 //ended by pratima
@@ -2850,27 +2815,26 @@ try
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        try{
-           max=0;
-            FixedAsset2 fa=new FixedAsset2();
-        
-            String id=FixedAsset2.acc_id;
-            dlf=(DataLogicFacilities)m_App.getBean("com.openbravo.pos.clubmang.DataLogicFacilitiesCreate");
-            
-            fl=(Object[])new StaticSentence(m_App.getSession(), "SELECT searchkey FROM accountmaster WHERE id=?" , SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(id);  
-       
-            for (Object string : fl) 
-            {
-               // System.out.println(string.toString());
-                ss=string.toString();
+        try {
+            max = 0;
+            FixedAsset2 fa = new FixedAsset2();
+
+            String id = FixedAsset2.acc_id;
+            dlf = (DataLogicFacilities) m_App.getBean("com.openbravo.pos.clubmang.DataLogicFacilitiesCreate");
+
+            fl = (Object[]) new StaticSentence(m_App.getSession(), "SELECT searchkey FROM accountmaster WHERE id=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(id);
+
+            for (Object string : fl) {
+                // System.out.println(string.toString());
+                ss = string.toString();
             }
             String barsequence_id = UUID.randomUUID().toString();
-            barcode2=fa.create_Barcode();
-            barcode4=fa.create_Barcode();
-            StringBuffer sb= new StringBuffer(barcode2);
-            StringBuffer sb1= new StringBuffer(barcode4);
-           
-            searchkey_list1=(List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+            barcode2 = fa.create_Barcode();
+            barcode4 = fa.create_Barcode();
+            StringBuffer sb = new StringBuffer(barcode2);
+            StringBuffer sb1 = new StringBuffer(barcode4);
+
+            searchkey_list1 = (List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 //           Iterator it=searchkey_list.iterator();
 //           while(it.hasNext())
 //           {
@@ -2878,12 +2842,11 @@ try
 //           }
 //          barcode2.substring(0, barcode2.length()-4);
 //          FixedAssetTableModel.FixedAssetInfo
-           searchkey_listBarcode=(List<String>) new StaticSentence(m_App.getSession(), " select  a_searchkey from barcode_sequence", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
-           String[] strarray = (String[]) searchkey_listBarcode.toArray(new String[0]);
-           int count = 0;
-           if(searchkey_listBarcode.contains(ss))
-           {
-               test_searchkey1=ss;
+            searchkey_listBarcode = (List<String>) new StaticSentence(m_App.getSession(), " select  a_searchkey from barcode_sequence", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+            String[] strarray = (String[]) searchkey_listBarcode.toArray(new String[0]);
+            int count = 0;
+            if (searchkey_listBarcode.contains(ss)) {
+                test_searchkey1 = ss;
 //              for(int i=0;i<strarray.length;i++)
 //              {
 //                  if(ss.equalsIgnoreCase(strarray[i])){
@@ -2891,51 +2854,47 @@ try
 //                   
 //               }
 //              }
-                Object[] fetchidmax_bysearchkey=(Object[]) new StaticSentence(m_App.getSession(), " select  id from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(ss);
-           
-                for (Object idd : fetchidmax_bysearchkey) 
-                {
+                Object[] fetchidmax_bysearchkey = (Object[]) new StaticSentence(m_App.getSession(), " select  id from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find(ss);
+
+                for (Object idd : fetchidmax_bysearchkey) {
 //                  System.out.println(string.toString());
-                    a_id=(String)idd;
+                    a_id = (String) idd;
                 }
-                Object[] fetchidmax_bysearchkey1=(Object[]) new StaticSentence(m_App.getSession(), " select  a_max from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.INT})).find(ss);
-           
-                for (Object max1 : fetchidmax_bysearchkey1) 
-                {
+                Object[] fetchidmax_bysearchkey1 = (Object[]) new StaticSentence(m_App.getSession(), " select  a_max from barcode_sequence where a_searchkey=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.INT})).find(ss);
+
+                for (Object max1 : fetchidmax_bysearchkey1) {
 //                  System.out.println(string.toString());
-                    a_max=(int)max1;
-                    mm=a_max;
+                    a_max = (int) max1;
+                    mm = a_max;
                 }
-                a_max=a_max+1;
-           
-                
-                max=a_max;
-                max3=mm;
-                if(max>=0&&max<=9){
-                    barcode1=sb.append("000").append(max);
-                barcode3=sb1.append("000").append(max);}
-                else if(max>=10&&max<=99){
-                    barcode1=sb.append("00").append(max);
-                    barcode3=sb1.append("00").append(max);}
-                else if(max>=100&&max<=999){
-                    barcode1=sb.append("0").append(max);
-                barcode3=sb1.append("0").append(max);}
-                else{
-                    barcode1=sb.append(max);
-                barcode3=sb1.append(max);}
-                max1=max;
-                max =0;
-           }
-           else 
-           {
-               test_searchkey2=ss;
-               
-               max = max+1;
-               max2=max;
-               barcode1=sb.append("000").append(max);
-               barcode3=sb1.append("000").append(max2);
-              max =0;
-           }
+                a_max = a_max + 1;
+
+                max = a_max;
+                max3 = mm;
+                if (max >= 0 && max <= 9) {
+                    barcode1 = sb.append("000").append(max);
+                    barcode3 = sb1.append("000").append(max);
+                } else if (max >= 10 && max <= 99) {
+                    barcode1 = sb.append("00").append(max);
+                    barcode3 = sb1.append("00").append(max);
+                } else if (max >= 100 && max <= 999) {
+                    barcode1 = sb.append("0").append(max);
+                    barcode3 = sb1.append("0").append(max);
+                } else {
+                    barcode1 = sb.append(max);
+                    barcode3 = sb1.append(max);
+                }
+                max1 = max;
+                max = 0;
+            } else {
+                test_searchkey2 = ss;
+
+                max = max + 1;
+                max2 = max;
+                barcode1 = sb.append("000").append(max);
+                barcode3 = sb1.append("000").append(max2);
+                max = 0;
+            }
 //          if(searchkey_list.contains(barcode2)){System.out.println("CONTAINS THE CURRENT BARCODE");
 //               max=max;
 //               barcode1=sb.append("000"+""+max);
@@ -2948,23 +2907,20 @@ try
 //               barcode1=sb.append("000"+""+max);
 //               System.out.println(barcode1);
 //           }
-           barcode1_copy=barcode1.toString();
-          
-           barcode3_copy=barcode3.toString();
-          
-           barcode_listFaMaster=(List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+            barcode1_copy = barcode1.toString();
+
+            barcode3_copy = barcode3.toString();
+
+            barcode_listFaMaster = (List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 //           Iterator it=searchkey_list.iterator();
 //           while(it.hasNext())
 //           {
 //               System.out.println(it.next());
 //           }
-         
-           
-                
+
 //             if(barcode_listFaMaster.contains(barcode3_copy))
-           if(flag==1)
-           {
-                
+            if (flag == 1) {
+
 //           if(test_searchkey2.equals(ss) && mm==max2)  
 //           {
 //                System.out.println("BARCODE Already exists!!!!!");
@@ -2993,54 +2949,45 @@ try
 //                 System.out.println("BARCODE Already exists!!!!!");
 //                JOptionPane.showMessageDialog(this, "Barcode already created ..!", "Success", JOptionPane.INFORMATION_MESSAGE);  
 //                System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww44444" );
-           
-             
-               
-                if(searchkey_listBarcode.contains(ss))
-                {
-                    Object[] param1 = new Object[]{barsequence_id,ss,max1};
+                if (searchkey_listBarcode.contains(ss)) {
+                    Object[] param1 = new Object[]{barsequence_id, ss, max1};
 //                  if(  compareObjectfa(param, data)){
 //                  fetch_data=param;
-                    new PreparedSentence(m_App.getSession(), "UPDATE barcode_sequence SET a_max=? WHERE id=?", new SerializerWriteBasic(new Datas[]{Datas.INT,Datas.STRING})).exec(new Object[]{max1, a_id});
-                    
-                }
-                else
-                {
-                    Object[] param2 = new Object[]{barsequence_id,ss,max2};
+                    new PreparedSentence(m_App.getSession(), "UPDATE barcode_sequence SET a_max=? WHERE id=?", new SerializerWriteBasic(new Datas[]{Datas.INT, Datas.STRING})).exec(new Object[]{max1, a_id});
+
+                } else {
+                    Object[] param2 = new Object[]{barsequence_id, ss, max2};
 //                  if(  compareObjectfa(param, data)){
 //                  fetch_data=param;
-                    new PreparedSentence(m_App.getSession(), "INSERT INTO barcode_sequence(id,a_searchkey,a_max) VALUES(?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING, Datas.INT})).exec(param2);
-                    
+                    new PreparedSentence(m_App.getSession(), "INSERT INTO barcode_sequence(id,a_searchkey,a_max) VALUES(?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.INT})).exec(param2);
+
                 }
-           
+
                 //Object[] param = new Object[]{barcode_txt.getText().trim(), };
-                String fffa_id=FixedAsset2.ffa_id;
-                
-                barcode_listFaMaster=(List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+                String fffa_id = FixedAsset2.ffa_id;
+
+                barcode_listFaMaster = (List<String>) new StaticSentence(m_App.getSession(), " select  barcode from fa_master", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 //              if(searchkey_list.contains(barcode1_copy)) 
 //              {
 //                  System.out.println("BARCODE Already exists!!!!!");
 //                  JOptionPane.showMessageDialog(this, "Barcode already created ..!", "Success", JOptionPane.INFORMATION_MESSAGE);
 //              }
 //              else{
-                if(new PreparedSentence(m_App.getSession(), "UPDATE fa_master SET BARCODE=?  WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING,Datas.STRING})).exec(new Object[]{barcode1_copy, fffa_id})>=0)
-                {
-                   
+                if (new PreparedSentence(m_App.getSession(), "UPDATE fa_master SET BARCODE=?  WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{barcode1_copy, fffa_id}) >= 0) {
+
                     JOptionPane.showMessageDialog(this, "Barcode created Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else
+                } else {
                     JOptionPane.showMessageDialog(this, "Barcode created Not Successfull..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
                 flag--;
                 fa.reset();
-             //}
-             }
-           else{
-                
+                //}
+            } else {
+
                 JOptionPane.showMessageDialog(this, "Barcode already created ..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                
-              }
-           }
-        catch(Exception e){
+
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -3063,7 +3010,7 @@ try
         wdvDate.setEditable(false);
         Date d;
         try {
-            d = (Date) Formats.TIMESTAMP.parseValue( wdvDate.getText());
+            d = (Date) Formats.TIMESTAMP.parseValue(wdvDate.getText());
         } catch (BasicException e) {
             d = null;
         }
@@ -3362,7 +3309,7 @@ try
         //elementsModel = new ComboBoxValModel(dmang.getaccountParElements());
         elementsModel = new ComboBoxValModel(dmang.getaccountElements());//added by pratima
         elements.setModel(elementsModel);
-      
+
         writeoff_but.setVisible(false);
         PhysicalVerification_but.setVisible(false);
         photo_butt.setVisible(false);
@@ -3401,7 +3348,6 @@ try
 
         return assetList;
     }
-    
 
     public String getaccId() {
         String acchead = null;
@@ -3425,7 +3371,7 @@ try
         } catch (BasicException ex) {
             Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        acc_id=accclass;
+        acc_id = accclass;
         return accclass;
     }
 
@@ -3437,7 +3383,8 @@ try
                 vendorlist = (List<Object>) new StaticSentence(m_App.getSession(), "select  id from vendor  where name=? and active=true", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vendorcombo.getSelectedItem());
                 vendor = (String) vendorlist.get(0);
 //
-            } else {                vendor = "null";
+            } else {
+                vendor = "null";
             }
 
         } catch (BasicException ex) {
@@ -3467,330 +3414,330 @@ try
 
     private void insertlib_asset() {
 
-    //    if (jTextField10.getText() != null && jTextField10.getText().trim().length() > 0) {
-       //     if (jTextField9.getText() != null && jTextField9.getText().trim().length() > 0) {
-          //      if ((date.getText() != null && date.getText().trim().length() > 0) && (instdate.getText() != null && instdate.getText().trim().length() > 0) && (putdate.getText() != null && putdate.getText().trim().length() > 0) && (commdate.getText() != null && commdate.getText().trim().length() > 0) && (captdate.getText() != null && captdate.getText().trim().length() > 0)) {
+        //    if (jTextField10.getText() != null && jTextField10.getText().trim().length() > 0) {
+        //     if (jTextField9.getText() != null && jTextField9.getText().trim().length() > 0) {
+        //      if ((date.getText() != null && date.getText().trim().length() > 0) && (instdate.getText() != null && instdate.getText().trim().length() > 0) && (putdate.getText() != null && putdate.getText().trim().length() > 0) && (commdate.getText() != null && commdate.getText().trim().length() > 0) && (captdate.getText() != null && captdate.getText().trim().length() > 0)) {
+        try {
+            if (name_txt.getText().trim().length() > 0) {
+                if (anotherassetradio.isSelected()) {
+                    if (assetcombo.getSelectedIndex() == -1) {
+                        JOptionPane.showMessageDialog(this, "please select asset which is link to another asset ", "incomplte form", JOptionPane.WARNING_MESSAGE);
 
-                    try {
-                        if (name_txt.getText().trim().length() > 0) {
-                            if (anotherassetradio.isSelected()) {
-                                if (assetcombo.getSelectedIndex() == -1) {
-                                    JOptionPane.showMessageDialog(this, "please select asset which is link to another asset ", "incomplte form", JOptionPane.WARNING_MESSAGE);
+                    }
 
+                }
+                Transaction t = new Transaction(m_App.getSession()) {
+                    @Override
+                    protected Object transact() throws BasicException {
+
+                        String ab = linktxt.getText();
+
+                        int strline;
+                        Double costval = null;
+                        Double rod = null;
+                        Double wdv = null;
+                        Double cor = null;
+                        String brk = null;
+                        String make = jTextFieldMake.getText();
+                        String model = jTextFieldModel.getText();
+                        int stdln;
+                        String maincom = null;
+                        String acchead = null;
+                        costval = (Double) Formats.DOUBLE.parseValue(cost_txt.getText());
+                        if (jTextField9.getText() != null && jTextField9.getText().trim().length() > 0) {
+                            rod = (Double) Formats.DOUBLE.parseValue(jTextField9.getText());
+                        }
+                        cor = (Double) Formats.DOUBLE.parseValue(cstreplc_txt.getText());
+                        if (jTextField10.getText() != null && jTextField10.getText().trim().length() > 0) {
+                            wdv = (Double) Formats.DOUBLE.parseValue(jTextField10.getText());
+                        }
+                        Date purchasedate = new Date();
+                        Date commistiondate = new Date();
+                        Date installationdate = new Date();
+                        Date putdated = new Date();
+                        Date captdated = new Date();
+                        Date effectivedate = new Date();
+                        Date wdvDate1 = new Date();
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(purchasedate.getTime());
+                        cal.setTimeInMillis(commistiondate.getTime());
+                        cal.setTimeInMillis(installationdate.getTime());
+                        cal.setTimeInMillis(putdated.getTime());
+                        cal.setTimeInMillis(captdated.getTime());
+
+                        wdvDate1 = (Date) Formats.TIMESTAMP.parseValue(wdvDate.getText());
+                        if (date.getText() != null) {
+                            purchasedate.setTime(cal.getTimeInMillis());
+                            purchasedate = (Date) Formats.TIMESTAMP.parseValue(date.getText());
+                        } else {
+                            purchasedate = null;
+                        }
+
+                        if (commdate.getText() != null) {
+                            commistiondate.setTime(cal.getTimeInMillis());
+                            commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
+                        } else {
+                            commistiondate = null;
+                        }
+
+                        if (instdate.getText() != null) {
+                            installationdate.setTime(cal.getTimeInMillis());
+                            installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
+                        } else {
+                            installationdate = null;
+                        }
+                        if (putdate.getText() != null) {
+                            putdated.setTime(cal.getTimeInMillis());
+                            putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
+                        } else {
+                            putdated = null;
+                        }
+
+                        if (captdate.getText() != null) {
+                            captdated.setTime(cal.getTimeInMillis());
+                            captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
+                        } else {
+                            captdated = null;
+                        }
+                        if (standaloneradio.isSelected()) {
+                            stdln = 1;
+
+                        } else {
+                            stdln = 0;
+
+                        }
+
+                        if (strtlineradio.isSelected()) {
+                            strline = 1;
+                        } else {
+                            strline = 0;
+                        }
+                        if (breakdowns.getSelectedItem() != null) {
+                            //   brk = breakdowns.getSelectedItem().toString();
+                            brk = breakdownsList.get(breakdowns.getSelectedIndex()).getId();
+                        } else {
+
+                            brk = " ";
+
+                        }
+
+                        if (assetcombo.getSelectedItem() != null) {
+                            asset = assetcombo.getSelectedItem().toString();
+
+                        } else {
+
+                            asset = " ";
+
+                        }
+                        if (mainheads.getSelectedItem() != null) {
+                            //  maincom = mainheads.getSelectedItem().toString();
+                            maincom = mainHeadList.get(mainheads.getSelectedIndex()).getId();
+                        } else {
+
+                            maincom = " ";
+
+                        }
+                        String elem = null;
+
+                        // elem = elements.getSelectedItem().toString();
+                        elem = dmang.getaccountElements().get(elements.getSelectedIndex()).getId();
+                        fixedid = UUID.randomUUID().toString();
+
+                        //how to copy paste document files to particular folder
+                        String string = UUID.randomUUID().toString();
+                        String[] parts = string.split("-");
+                        String part1 = parts[0];
+                        String part2 = parts[1];
+                        String flnm = linktxt.getText();
+                        String name = "";
+                        String x = "";
+                        if (flnm.equals("") || (linktxt.getText() == null)) {
+                            name = "";
+                        } else {
+
+                            // String arr[] = flnm.split("/");
+                            //added by pratima
+                            char[] c = flnm.toCharArray();
+                            int j = 0;
+                            int l[] = new int[50];
+
+                            for (int i = 0; i < c.length - 1; i++) {
+                                if (c[i] == '\\') {
+                                    l[j] = i;
+                                    j++;
                                 }
-
                             }
-                            Transaction t = new Transaction(m_App.getSession()) {
-                                @Override
-                                protected Object transact() throws BasicException {
+                            x = "asset" + part1 + "" + flnm.substring((l[j - 1]) + 1, (flnm.length()));
+                            String filePath = "./Asset Documents/" + x;
+                            File fi = new File(filePath);
+                            //ended by pratima
 
-                                    String ab = linktxt.getText();
-                                   
-                                    int strline;
-                                    Double costval = null;
-                                    Double rod = null;
-                                    Double wdv = null;
-                                    Double cor = null;
-                                    String brk = null;
-                                    String make=jTextFieldMake.getText();
-                                    String model=jTextFieldModel.getText();
-                                    int stdln;
-                                    String maincom = null;
-                                    String acchead = null;
-                                    costval = (Double) Formats.DOUBLE.parseValue(cost_txt.getText());
-                                    if (jTextField9.getText() != null && jTextField9.getText().trim().length() > 0) {
-                                    rod = (Double) Formats.DOUBLE.parseValue(jTextField9.getText());
-                                    }
-                                    cor = (Double) Formats.DOUBLE.parseValue(cstreplc_txt.getText());
-                                   if (jTextField10.getText() != null && jTextField10.getText().trim().length() > 0) {
-                                    wdv = (Double) Formats.DOUBLE.parseValue(jTextField10.getText());
-                                   }
-                                    Date purchasedate = new Date();
-                                    Date commistiondate = new Date();
-                                    Date installationdate = new Date();
-                                    Date putdated = new Date();
-                                    Date captdated = new Date();
-                                    Date effectivedate = new Date();
-                                    Date wdvDate1=new Date();
+                            //  x = "asset" + part1 + arr[arr.length - 1];
+                            name = "./Asset Documents/" + x;
+                            System.out.println("name" + name);
+                        }
 
-                                    Calendar cal = Calendar.getInstance();
-                                    cal.setTimeInMillis(purchasedate.getTime());
-                                    cal.setTimeInMillis(commistiondate.getTime());
-                                    cal.setTimeInMillis(installationdate.getTime());
-                                    cal.setTimeInMillis(putdated.getTime());
-                                    cal.setTimeInMillis(captdated.getTime());
-
-                                    wdvDate1=(Date) Formats.TIMESTAMP.parseValue(wdvDate.getText());
-                                    if(date.getText()!=null){
-                                    purchasedate.setTime(cal.getTimeInMillis());
-                                    purchasedate = (Date) Formats.TIMESTAMP.parseValue(date.getText());
-                                    }else{
-                                     purchasedate=null;
-                                    }
-                                    
-                                    if(commdate.getText()!=null){
-                                    commistiondate.setTime(cal.getTimeInMillis());
-                                    commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
-                                    }else{
-                                            commistiondate=null;
-                                            }
-                                    
-                                    if(instdate.getText()!=null){
-                                    installationdate.setTime(cal.getTimeInMillis());
-                                    installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
-                                    }else{
-                                        installationdate =null;
-                                    }
-                                    if(putdate.getText()!=null){
-                                    putdated.setTime(cal.getTimeInMillis());
-                                    putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
-                                    }else{
-                                         putdated = null;
-                                    }
-                                    
-                                    if(captdate.getText()!=null){
-                                    captdated.setTime(cal.getTimeInMillis());
-                                    captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
-                                    }else{
-                                        captdated =null;
-                                    }
-                                    if (standaloneradio.isSelected()) {
-                                        stdln = 1;
-
-                                    } else {
-                                        stdln = 0;
-
-                                    }
-
-                                    if (strtlineradio.isSelected()) {
-                                        strline = 1;
-                                    } else {
-                                        strline = 0;
-                                    }
-                                    if (breakdowns.getSelectedItem() != null) {
-                                     //   brk = breakdowns.getSelectedItem().toString();
-                                   brk =  breakdownsList.get(breakdowns.getSelectedIndex()).getId();
-                                    } else {
-
-                                        brk = " ";
-
-                                    }
-
-                                    if (assetcombo.getSelectedItem() != null) {
-                                        asset = assetcombo.getSelectedItem().toString();
-                                      
-                                    } else {
-
-                                        asset = " ";
-
-                                    }
-                                    if (mainheads.getSelectedItem() != null) {
-                                      //  maincom = mainheads.getSelectedItem().toString();
-                                     maincom = mainHeadList.get( mainheads.getSelectedIndex()).getId();
-                                    } else {
-
-                                        maincom = " ";
-
-                                    }
-                                    String elem = null;
-                                    
-                                   // elem = elements.getSelectedItem().toString();
-                                     elem = dmang.getaccountElements().get(elements.getSelectedIndex()).getId();
-                                    fixedid = UUID.randomUUID().toString();
-
-                                    //how to copy paste document files to particular folder
-                                    String string = UUID.randomUUID().toString();
-                                    String[] parts = string.split("-");
-                                    String part1 = parts[0];
-                                    String part2 = parts[1];
-                                    String flnm = linktxt.getText();
-                                    String name = "";
-                                    String x = "";
-                                    if (flnm.equals("")||(linktxt.getText()==null)) {
-                                        name = "";
-                                    } else {
-
-                                       // String arr[] = flnm.split("/");
-                                       //added by pratima
-                                         char[] c =flnm.toCharArray();
-                                         int j=0;
-                                         int l[]= new int[50];
-                                         
-                                        for(int i=0;i<c.length-1;i++) {
-                                        if(c[i] == '\\') {
-                                        l[j]=i;
-                                        j++;
-                                        }
-                                        }
-                                         x = "asset" + part1+"" + flnm.substring((l[j-1])+1,(flnm.length()));
-                                         String filePath="./Asset Documents/"+ x;
-                                         File fi= new File(filePath);
-                                       //ended by pratima
-                                       
-                                      //  x = "asset" + part1 + arr[arr.length - 1];
-                                        name = "./Asset Documents/" + x;
-                                        System.out.println("name"+name);
-                                    }
-                                    
-                                    if((installationdate!=null) && (purchasedate!=null )){
-                                    if ((installationdate.compareTo(purchasedate) >= 0)) {
-                                        installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
-                                        p = 1;
-                                        msgdlg4.setVisible(false);
-                                    } else {
-                                        //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                        msgdlg4.setVisible(true);
-                                        p = 0;
-                                        instdate.setText("");
-                                    }
-                                    }
-                                  
-                                      if((putdated!=null) && (putdated!=null )){
-                                    if ((putdated.compareTo(installationdate) >= 0) && (putdated.compareTo(commistiondate) >= 0)) {
-                                        putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
-                                        k = 1;
-                                        msgdlg.setVisible(false);
-                                    } else {
-                                        //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                        msgdlg.setVisible(true);
-                                        k = 0;
-                                        putdate.setText("");
-                                    }
-                                      }
-                                      
-                                      if((commistiondate!=null) && (installationdate!=null )){
-                                    if ((commistiondate.compareTo(installationdate) >= 0)) {
-                                        commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
-                                        y = 1;
-                                        msgdlg1.setVisible(false);
-                                    } else {
-                                        //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                        msgdlg1.setVisible(true);
-
-                                        y = 0;
-                                        commdate.setText("");
-                                    }
-                                      }
-                                       if((commistiondate!=null) && (captdated!=null )&& (putdated!=null )&& (installationdate!=null )){
-                                    if ((captdated.compareTo(installationdate) >= 0) && (captdated.compareTo(commistiondate) >= 0) && (captdated.compareTo(putdated) >= 0)) {
-                                        captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
-                                        z = 1;
-                                        msgdlg2.setVisible(false);
-                                    } else {
-                                        //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
-                                        msgdlg2.setVisible(true);
-                                        z = 0;
-                                        captdate.setText("");
-                                    }
-                                }
-                                  //  if ((k == 1) && (y == 1) && (z == 1) && (p == 1)) {
-                                        Object[] param = new Object[]{fixedid, barcode_txt.getText().trim(), name_txt.getText().trim(), elem, maincom, brk, getaccId(), stdln, asset, getvendId(), purchasedate, costval, name, commistiondate, installationdate, putdated, captdated, strline, rod, wdv, cor, calcu_txt.getText().trim(), agency_txt.getText().trim(), m_App.getAppUserView().getUser().getName(), new Date(), true, RevaluationDialog.RID, WriteOffDetailsDialog.WID,make,model,wdvDate1};
-                                   int update_fa_master=     new PreparedSentence(m_App.getSession(), "insert into fa_master(id,barcode,name,maj_classification,sub_head_class,sub_classification,account_head,is_stand_alone_asset,link,vendor,date_of_purchase,total_cost,scanned_doc,date_of_commission,date_of_installetion,date_put_to_use,date_of_capitalization,straightline_or_wdv,rate_of_deprecation,wdv_date_of_far,cost_of_replacement,how_calculated,agency_for_replacement,created_by,created_date,active,revaluation,wo,make,model,wdvdate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING,Datas.TIMESTAMP})).exec(param);
-                                   ffa_id=fixedid; 
-                                    
-                                   if(update_fa_master>0)
-                                          fsd=1;
-                                  //  }
-                                    //continuation of copy paste doc
-                                    if ((linktxt.getText() != null) && (linktxt.getText().trim().length()>0)) {
-                                        File srcDir = new File(linktxt.getText());
-                                        FileInputStream fii;
-                                        FileOutputStream fio;
-                                       
-                                        try {
-
-                                            fii = new FileInputStream(srcDir);
-
-                                            fio = new FileOutputStream("./Asset Documents/" + x + "");
-                                            byte[] b = new byte[1024];
-                                            //int i = 0;
-                                            int length;
-                                            try {
-                                               // while ((fii.read(b)) > 0) {
-                                                while ((length = fii.read(b)) > 0) {//added by pratima
-                                                    fio.write(b);
-                                                    //fio.write(b,0,length);//added by pratima
-                                                }
-                                                fii.close();
-                                                fio.close();
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-
-                                                Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
-
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-
-                                            Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
-
-                                        }
-                                    }
-
-                                    return null;
-                                }
-                            };
-                            t.execute();
-                            //if ((k == 1) && (y == 1) && (z == 1) && (p == 1) && (fsd==1)) {
-                            if (fsd==1) {
-                                JOptionPane.showMessageDialog(this, "Asset details inserted  Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                                submit_but.setVisible(true);
-                                savebutt.setVisible(false);
-                                writeoff_but.setVisible(true);
-                                PhysicalVerification_but.setVisible(true);
-                                photo_butt.setVisible(true);
-                                amc_but.setVisible(true);
-                                revaluation_but.setVisible(true);
-                                maintenance_but.setVisible(true);
-                                name_txt.setEditable(false);
-                                barcode_txt.setEditable(false);
-                                elements.setEnabled(false);
-
-                                mainheads.setEnabled(false);
-                                breakdowns.setEnabled(false);
-                                acccombo.setEnabled(false);
-                                standaloneradio.setEnabled(false);
-                                anotherassetradio.setEnabled(false);
-                                assetcombo.setEnabled(false);
-                                vendorcombo.setEnabled(false);
-                                purchasedate.setEnabled(false);
-
-                                cost_txt.setEditable(false);
-                                jButton2.setEnabled(false);
-                                strtlineradio.setEnabled(false);
-                                wdvradio.setEnabled(false);
-                                jTextField9.setEditable(false);
-                                jTextField10.setEditable(false);
-                                cstreplc_txt.setEditable(false);
-                                calcu_txt.setEditable(false);
-                                agency_txt.setEditable(false);
-                                installationdate.setEnabled(false);
-                                usedate.setEnabled(false);
-                                commissiondate.setEnabled(false);
-                                capitalisationdate.setEnabled(false);
-                                wdvDate.setEnabled(false);
-                                jButton3.setVisible(true);
+                        if ((installationdate != null) && (purchasedate != null)) {
+                            if ((installationdate.compareTo(purchasedate) >= 0)) {
+                                installationdate = (Date) Formats.TIMESTAMP.parseValue(instdate.getText());
+                                p = 1;
+                                msgdlg4.setVisible(false);
+                            } else {
+                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                msgdlg4.setVisible(true);
+                                p = 0;
+                                instdate.setText("");
                             }
                         }
 
-                    } catch (NullPointerException e) {
+                        if ((putdated != null) && (putdated != null)) {
+                            if ((putdated.compareTo(installationdate) >= 0) && (putdated.compareTo(commistiondate) >= 0)) {
+                                putdated = (Date) Formats.TIMESTAMP.parseValue(putdate.getText());
+                                k = 1;
+                                msgdlg.setVisible(false);
+                            } else {
+                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                msgdlg.setVisible(true);
+                                k = 0;
+                                putdate.setText("");
+                            }
+                        }
 
-                        e.printStackTrace();
-                    } catch (NumberFormatException nfe) {
-                        nfe.printStackTrace();
-                        JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+                        if ((commistiondate != null) && (installationdate != null)) {
+                            if ((commistiondate.compareTo(installationdate) >= 0)) {
+                                commistiondate = (Date) Formats.TIMESTAMP.parseValue(commdate.getText());
+                                y = 1;
+                                msgdlg1.setVisible(false);
+                            } else {
+                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                msgdlg1.setVisible(true);
 
-                    } catch (BasicException nfe) {
-                        nfe.printStackTrace();
-                        JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+                                y = 0;
+                                commdate.setText("");
+                            }
+                        }
+                        if ((commistiondate != null) && (captdated != null) && (putdated != null) && (installationdate != null)) {
+                            if ((captdated.compareTo(installationdate) >= 0) && (captdated.compareTo(commistiondate) >= 0) && (captdated.compareTo(putdated) >= 0)) {
+                                captdated = (Date) Formats.TIMESTAMP.parseValue(captdate.getText());
+                                z = 1;
+                                msgdlg2.setVisible(false);
+                            } else {
+                                //JOptionPane.showMessageDialog(this, "Put To Use Date Should be Greater than Installation Date and  Commission date  ", null, JOptionPane.WARNING_MESSAGE);
+                                msgdlg2.setVisible(true);
+                                z = 0;
+                                captdate.setText("");
+                            }
+                        }
+                        //  if ((k == 1) && (y == 1) && (z == 1) && (p == 1)) {
+                        Object[] param = new Object[]{fixedid, barcode_txt.getText().trim(), name_txt.getText().trim(), elem, maincom, brk, getaccId(), stdln, asset, getvendId(), purchasedate, costval, name, commistiondate, installationdate, putdated, captdated, strline, rod, wdv, cor, calcu_txt.getText().trim(), agency_txt.getText().trim(), m_App.getAppUserView().getUser().getName(), new Date(), true, RevaluationDialog.RID, WriteOffDetailsDialog.WID, make, model, wdvDate1};
+                        int update_fa_master = new PreparedSentence(m_App.getSession(), "insert into fa_master(id,barcode,name,maj_classification,sub_head_class,sub_classification,account_head,is_stand_alone_asset,link,vendor,date_of_purchase,total_cost,scanned_doc,date_of_commission,date_of_installetion,date_put_to_use,date_of_capitalization,straightline_or_wdv,rate_of_deprecation,wdv_date_of_far,cost_of_replacement,how_calculated,agency_for_replacement,created_by,created_date,active,revaluation,wo,make,model,wdvdate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP})).exec(param);
+                        ffa_id = fixedid;
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        if (update_fa_master > 0) {
+                            fsd = 1;
+                        }
+                        //  }
+                        //continuation of copy paste doc
+                        if ((linktxt.getText() != null) && (linktxt.getText().trim().length() > 0)) {
+                            File srcDir = new File(linktxt.getText());
+                            FileInputStream fii;
+                            FileOutputStream fio;
 
-                        Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
+                            try {
 
+                                fii = new FileInputStream(srcDir);
+
+                                fio = new FileOutputStream("./Asset Documents/" + x + "");
+                                byte[] b = new byte[1024];
+                                //int i = 0;
+                                int length;
+                                try {
+                                    // while ((fii.read(b)) > 0) {
+                                    while ((length = fii.read(b)) > 0) {//added by pratima
+                                        fio.write(b);
+                                        //fio.write(b,0,length);//added by pratima
+                                    }
+                                    fii.close();
+                                    fio.close();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+
+                                    Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                                Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
+
+                            }
+                        }
+
+                        return null;
                     }
+                };
+                t.execute();
+                //if ((k == 1) && (y == 1) && (z == 1) && (p == 1) && (fsd==1)) {
+                if (fsd == 1) {
+                    JOptionPane.showMessageDialog(this, "Asset details inserted  Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    submit_but.setVisible(true);
+                    savebutt.setVisible(false);
+                    writeoff_but.setVisible(true);
+                    PhysicalVerification_but.setVisible(true);
+                    photo_butt.setVisible(true);
+                    amc_but.setVisible(true);
+                    revaluation_but.setVisible(true);
+                    maintenance_but.setVisible(true);
+                    name_txt.setEditable(false);
+                    barcode_txt.setEditable(false);
+                    elements.setEnabled(false);
+
+                    mainheads.setEnabled(false);
+                    breakdowns.setEnabled(false);
+                    acccombo.setEnabled(false);
+                    standaloneradio.setEnabled(false);
+                    anotherassetradio.setEnabled(false);
+                    assetcombo.setEnabled(false);
+                    vendorcombo.setEnabled(false);
+                    purchasedate.setEnabled(false);
+
+                    cost_txt.setEditable(false);
+                    jButton2.setEnabled(false);
+                    strtlineradio.setEnabled(false);
+                    wdvradio.setEnabled(false);
+                    jTextField9.setEditable(false);
+                    jTextField10.setEditable(false);
+                    cstreplc_txt.setEditable(false);
+                    calcu_txt.setEditable(false);
+                    agency_txt.setEditable(false);
+                    installationdate.setEnabled(false);
+                    usedate.setEnabled(false);
+                    commissiondate.setEnabled(false);
+                    capitalisationdate.setEnabled(false);
+                    wdvDate.setEnabled(false);
+                    jButton3.setVisible(true);
+                }
+            }
+
+        } catch (NullPointerException e) {
+
+            e.printStackTrace();
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+
+        } catch (BasicException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Basic Exception :  "+e.getMessage(), null, JOptionPane.OK_OPTION);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
+
+        }
 //                } else {
 //                    JOptionPane.showMessageDialog(this, "Select date ", "incomplte form", JOptionPane.WARNING_MESSAGE);
 //                }
@@ -3822,116 +3769,98 @@ try
         bg2.add(vendor_rad);
 
     }
-public boolean compareObjectfa(Object[] param,FixedAssetInfo fai){
-    boolean result= false;       
-          try{
 
-if((!param[1].toString().equals(fai.getbarcode()))||(!param[2].toString().equals(fai.getname()))
-    ||(!param[3].toString().equals(fai.getmajor_cls()))||(!param[4].toString().equals(fai.getsub_head()))
-    ||(!dmang.getaccountbyid(param[6].toString()).getName().equals(fai.getac_head()))||(!param[11].toString().equals(fai.getcost().toString()))
-        ||(!param[12].toString().equals(fai.getdoc()))
-        ||(!param[13].toString().equals(fai.getdocomm().toString()))||(!param[14].toString().equals(fai.getdoi().toString()))
-        ||(!param[15].toString().equals(fai.getdop().toString()))||(!param[16].toString().equals(fai.getdocapt().toString()))
-          ||(!param[17].equals(fai.getstrt()))||(!param[18].toString().equals(fai.getrod().toString()))
-         ||(!param[19].toString().equals(fai.getwdv().toString())) ||(!param[20].toString().equals(fai.getcor().toString()))
-         ||(!param[21].toString().equals(fai.gethowcal())) ||(!param[22].toString().equals(fai.getagency()))
-        ||(!param[27].toString().equals(fai.getMake())) ||(!param[28].toString().equals(fai.getModel()))
-        ||(!param[7].toString().equals(fai.getstand_alone()))||(!param[8].toString().equals(fai.getlink()))
-        ||(!dmang.getaccountbyid(param[5].toString()).getName().equals(fai.getsub_cls()))||(!param[10].toString().equals(fai.getdop().toString())))
-       
-        { 
-            result=true;
-        }else{
-                String vendorName=null;
-                 for(int i=0;i<dmang.getVendorList().size();i++){
-                     if( dmang.getVendorList().get(i).getAccount().equals(param[9].toString())){
-                         {
-                             vendorName=dmang.getVendorList().get(i).getName();
-                             break;
-                         }
-                 }
-                 }
-                 if((!vendorName.equals(fai.getvendor())))
-                   result=true;
-       
+    public boolean compareObjectfa(Object[] param, FixedAssetInfo fai) {
+        boolean result = false;
+        try {
 
-}
-          }catch(Exception ex){
-          ex.printStackTrace();
-          }
-        return result;
-}
-
-public String create_Barcode()
-    {
-                
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    PrintStream ps = new PrintStream(baos);
-    PrintStream old = System.out;
-    System.setOut(ps);
-    
-    String gg=FixedAsset2.ss;
-        String gg_Replace=gg.replace(".", " ");
-        String[] gg_Split=gg_Replace.split(" ");
-        for (int i = 0; i < gg_Split.length; i++) 
-        {
-     
-            if(i==0||i==1||i==2)
-            {
-                char ch[]=gg_Split[i].toCharArray();
-               
-                 if(ch.length==1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                 {
-                     for (int j = 0; j <ch.length; j++) 
-                     {
-                       System.out.print(0+""+ch[j]);
-                     }
-                 }
-                 else 
-                 {
-                    for (int j = 0; j <ch.length; j++) 
-                    {                      
-                     
-                       System.out.print(ch[j]);
-                     }
-                 }
-            }
-            else
-            {
-               
-                char ch[]=gg_Split[i].toCharArray();
-                for (int k = 0; k < gg_Split[i].length(); k++) {
-                    
-                
-                 if(ch.length>=1 && ch.length<=3)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                 {
-                     for (int j = 0; j <4-ch.length; j++) 
-                     {                         
-                     
-                       System.out.print(0);
-                     }
-                     for (int j = 0; j <ch.length; j++) 
-                     {                         
-                     
-                       System.out.print(ch[j]);
-                     }
-                     break;
-                 }
-                 else 
-                 {
-                    for (int j = 0; j <ch.length; j++) 
-                    {                        
-                     
-                       System.out.print(ch[j]);
+            if ((!param[1].toString().equals(fai.getbarcode())) || (!param[2].toString().equals(fai.getname()))
+                    || (!param[3].toString().equals(fai.getmajor_cls())) || (!param[4].toString().equals(fai.getsub_head()))
+                    || (!dmang.getaccountbyid(param[6].toString()).getName().equals(fai.getac_head())) || (!param[11].toString().equals(fai.getcost().toString()))
+                    || (!param[12].toString().equals(fai.getdoc()))
+                    || (!param[13].toString().equals(fai.getdocomm().toString())) || (!param[14].toString().equals(fai.getdoi().toString()))
+                    || (!param[15].toString().equals(fai.getdop().toString())) || (!param[16].toString().equals(fai.getdocapt().toString()))
+                    || (!param[17].equals(fai.getstrt())) || (!param[18].toString().equals(fai.getrod().toString()))
+                    || (!param[19].toString().equals(fai.getwdv().toString())) || (!param[20].toString().equals(fai.getcor().toString()))
+                    || (!param[21].toString().equals(fai.gethowcal())) || (!param[22].toString().equals(fai.getagency()))
+                    || (!param[27].toString().equals(fai.getMake())) || (!param[28].toString().equals(fai.getModel()))
+                    || (!param[7].toString().equals(fai.getstand_alone())) || (!param[8].toString().equals(fai.getlink()))
+                    || (!dmang.getaccountbyid(param[5].toString()).getName().equals(fai.getsub_cls())) || (!param[10].toString().equals(fai.getdop().toString()))) {
+                result = true;
+            } else {
+                String vendorName = null;
+                for (int i = 0; i < dmang.getVendorList().size(); i++) {
+                    if (dmang.getVendorList().get(i).getAccount().equals(param[9].toString())) {
+                        {
+                            vendorName = dmang.getVendorList().get(i).getName();
+                            break;
+                        }
                     }
-                 }
-                } 
-           } 
-                   
+                }
+                if ((!vendorName.equals(fai.getvendor()))) {
+                    result = true;
+                }
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    System.out.flush();
-    System.setOut(old);
-    a_SearchkeyWithoutDot=baos.toString(); 
-    return a_SearchkeyWithoutDot;
+        return result;
+    }
+
+    public String create_Barcode() {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        PrintStream old = System.out;
+        System.setOut(ps);
+
+        String gg = FixedAsset2.ss;
+        String gg_Replace = gg.replace(".", " ");
+        String[] gg_Split = gg_Replace.split(" ");
+        for (int i = 0; i < gg_Split.length; i++) {
+
+            if (i == 0 || i == 1 || i == 2) {
+                char ch[] = gg_Split[i].toCharArray();
+
+                if (ch.length == 1) {
+                    for (int j = 0; j < ch.length; j++) {
+                        System.out.print(0 + "" + ch[j]);
+                    }
+                } else {
+                    for (int j = 0; j < ch.length; j++) {
+
+                        System.out.print(ch[j]);
+                    }
+                }
+            } else {
+
+                char ch[] = gg_Split[i].toCharArray();
+                for (int k = 0; k < gg_Split[i].length(); k++) {
+
+                    if (ch.length >= 1 && ch.length <= 3) {
+                        for (int j = 0; j < 4 - ch.length; j++) {
+
+                            System.out.print(0);
+                        }
+                        for (int j = 0; j < ch.length; j++) {
+
+                            System.out.print(ch[j]);
+                        }
+                        break;
+                    } else {
+                        for (int j = 0; j < ch.length; j++) {
+
+                            System.out.print(ch[j]);
+                        }
+                    }
+                }
+            }
+
+        }
+        System.out.flush();
+        System.setOut(old);
+        a_SearchkeyWithoutDot = baos.toString();
+        return a_SearchkeyWithoutDot;
     }
 }

@@ -112,15 +112,15 @@ public class LookupUtilityImpl implements ILookupUtility {
     }
 
     public void refresh() throws BasicException {
-        reloadProductsMap();
-        reloadPRCategoriesMap();
-        reloadTaxList();
-        reloadPlacesMap();
-        reloadWaiterMap();
-        reloadFloorMap();
-        reloadRoleMap();
-        reloadFacilitiesMap();
-        reloadGeneralSettingsMap();
+//        reloadProductsMap();
+//        reloadPRCategoriesMap();
+//        reloadTaxList();
+//        reloadPlacesMap();
+//        reloadWaiterMap();
+//        reloadFloorMap();
+//        reloadRoleMap();
+//        reloadFacilitiesMap();
+ //       reloadGeneralSettingsMap();
     }
 
 

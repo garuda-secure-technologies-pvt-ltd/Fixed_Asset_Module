@@ -63,7 +63,6 @@ import javax.swing.JTextField;
  */
 public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView, BeanFactoryApp {
 
-    
     private AppView m_App;
     private AppConfig config;
     private DirtyManager dirty = new DirtyManager();
@@ -72,27 +71,26 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     private String deac_id;
     private FALocationsTableModel fxd_table;
     private List<String> namelist = new ArrayList<String>();
-    private List <LocationBean> buildingList=new ArrayList<LocationBean>();
-     private    List <LocationBean> blockList=new ArrayList<LocationBean>();
-      private    List <LocationBean> blockListofBuilding=new ArrayList<LocationBean>();
-         private    List <LocationBean>floorListofBlock=new ArrayList<LocationBean>();
-      private   List<LocationBean> floorList=new ArrayList<LocationBean>(); 
-       private List <String> buildingListNames=new ArrayList<String>();
-     private    List <String> blockListNames=new ArrayList<String>();
-      private    List <String> blockListofBuildingNames=new ArrayList<String>();
-         private    List <String>floorListofBlockNames=new ArrayList<String>();
-      private   List<String> floorListNames=new ArrayList<String>(); 
-        private ComboBoxValModel buildingModel;
-          private ComboBoxValModel blockModel;
-            private ComboBoxValModel floorModel;
-       
+    private List<LocationBean> buildingList = new ArrayList<LocationBean>();
+    private List<LocationBean> blockList = new ArrayList<LocationBean>();
+    private List<LocationBean> blockListofBuilding = new ArrayList<LocationBean>();
+    private List<LocationBean> floorListofBlock = new ArrayList<LocationBean>();
+    private List<LocationBean> floorList = new ArrayList<LocationBean>();
+    private List<String> buildingListNames = new ArrayList<String>();
+    private List<String> blockListNames = new ArrayList<String>();
+    private List<String> blockListofBuildingNames = new ArrayList<String>();
+    private List<String> floorListofBlockNames = new ArrayList<String>();
+    private List<String> floorListNames = new ArrayList<String>();
+    private ComboBoxValModel buildingModel;
+    private ComboBoxValModel blockModel;
+    private ComboBoxValModel floorModel;
+
     /**
      * Creates new form FixedAsset2
      */
     public FixedAssetLocation() {
         initComponents();
         savebutt.setVisible(true);
-        
 
     }
 
@@ -705,8 +703,7 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     }// </editor-fold>//GEN-END:initComponents
 
     private void edit_butActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_butActionPerformed
-             
-        
+
         if (jTable1.getSelectedRow() != -1) {
             int bill = JOptionPane.showConfirmDialog(jPanel1, " Do you want to Edit Location ?? ", "Editing Menu", JOptionPane.YES_NO_OPTION);
             if (bill == JOptionPane.YES_OPTION) {
@@ -715,113 +712,111 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                 edit_but.setVisible(false);
                 if (jTable1.getSelectedRow() < fxd_table.getSize()) {
                     int row = jTable1.getSelectedRow();
-                    int rowcount=jTable1.getRowCount();
+                    int rowcount = jTable1.getRowCount();
                     FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
                     jPanel1.setVisible(true);
                     savebutt.setVisible(false);
                     savecha_but.setVisible(true);
                     nameText.setText(showdata.getName());
-                   
-                   
-                    for(int j=0;j<buildingList.size();j++){
-                    if(buildingList.get(j).getId().equals( showdata.getBuilding())){
-                   jComboBox7.setSelectedIndex(j);
-                    }
-                        }
-                    for(int k=0;k<blockList.size();k++){
-                    if(blockList.get(k).getId().equals( showdata.getBlock())){
-                   jComboBox8.setSelectedIndex(k);
+
+                    for (int j = 0; j < buildingList.size(); j++) {
+                        if (buildingList.get(j).getId().equals(showdata.getBuilding())) {
+                            jComboBox7.setSelectedIndex(j);
                         }
                     }
-                     for(int i=0;i<floorList.size();i++){
-                    if(floorList.get(i).getId().equals( showdata.getFloor())){
-                   jComboBox6.setSelectedIndex(i);
+                    for (int k = 0; k < blockList.size(); k++) {
+                        if (blockList.get(k).getId().equals(showdata.getBlock())) {
+                            jComboBox8.setSelectedIndex(k);
                         }
-                     }
+                    }
+                    for (int i = 0; i < floorList.size(); i++) {
+                        if (floorList.get(i).getId().equals(showdata.getFloor())) {
+                            jComboBox6.setSelectedIndex(i);
+                        }
                     }
                 }
             }
-             
+        }
+
     }//GEN-LAST:event_edit_butActionPerformed
 
     private void savecha_butActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savecha_butActionPerformed
- if (jTable1.getSelectedRow() != -1) {
-    
-     
-        try{
-           if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
-        Transaction t = new Transaction(m_App.getSession()) {
-                                @Override
-                                protected Object transact() throws BasicException {
-                                     int row = jTable1.getSelectedRow();
-                                    FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
-                                    String id=showdata.getId();
-                                    String name= nameText.getText();
-                                        String floorId=floorList.get(jComboBox6.getSelectedIndex()).getId();
-                                     String buildingId=buildingList.get(jComboBox7.getSelectedIndex()).getId();
-                                     String blockId=blockList.get(jComboBox8.getSelectedIndex()).getId();
-                                   Object[] param = new Object[]{name,floorId,buildingId,blockId,id};
-                                        new PreparedSentence(m_App.getSession(), "update fa_locations set NAME=?,FLOOR=?,BUILDING=?,BLOCK=? where id=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
-                                    flagkey=1;
-                                    return null;
-                                }
-                            };
-                            t.execute();
-                            if(flagkey==1){
-                            JOptionPane.showMessageDialog(this, "Location Editted Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                             loaddata();
-                            
-                jTabbedPane1.setSelectedIndex(1);
-                 jPanel7.setVisible(true);
-                            }
-        }else {
-                JOptionPane.showMessageDialog(this, "Please ensure that Name is not empty", null, JOptionPane.OK_OPTION);
+        if (jTable1.getSelectedRow() != -1) {
+
+            try {
+                if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
+                    Transaction t = new Transaction(m_App.getSession()) {
+                        @Override
+                        protected Object transact() throws BasicException {
+                            int row = jTable1.getSelectedRow();
+                            FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
+                            String id = showdata.getId();
+                            String name = nameText.getText();
+                            String floorId = floorList.get(jComboBox6.getSelectedIndex()).getId();
+                            String buildingId = buildingList.get(jComboBox7.getSelectedIndex()).getId();
+                            String blockId = blockList.get(jComboBox8.getSelectedIndex()).getId();
+                            Object[] param = new Object[]{name, floorId, buildingId, blockId, id};
+                            new PreparedSentence(m_App.getSession(), "update fa_locations set NAME=?,FLOOR=?,BUILDING=?,BLOCK=? where id=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
+                            flagkey = 1;
+                            return null;
+                        }
+                    };
+                    t.execute();
+                    if (flagkey == 1) {
+                        JOptionPane.showMessageDialog(this, "Location Editted Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        loaddata();
+
+                        jTabbedPane1.setSelectedIndex(1);
+                        jPanel7.setVisible(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please ensure that Name is not empty", null, JOptionPane.OK_OPTION);
+                }
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
         }
-    }    
     }//GEN-LAST:event_savecha_butActionPerformed
-    
+
     private void savebuttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebuttActionPerformed
-      
-       try{
-           if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
-               if(jComboBox7.getSelectedIndex()!=-1){
-                    if(jComboBox8.getSelectedIndex()!=-1){
-                         if(jComboBox6.getSelectedIndex()!=-1){
-        Transaction t = new Transaction(m_App.getSession()) {
+
+        try {
+            if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
+                if (jComboBox7.getSelectedIndex() != -1) {
+                    if (jComboBox8.getSelectedIndex() != -1) {
+                        if (jComboBox6.getSelectedIndex() != -1) {
+                            Transaction t = new Transaction(m_App.getSession()) {
                                 @Override
                                 protected Object transact() throws BasicException {
-                                    String id = UUID.randomUUID().toString(); 
-                                    String name= nameText.getText();
-                                     String floorId=floorList.get(jComboBox6.getSelectedIndex()).getId();
-                                     String buildingId=buildingList.get(jComboBox7.getSelectedIndex()).getId();
-                                     String blockId=blockList.get(jComboBox8.getSelectedIndex()).getId();
+                                    String id = UUID.randomUUID().toString();
+                                    String name = nameText.getText();
+                                    String floorId = floorList.get(jComboBox6.getSelectedIndex()).getId();
+                                    String buildingId = buildingList.get(jComboBox7.getSelectedIndex()).getId();
+                                    String blockId = blockList.get(jComboBox8.getSelectedIndex()).getId();
 
-                                    Object[] param = new Object[]{id,"lo",name,floorId,buildingId,blockId};
-                                        new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME,FLOOR,BUILDING,BLOCK) values (?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING,Datas.STRING})).exec(param);
-                                    flagkey=1;
+                                    Object[] param = new Object[]{id, "lo", name, floorId, buildingId, blockId};
+                                    new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME,FLOOR,BUILDING,BLOCK) values (?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
+                                    flagkey = 1;
                                     return null;
                                 }
                             };
                             t.execute();
-                            if(flagkey==1){
-                            JOptionPane.showMessageDialog(this, "Location Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                             loaddata();
+                            if (flagkey == 1) {
+                                JOptionPane.showMessageDialog(this, "Location Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                loaddata();
                             }
-        }else {
-                JOptionPane.showMessageDialog(this, "Please ensure that Floor is selected", null, JOptionPane.OK_OPTION);
-            }
-                    }else {
-                JOptionPane.showMessageDialog(this, "Please ensure that Block is selected", null, JOptionPane.OK_OPTION);
-            }
-               }else {
-                JOptionPane.showMessageDialog(this, "Please ensure that Building is selected", null, JOptionPane.OK_OPTION);
-            }
-           }else {
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Please ensure that Floor is selected", null, JOptionPane.OK_OPTION);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Please ensure that Block is selected", null, JOptionPane.OK_OPTION);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please ensure that Building is selected", null, JOptionPane.OK_OPTION);
+                }
+            } else {
                 JOptionPane.showMessageDialog(this, "Please ensure that Name is not empty", null, JOptionPane.OK_OPTION);
             }
 
@@ -829,7 +824,7 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_savebuttActionPerformed
 
     private void reset_butActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_butActionPerformed
@@ -837,263 +832,245 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     }//GEN-LAST:event_reset_butActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-             
 
-        
+
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void removeButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtActionPerformed
         // TODO add your handling code here:
-       if (jTable1.getSelectedRow() != -1) {
-        List<String> tempList=new ArrayList<String>();
-        try{
-            int row1 = jTable1.getSelectedRow();
-        
-        FALocationsTableModel.FALocationsInfo showdata1 = fxd_table.getList().get(row1);
-                                    
-          tempList=new ArrayList<String>(new StaticSentence(m_App.getSession(), "select location from  fa_physicalverification ",null,SerializerReadString.INSTANCE).list());
+        if (jTable1.getSelectedRow() != -1) {
+            List<String> tempList = new ArrayList<String>();
+            try {
+                int row1 = jTable1.getSelectedRow();
 
-                       
-       if(!tempList.contains(showdata1.getId())){
-        
-                                  
-        try{
-                  Transaction t = new Transaction(m_App.getSession()) {
-                                @Override
-                                protected Object transact() throws BasicException {
-                                    int row = jTable1.getSelectedRow();
-                                
-                                     FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
-                                    String id=showdata.getId();
-                                    
-                                  
-     
-                                   
-                                    Object[] param = new Object[]{id};
-                                    new PreparedSentence(m_App.getSession(), "delete from fa_locations where id=?", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(param);
-                                  
+                FALocationsTableModel.FALocationsInfo showdata1 = fxd_table.getList().get(row1);
 
-                                    flagkey=1;
-                                    return null;
-                                     
-                                }
-                            };
-                            t.execute();
-                            if(flagkey==1){
-                                flagkey=0;
+                tempList = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select location from  fa_physicalverification ", null, SerializerReadString.INSTANCE).list());
+
+                if (!tempList.contains(showdata1.getId())) {
+
+                    try {
+                        Transaction t = new Transaction(m_App.getSession()) {
+                            @Override
+                            protected Object transact() throws BasicException {
+                                int row = jTable1.getSelectedRow();
+
+                                FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
+                                String id = showdata.getId();
+
+                                Object[] param = new Object[]{id};
+                                new PreparedSentence(m_App.getSession(), "delete from fa_locations where id=?", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(param);
+
+                                flagkey = 1;
+                                return null;
+
+                            }
+                        };
+                        t.execute();
+                        if (flagkey == 1) {
+                            flagkey = 0;
                             JOptionPane.showMessageDialog(this, "Location Deleted Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                             loaddata();
-                                }
-                  
-                  
-        } catch (Exception e) {
+                            loaddata();
+                        }
 
-            e.printStackTrace();
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Can not delete ....! This Location is assigned to Asset..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            } catch (Exception e) {
+            }
         }
-          
-        
-       
-        } else{  JOptionPane.showMessageDialog(this, "Can not delete ....! This Location is assigned to Asset..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-    
-                                   } 
-          }catch(Exception e){}         }
     }//GEN-LAST:event_removeButtActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-      String buildingId= UUID.randomUUID().toString();
-           String buildingName=jTextField1.getText();
-        try{
-         int row_inserted=  new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME) values (?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING,Datas.STRING})).exec( new Object[]{buildingId,"bl",buildingName});
-               
-               if(row_inserted >0)
-               {  
-                   JOptionPane.showMessageDialog(this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-                    locationTables();
-                    jComboBoxBuilding.setModel( new ComboBoxValModel( buildingListNames));
-                    jComboBox7.setModel( new ComboBoxValModel( buildingListNames));
-                    jTextField1.setText(null);
-               }
-        }catch(Exception ex){
-                ex.printStackTrace();
-                }
-       
+        String buildingId = UUID.randomUUID().toString();
+        String buildingName = jTextField1.getText();
+        try {
+            int row_inserted = new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME) values (?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING})).exec(new Object[]{buildingId, "bl", buildingName});
+
+            if (row_inserted > 0) {
+                JOptionPane.showMessageDialog(this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                locationTables();
+                jComboBoxBuilding.setModel(new ComboBoxValModel(buildingListNames));
+                jComboBox7.setModel(new ComboBoxValModel(buildingListNames));
+                jTextField1.setText(null);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-         String blockId= UUID.randomUUID().toString();
-           String blockName=jTextField3.getText();
-         if(jComboBox4.getSelectedIndex()!=-1){
-      String buildingId=  buildingList.get(jComboBox4.getSelectedIndex()).getId();
-       
-        try{
-           
-            int row_insertted=   new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME,BUILDING) values (?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING,Datas.STRING,Datas.STRING})).exec( new Object[]{blockId,"bk",blockName, buildingId});
-               if(row_insertted >0)
-               {
-                   JOptionPane.showMessageDialog(this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                
-               locationTables();
-                    jComboBox3.setModel( new ComboBoxValModel( blockListNames));
-                    jComboBox8.setModel( new ComboBoxValModel( blockListNames));
-                   jTextField3.setText(null);
-                   jComboBox4.setSelectedIndex(-1);
-               }
-        }catch(Exception ex){
-                ex.printStackTrace();
+        String blockId = UUID.randomUUID().toString();
+        String blockName = jTextField3.getText();
+        if (jComboBox4.getSelectedIndex() != -1) {
+            String buildingId = buildingList.get(jComboBox4.getSelectedIndex()).getId();
+
+            try {
+
+                int row_insertted = new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME,BUILDING) values (?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(new Object[]{blockId, "bk", blockName, buildingId});
+                if (row_insertted > 0) {
+                    JOptionPane.showMessageDialog(this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    locationTables();
+                    jComboBox3.setModel(new ComboBoxValModel(blockListNames));
+                    jComboBox8.setModel(new ComboBoxValModel(blockListNames));
+                    jTextField3.setText(null);
+                    jComboBox4.setSelectedIndex(-1);
                 }
-    }  else {
-                JOptionPane.showMessageDialog(this, "Please ensure that Building is selected", null, JOptionPane.OK_OPTION);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        
+        } else {
+            JOptionPane.showMessageDialog(this, "Please ensure that Building is selected", null, JOptionPane.OK_OPTION);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-          String floorId= UUID.randomUUID().toString();
-           String floorName=jTextField2.getText();
-          String buildingId=buildingList.get( jComboBox10.getSelectedIndex()).getId();
-         String blockId=blockListofBuilding.get(jComboBox9.getSelectedIndex()).getId();
-        
-        try{
-           
-                int row_inserted= new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME,BUILDING,BLOCK) values (?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING,Datas.STRING, Datas.STRING,Datas.STRING})).exec( new Object[]{floorId,"fl",floorName,buildingId,blockId});
-               if(row_inserted>0)
-               {
-                   JOptionPane.showMessageDialog(this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);   
-                   locationTables();
-                    jComboBox2.setModel( new ComboBoxValModel( floorListNames));
-                    jComboBox6.setModel( new ComboBoxValModel( floorListNames));
-                    jTextField2.setText(null);
-                    jComboBox10.setSelectedIndex(-1);
-                    jComboBox9.setSelectedIndex(-1);
-               }
-                   }catch(Exception ex){
-                ex.printStackTrace();
-                }
+        String floorId = UUID.randomUUID().toString();
+        String floorName = jTextField2.getText();
+        String buildingId = buildingList.get(jComboBox10.getSelectedIndex()).getId();
+        String blockId = blockListofBuilding.get(jComboBox9.getSelectedIndex()).getId();
+
+        try {
+
+            int row_inserted = new PreparedSentence(m_App.getSession(), "insert into fa_locations(ID,TYPE,NAME,BUILDING,BLOCK) values (?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(new Object[]{floorId, "fl", floorName, buildingId, blockId});
+            if (row_inserted > 0) {
+                JOptionPane.showMessageDialog(this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                locationTables();
+                jComboBox2.setModel(new ComboBoxValModel(floorListNames));
+                jComboBox6.setModel(new ComboBoxValModel(floorListNames));
+                jTextField2.setText(null);
+                jComboBox10.setSelectedIndex(-1);
+                jComboBox9.setSelectedIndex(-1);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        int count=0;
-         try{
-             for(int x=0;x<fxd_table.getSize();x++){
-           if(  fxd_table.getList().get(x).getBuilding().equals(buildingList.get(jComboBoxBuilding.getSelectedIndex()).getId()))
-           {count++;
-            break;
-           }
-             }
-             if(count==0){
-              blockList=new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and building=? and active=1 order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(buildingList.get(jComboBoxBuilding.getSelectedIndex()).getId()));
-       if(blockList.size()>0){
-        JOptionPane.showMessageDialog(this, "Please first remove blocks under this Building has..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-       }else{
-              int row1      =  new PreparedSentence(m_App.getSession(), "delete from  fa_locations where id=?  "
-                                                                      , new SerializerWriteBasic(new Datas[]{ Datas.STRING  })).exec
-                                                                       (new Object[]{buildingList.get(jComboBoxBuilding.getSelectedIndex()).getId()}); 
-             
-       
-       if(row1 >0)
-               {  
-                   JOptionPane.showMessageDialog(this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-                    locationTables();
-                    jComboBoxBuilding.setModel( new ComboBoxValModel( buildingListNames));
-                    jComboBox7.setModel( new ComboBoxValModel( buildingListNames));
-                    jComboBox7.setSelectedIndex(-1);
-               }
-       }
-             }else{
-                 JOptionPane.showMessageDialog(this, "This Building is part of location. First remove the location ..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-             }
-        }catch(Exception ex){
-                ex.printStackTrace();
+        int count = 0;
+        try {
+            for (int x = 0; x < fxd_table.getSize(); x++) {
+                if (fxd_table.getList().get(x).getBuilding().equals(buildingList.get(jComboBoxBuilding.getSelectedIndex()).getId())) {
+                    count++;
+                    break;
                 }
+            }
+            if (count == 0) {
+                blockList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and building=? and active=1 order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingList.get(jComboBoxBuilding.getSelectedIndex()).getId()));
+                if (blockList.size() > 0) {
+                    JOptionPane.showMessageDialog(this, "Please first remove blocks under this Building has..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    int row1 = new PreparedSentence(m_App.getSession(), "delete from  fa_locations where id=?  ",
+                             new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{buildingList.get(jComboBoxBuilding.getSelectedIndex()).getId()});
+
+                    if (row1 > 0) {
+                        JOptionPane.showMessageDialog(this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        locationTables();
+                        jComboBoxBuilding.setModel(new ComboBoxValModel(buildingListNames));
+                        jComboBox7.setModel(new ComboBoxValModel(buildingListNames));
+                        jComboBox7.setSelectedIndex(-1);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "This Building is part of location. First remove the location ..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        int count=0;
-        if(  jComboBox4.getSelectedIndex()!=-1){
-        try{
-             for(int x=0;x<fxd_table.getSize();x++){
-           if(  fxd_table.getList().get(x).getBlock().equals(blockListofBuilding.get(jComboBox3.getSelectedIndex()).getId()))
-           {
-               count++;
-            break;
-           }
-             }
-             if(count==0){
-                  floorList=new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and block=? and active=1 order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(blockList.get(jComboBox3.getSelectedIndex()).getId()));
-       if(floorList.size()>0){
-        JOptionPane.showMessageDialog(this, "Please first remove floors under this Building ..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-       }else{
-        int row1      =  new PreparedSentence(m_App.getSession(), "delete from  fa_locations where id=?  "
-                                                                      , new SerializerWriteBasic(new Datas[]{ Datas.STRING  })).exec
-                                                                       (new Object[]{blockList.get(jComboBox3.getSelectedIndex()).getId()}); 
-             
-               if(row1 >0)
-               {  
-                   JOptionPane.showMessageDialog(this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-                    locationTables();
-                    jComboBox8.setModel( new ComboBoxValModel( blockListNames));
-                    jComboBox3.setModel( new ComboBoxValModel( blockListNames));
-                    jTextField3.setText(null);
-                   jComboBox4.setSelectedIndex(-1);
-                   jComboBox3.setSelectedIndex(-1);
-               }}
-        }else{
-                 JOptionPane.showMessageDialog(this, "This Block is part of location. First remove the location ..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-             }
-        }catch(Exception ex){
-                ex.printStackTrace();
+        int count = 0;
+        if (jComboBox4.getSelectedIndex() != -1) {
+            try {
+                for (int x = 0; x < fxd_table.getSize(); x++) {
+                    if (fxd_table.getList().get(x).getBlock().equals(blockListofBuilding.get(jComboBox3.getSelectedIndex()).getId())) {
+                        count++;
+                        break;
+                    }
                 }
-        }else{
-        JOptionPane.showMessageDialog(this, "Select Building first.", "Success", JOptionPane.INFORMATION_MESSAGE); 
+                if (count == 0) {
+                    floorList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and block=? and active=1 order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(blockList.get(jComboBox3.getSelectedIndex()).getId()));
+                    if (floorList.size() > 0) {
+                        JOptionPane.showMessageDialog(this, "Please first remove floors under this Building ..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        int row1 = new PreparedSentence(m_App.getSession(), "delete from  fa_locations where id=?  ",
+                                 new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{blockList.get(jComboBox3.getSelectedIndex()).getId()});
+
+                        if (row1 > 0) {
+                            JOptionPane.showMessageDialog(this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            locationTables();
+                            jComboBox8.setModel(new ComboBoxValModel(blockListNames));
+                            jComboBox3.setModel(new ComboBoxValModel(blockListNames));
+                            jTextField3.setText(null);
+                            jComboBox4.setSelectedIndex(-1);
+                            jComboBox3.setSelectedIndex(-1);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "This Block is part of location. First remove the location ..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select Building first.", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-      
-        int count=0;
-            if(  jComboBox10.getSelectedIndex()!=-1){
-            if(  jComboBox9.getSelectedIndex()!=-1){
-        try{
-            for(int x=0;x<fxd_table.getSize();x++){
-              
-           if(  fxd_table.getList().get(x).getFloor().equals(floorListofBlock.get(jComboBox2.getSelectedIndex()).getId()))
-           {
-               count++;
-            break;
-           }
-             }
-             if(count==0){
-        int row1      =  new PreparedSentence(m_App.getSession(), "delete from  fa_locations where id=?  "
-                                                                      , new SerializerWriteBasic(new Datas[]{ Datas.STRING  })).exec
-                                                                       (new Object[]{floorList.get(jComboBox2.getSelectedIndex()).getId()}); 
-             
-               if(row1 >0)
-               {  
-                   JOptionPane.showMessageDialog(this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-                    locationTables();
-                    jComboBox2.setModel( new ComboBoxValModel( floorListNames));
-                    jComboBox6.setModel( new ComboBoxValModel( floorListNames));
-                         jTextField2.setText(null);
-                    jComboBox10.setSelectedIndex(-1);
-                    jComboBox9.setSelectedIndex(-1);
-               }
-                }else{
-                 JOptionPane.showMessageDialog(this, "This floor is part of location. First remove the location ..!", "Success", JOptionPane.INFORMATION_MESSAGE);    
-             }
-        }catch(Exception ex){
-                ex.printStackTrace();
+
+        int count = 0;
+        if (jComboBox10.getSelectedIndex() != -1) {
+            if (jComboBox9.getSelectedIndex() != -1) {
+                try {
+                    for (int x = 0; x < fxd_table.getSize(); x++) {
+
+                        if (fxd_table.getList().get(x).getFloor().equals(floorListofBlock.get(jComboBox2.getSelectedIndex()).getId())) {
+                            count++;
+                            break;
+                        }
+                    }
+                    if (count == 0) {
+                        int row1 = new PreparedSentence(m_App.getSession(), "delete from  fa_locations where id=?  ",
+                                 new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{floorList.get(jComboBox2.getSelectedIndex()).getId()});
+
+                        if (row1 > 0) {
+                            JOptionPane.showMessageDialog(this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            locationTables();
+                            jComboBox2.setModel(new ComboBoxValModel(floorListNames));
+                            jComboBox6.setModel(new ComboBoxValModel(floorListNames));
+                            jTextField2.setText(null);
+                            jComboBox10.setSelectedIndex(-1);
+                            jComboBox9.setSelectedIndex(-1);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "This floor is part of location. First remove the location ..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
-        }else{
-        JOptionPane.showMessageDialog(this, "Select Block first.", "Success", JOptionPane.INFORMATION_MESSAGE); 
-        }
-            }else{
-        JOptionPane.showMessageDialog(this, "Select Building first.", "Success", JOptionPane.INFORMATION_MESSAGE); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Select Block first.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select Building first.", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -1103,49 +1080,48 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
     private void jComboBox10ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox10ItemStateChanged
         // TODO add your handling code here:
-        try{
-        String buildingId=buildingList.get(jComboBox10.getSelectedIndex()).getId();
-           blockListofBuilding=new PreparedSentence(m_App.getSession(),  "select name,id from  fa_locations where type='bk' and active=1 and building=?  order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(buildingId);
-         
-           blockListofBuildingNames= new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 and building=? order by name",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).list(buildingId);
-            jComboBox9.setModel(new ComboBoxValModel(  blockListofBuildingNames));
-        }catch(Exception ex){
-        ex.printStackTrace();
+        try {
+            String buildingId = buildingList.get(jComboBox10.getSelectedIndex()).getId();
+            blockListofBuilding = new PreparedSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and active=1 and building=?  order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingId);
+
+            blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 and building=? order by name", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
+            jComboBox9.setModel(new ComboBoxValModel(blockListofBuildingNames));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jComboBox10ItemStateChanged
 
     private void jComboBox7ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox7ItemStateChanged
         // TODO add your handling code here:
-        if(jComboBox7.getSelectedIndex()!=-1){
-        try{
-        String buildingId=buildingList.get(jComboBox7.getSelectedIndex()).getId();
-           blockListofBuilding=new PreparedSentence(m_App.getSession(),  "select name,id from  fa_locations where type='bk' and active=1 and building=? and active=1 order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(buildingId);
-           blockListofBuildingNames= new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 and building=? and active=1 order by name",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).list(buildingId);
-           
-         
-           jComboBox8.setModel(new ComboBoxValModel(  blockListofBuildingNames));
-        }catch(Exception ex){
-        ex.printStackTrace();
-        }
+        if (jComboBox7.getSelectedIndex() != -1) {
+            try {
+                String buildingId = buildingList.get(jComboBox7.getSelectedIndex()).getId();
+                blockListofBuilding = new PreparedSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and active=1 and building=? and active=1 order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingId);
+                blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 and building=? and active=1 order by name", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
+
+                jComboBox8.setModel(new ComboBoxValModel(blockListofBuildingNames));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }//GEN-LAST:event_jComboBox7ItemStateChanged
 
     private void jComboBox8ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox8ItemStateChanged
         // TODO add your handling code here:
-      if(jComboBox7.getSelectedIndex()!=-1){
-             if(jComboBox8.getSelectedIndex()!=-1){
-        try{
-          String blockId=blockList.get(jComboBox8.getSelectedIndex()).getId();
-        
-           floorListofBlock=new PreparedSentence(m_App.getSession(),  "select name,id from  fa_locations where type='fl' and active=1  and block=? and active=1 order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(blockId);
-           floorListofBlockNames=new PreparedSentence(m_App.getSession(),  "select name from  fa_locations where type='fl' and active=1 and block=? and active=1 order by name",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).list(blockId);
-           
-           jComboBox6.setModel(new ComboBoxValModel(  floorListofBlockNames));
-        }catch(Exception ex){
-        ex.printStackTrace();
+        if (jComboBox7.getSelectedIndex() != -1) {
+            if (jComboBox8.getSelectedIndex() != -1) {
+                try {
+                    String blockId = blockList.get(jComboBox8.getSelectedIndex()).getId();
+
+                    floorListofBlock = new PreparedSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and active=1  and block=? and active=1 order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(blockId);
+                    floorListofBlockNames = new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='fl' and active=1 and block=? and active=1 order by name", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(blockId);
+
+                    jComboBox6.setModel(new ComboBoxValModel(floorListofBlockNames));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
-      }
-      }
     }//GEN-LAST:event_jComboBox8ItemStateChanged
 
     private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
@@ -1166,17 +1142,16 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
     private void jComboBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox4ItemStateChanged
         // TODO add your handling code here:
-        if(jComboBox4.getSelectedIndex()!=-1){
-           try{
-        String buildingId=buildingList.get(jComboBox4.getSelectedIndex()).getId();
-           blockListofBuilding=new PreparedSentence(m_App.getSession(),  "select name,id from  fa_locations where type='bk' and active=1 and building=? order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(buildingId);
-           blockListofBuildingNames= new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 and building=? order by name",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).list(buildingId);
-           
-         
-           jComboBox3.setModel(new ComboBoxValModel(  blockListofBuildingNames));
-        }catch(Exception ex){
-        ex.printStackTrace();
-        }
+        if (jComboBox4.getSelectedIndex() != -1) {
+            try {
+                String buildingId = buildingList.get(jComboBox4.getSelectedIndex()).getId();
+                blockListofBuilding = new PreparedSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and active=1 and building=? order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingId);
+                blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 and building=? order by name", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
+
+                jComboBox3.setModel(new ComboBoxValModel(blockListofBuildingNames));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }//GEN-LAST:event_jComboBox4ItemStateChanged
 
@@ -1190,20 +1165,20 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
     private void jComboBox9ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox9ItemStateChanged
         // TODO add your handling code here:
-           if(jComboBox10.getSelectedIndex()!=-1){
-             if(jComboBox9.getSelectedIndex()!=-1){
-        try{
-          String blockId=blockListofBuilding.get(jComboBox9.getSelectedIndex()).getId();
-        
-           floorListofBlock=new PreparedSentence(m_App.getSession(),  "select name,id from  fa_locations where type='fl' and active=1  and block=?  order by name",SerializerWriteString.INSTANCE,new SerializerReadClass(LocationBean.class)).list(blockId);
-           floorListofBlockNames=new PreparedSentence(m_App.getSession(),  "select name from  fa_locations where type='fl' and active=1 and block=?  order by name",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).list(blockId);
-           
-           jComboBox2.setModel(new ComboBoxValModel(  floorListofBlockNames));
-        }catch(Exception ex){
-        ex.printStackTrace();
+        if (jComboBox10.getSelectedIndex() != -1) {
+            if (jComboBox9.getSelectedIndex() != -1) {
+                try {
+                    String blockId = blockListofBuilding.get(jComboBox9.getSelectedIndex()).getId();
+
+                    floorListofBlock = new PreparedSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and active=1  and block=?  order by name", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(blockId);
+                    floorListofBlockNames = new PreparedSentence(m_App.getSession(), "select name from  fa_locations where type='fl' and active=1 and block=?  order by name", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(blockId);
+
+                    jComboBox2.setModel(new ComboBoxValModel(floorListofBlockNames));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
-      }
-      }
     }//GEN-LAST:event_jComboBox9ItemStateChanged
 
 
@@ -1262,8 +1237,6 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     private javax.swing.JButton savecha_but;
     // End of variables declaration//GEN-END:variables
 
-   
-
     @Override
     public String getTitle() {
         return "Fixed Asset Location";
@@ -1271,10 +1244,8 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
     @Override
     public void activate() throws BasicException {
-        
+
         loaddata();
-        
-        
 
     }
 
@@ -1306,81 +1277,80 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     }
 
     public void reset() {
-         nameText.setText(null);
-          jComboBox6.setSelectedItem(-1);
-           jComboBox7.setSelectedItem(-1);
-            jComboBox8.setSelectedItem(-1);
-         savebutt.setVisible(true);
-         savecha_but.setVisible(false);
-        
+        nameText.setText(null);
+        jComboBox6.setSelectedItem(-1);
+        jComboBox7.setSelectedItem(-1);
+        jComboBox8.setSelectedItem(-1);
+        savebutt.setVisible(true);
+        savecha_but.setVisible(false);
+
     }
 
     public void loadProperties(AppConfig config) {
 
-      //  linktxt.setText(config.getProperty("folder"));
-
+        //  linktxt.setText(config.getProperty("folder"));
         dirty.setDirty(false);
     }
 
     public void saveProperties(AppConfig config) {
 
         //config.setProperty("FOLDER", linktxt.getText());
-
         dirty.setDirty(false);
     }
 
     public void loaddata() throws BasicException {
-       reset();
-        flagkey=0;
+        reset();
+        flagkey = 0;
         fxd_table = FALocationsTableModel.GetFALocationsTableModel(m_App);
         jTable1.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTable1.setModel(fxd_table.getTableModel());
-        
-        
+
         savebutt.setVisible(true);
         savecha_but.setVisible(false);
         edit_but.setVisible(true);
-       locationTables();
-       buildingModel= new ComboBoxValModel( buildingListNames);
-        blockModel=new ComboBoxValModel( blockListNames);
-       floorModel= new ComboBoxValModel(floorListNames);
-       jComboBox7.setModel( buildingModel);
-         jComboBox4.setModel(  buildingModel);
-           jComboBox10.setModel( buildingModel);
-         jComboBoxBuilding.setModel(  buildingModel);
-          ComboBoxValModel blankModel= new ComboBoxValModel( new ArrayList<LocationBean>());
-         jComboBox3.setModel(blankModel);
-         jComboBox2.setModel( blankModel);
-         jComboBox8.setModel(blankModel);
-         jComboBox6.setModel(blankModel);
-         jComboBox9.setModel(blankModel);
-         
+        locationTables();
+        buildingModel = new ComboBoxValModel(buildingListNames);
+        blockModel = new ComboBoxValModel(blockListNames);
+        floorModel = new ComboBoxValModel(floorListNames);
+        jComboBox7.setModel(buildingModel);
+        jComboBox4.setModel(buildingModel);
+        jComboBox10.setModel(buildingModel);
+        jComboBoxBuilding.setModel(buildingModel);
+        ComboBoxValModel blankModel = new ComboBoxValModel(new ArrayList<LocationBean>());
+        jComboBox3.setModel(blankModel);
+        jComboBox2.setModel(blankModel);
+        jComboBox8.setModel(blankModel);
+        jComboBox6.setModel(blankModel);
+        jComboBox9.setModel(blankModel);
+
     }
 
-   
-  public void locationTables(){
-   try{
-           
-               
-               buildingList=new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bl' and active=1 order by name",null,new SerializerReadClass(LocationBean.class)).list());
-               blockList=new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(),  "select name,id from  fa_locations where type='bk' and active=1 order by name",null,new SerializerReadClass(LocationBean.class)).list());
-              floorList=new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and active=1 order by name",null,new SerializerReadClass(LocationBean.class)).list());
-               buildingListNames=new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='bl' and active=1 order by name",null,SerializerReadString.INSTANCE).list());
-               blockListNames=new ArrayList<String>(new StaticSentence(m_App.getSession(),  "select name from  fa_locations where type='bk' and active=1 order by name",null,SerializerReadString.INSTANCE).list());
-              floorListNames=new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='fl' and active=1 order by name",null,SerializerReadString.INSTANCE).list());
-        }catch(Exception ex){
-                ex.printStackTrace();
-                }
-  }
- public static class LocationBean implements SerializableRead { 
-     private String id;
-     private String  name;
- @Override
-      public void readValues(DataRead dr) throws BasicException {
-       id = dr.getString(2);
-        name = dr.getString(1);
-      
-      }
+    public void locationTables() {
+        try {
+
+            buildingList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bl' and active=1 order by name", null, new SerializerReadClass(LocationBean.class)).list());
+            blockList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and active=1 order by name", null, new SerializerReadClass(LocationBean.class)).list());
+            floorList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and active=1 order by name", null, new SerializerReadClass(LocationBean.class)).list());
+            buildingListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='bl' and active=1 order by name", null, SerializerReadString.INSTANCE).list());
+            blockListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 order by name", null, SerializerReadString.INSTANCE).list());
+            floorListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='fl' and active=1 order by name", null, SerializerReadString.INSTANCE).list());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static class LocationBean implements SerializableRead {
+
+        private String id;
+        private String name;
+
+        @Override
+        public void readValues(DataRead dr) throws BasicException {
+            id = dr.getString(2);
+            name = dr.getString(1);
+
+        }
+
         public String getId() {
             return id;
         }
@@ -1396,6 +1366,6 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
         public void setName(String name) {
             this.name = name;
         }
-        
- }  
+
+    }
 }
