@@ -1328,12 +1328,12 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     public void locationTables() {
         try {
 
-            buildingList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bl' and active=1 order by name", null, new SerializerReadClass(LocationBean.class)).list());
-            blockList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='bk' and active=1 order by name", null, new SerializerReadClass(LocationBean.class)).list());
-            floorList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "select name,id from  fa_locations where type='fl' and active=1 order by name", null, new SerializerReadClass(LocationBean.class)).list());
-            buildingListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='bl' and active=1 order by name", null, SerializerReadString.INSTANCE).list());
-            blockListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='bk' and active=1 order by name", null, SerializerReadString.INSTANCE).list());
-            floorListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "select name from  fa_locations where type='fl' and active=1 order by name", null, SerializerReadString.INSTANCE).list());
+            buildingList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BL' AND ACTIVE=1 ORDER BY NAME", null, new SerializerReadClass(LocationBean.class)).list());
+            blockList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 ORDER BY NAME", null, new SerializerReadClass(LocationBean.class)).list());
+            floorList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 ORDER BY NAME", null, new SerializerReadClass(LocationBean.class)).list());
+            buildingListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BL' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
+            blockListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
+            floorListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

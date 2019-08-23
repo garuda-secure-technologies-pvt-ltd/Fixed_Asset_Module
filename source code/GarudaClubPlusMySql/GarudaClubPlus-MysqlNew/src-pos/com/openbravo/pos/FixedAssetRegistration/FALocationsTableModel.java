@@ -48,7 +48,7 @@ public class FALocationsTableModel extends BeanFactoryDataSingle {
         
         try {
             EmailidInfo.data2 = new ArrayList<FALocationsTableModel.FALocationsInfo>();
-            EmailidInfo.data2 = new StaticSentence(app.getSession(), "select id,name,floor,building,block,type from fa_Locations where type='lo' and active=1"
+            EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT ID,NAME,FLOOR,BUILDING,BLOCK,TYPE FROM FA_LOCATIONS WHERE TYPE='LO' AND ACTIVE=1"
                   , null, new SerializerReadClass(FALocationsTableModel.FALocationsInfo.class)).list();
             EmailidInfo.size = EmailidInfo.data2.size();
             
@@ -214,7 +214,7 @@ public class FALocationsTableModel extends BeanFactoryDataSingle {
 public String getNameById(String id){
     String name="";
     try{
- name= (String) new StaticSentence(m_app.getSession(), "select name from  fa_locations where id=?",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).find(id);
+ name= (String) new StaticSentence(m_app.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE ID=?",SerializerWriteString.INSTANCE,SerializerReadString.INSTANCE).find(id);
     }catch(Exception ex){
         ex.printStackTrace();
     }

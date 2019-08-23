@@ -1,7 +1,6 @@
 
 package com.openbravo.pos.inventory;
 
-import com.openbravo.pos.Booking.*;
 import com.openbravo.basic.BasicException;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.data.loader.DataRead;

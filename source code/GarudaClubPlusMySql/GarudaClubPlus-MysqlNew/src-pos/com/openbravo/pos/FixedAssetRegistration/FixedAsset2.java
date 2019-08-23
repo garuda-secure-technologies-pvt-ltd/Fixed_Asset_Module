@@ -3330,21 +3330,21 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     public List getaccountnameList() throws BasicException {
         List<AccountTable.AccountLine> accountheadList = new ArrayList<AccountTable.AccountLine>();
         AccountMasterExt acc = (AccountMasterExt) elements.getSelectedItem();
-        accountheadList = (List<AccountTable.AccountLine>) new StaticSentence(m_App.getSession(), "select a.name from accountmaster a where  a.level_='s' and a.parent= ?  order by a.searchkey", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(acc.getSerachkey());
+        accountheadList = (List<AccountTable.AccountLine>) new StaticSentence(m_App.getSession(), "SELECT A.NAME FROM ACCOUNTMASTER A WHERE  A.LEVEL_='S' AND A.PARENT= ?  ORDER BY A.SEARCHKEY", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(acc.getSerachkey());
 
         return accountheadList;
     }
 
     public List getVendorList() throws BasicException {
         List<Object> vendorList = new ArrayList<Object>();
-        vendorList = (List<Object>) new StaticSentence(m_App.getSession(), "select name from vendor where active=1 order by name ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+        vendorList = (List<Object>) new StaticSentence(m_App.getSession(), "SELECT NAME FROM VENDOR WHERE ACTIVE=1 ORDER BY NAME ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 
         return vendorList;
     }
 
     public List getAssetList() throws BasicException {
         List<Object> assetList = new ArrayList<Object>();
-        assetList = (List<Object>) new StaticSentence(m_App.getSession(), "select name from fa_master where active=true order by name ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+        assetList = (List<Object>) new StaticSentence(m_App.getSession(), "SELECT NAME FROM FA_MASTER WHERE ACTIVE=TRUE ORDER BY NAME ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 
         return assetList;
     }
@@ -3362,7 +3362,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                     acchead = " ";
 
                 }
-                accountheadlist = (List<Object>) new StaticSentence(m_App.getSession(), "select  a.id from accountmaster a where a.name=? ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(acchead);
+                accountheadlist = (List<Object>) new StaticSentence(m_App.getSession(), "SELECT  A.ID FROM ACCOUNTMASTER A WHERE A.NAME=? ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(acchead);
                 accclass = (String) accountheadlist.get(0);
             } else {
                 accclass = "null";
@@ -3380,7 +3380,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
         List<Object> vendorlist = new ArrayList<Object>();
         try {
             if (vendorcombo.getSelectedIndex() != -1) {
-                vendorlist = (List<Object>) new StaticSentence(m_App.getSession(), "select  id from vendor  where name=? and active=true", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vendorcombo.getSelectedItem());
+                vendorlist = (List<Object>) new StaticSentence(m_App.getSession(), "SELECT  ID FROM VENDOR  WHERE NAME=? AND ACTIVE=TRUE", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vendorcombo.getSelectedItem());
                 vendor = (String) vendorlist.get(0);
 //
             } else {
@@ -3399,7 +3399,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
         List<Object> assetList = new ArrayList<Object>();
         try {
             if (assetcombo.getSelectedIndex() != -1) {
-                assetList = (List<Object>) new StaticSentence(m_App.getSession(), "select  id from fa_master  where name=? and active=true ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(assetcombo.getSelectedItem());
+                assetList = (List<Object>) new StaticSentence(m_App.getSession(), "SELECT  ID FROM FA_MASTER  WHERE NAME=? AND ACTIVE=TRUE ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(assetcombo.getSelectedItem());
                 asset = (String) assetList.get(0);
             } else {
                 asset = "No";
@@ -3631,7 +3631,8 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                         }
                         //  if ((k == 1) && (y == 1) && (z == 1) && (p == 1)) {
                         Object[] param = new Object[]{fixedid, barcode_txt.getText().trim(), name_txt.getText().trim(), elem, maincom, brk, getaccId(), stdln, asset, getvendId(), purchasedate, costval, name, commistiondate, installationdate, putdated, captdated, strline, rod, wdv, cor, calcu_txt.getText().trim(), agency_txt.getText().trim(), m_App.getAppUserView().getUser().getName(), new Date(), true, RevaluationDialog.RID, WriteOffDetailsDialog.WID, make, model, wdvDate1};
-                        int update_fa_master = new PreparedSentence(m_App.getSession(), "insert into fa_master(id,barcode,name,maj_classification,sub_head_class,sub_classification,account_head,is_stand_alone_asset,link,vendor,date_of_purchase,total_cost,scanned_doc,date_of_commission,date_of_installetion,date_put_to_use,date_of_capitalization,straightline_or_wdv,rate_of_deprecation,wdv_date_of_far,cost_of_replacement,how_calculated,agency_for_replacement,created_by,created_date,active,revaluation,wo,make,model,wdvdate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP})).exec(param);
+                        int update_fa_master = new PreparedSentence(m_App.getSession(), "INSERT INTO FA_MASTER(ID,BARCODE,NAME,MAJ_CLASSIFICATION,SUB_HEAD_CLASS,SUB_CLASSIFICATION,ACCOUNT_HEAD,IS_STAND_ALONE_ASSET,LINK,VENDOR,DATE_OF_PURCHASE,TOTAL_COST,SCANNED_DOC,DATE_OF_COMMISSION,DATE_OF_INSTALLETION,DATE_PUT_TO_USE,DATE_OF_CAPITALIZATION,STRAIGHTLINE_OR_WDV,RATE_OF_DEPRECATION,WDV_DATE_OF_FAR,COST_OF_REPLACEMENT,HOW_CALCULATED,AGENCY_FOR_REPLACEMENT,CREATED_BY,CREATED_DATE,ACTIVE,REVALUATION,WO,MAKE,MODEL,WDVDATE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                                new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP})).exec(param);
                         ffa_id = fixedid;
 
                         if (update_fa_master > 0) {
@@ -3726,7 +3727,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
             e.printStackTrace();
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Number Format Exception :   "+nfe.getMessage(), null, JOptionPane.OK_OPTION);
 
         } catch (BasicException e) {
             e.printStackTrace();
@@ -3734,7 +3735,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
 
         } catch (Exception e) {
             e.printStackTrace();
-
+            JOptionPane.showMessageDialog(this, "Basic Exception :  "+e.getMessage(), null, JOptionPane.OK_OPTION);
             Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
 
         }
