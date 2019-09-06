@@ -28,6 +28,7 @@ import com.openbravo.data.gui.LookupUtilityFactory;
 import com.openbravo.data.loader.BatchSentence;
 import com.openbravo.data.loader.BatchSentenceResource;
 import com.openbravo.data.loader.Datas;
+import com.openbravo.data.loader.LocalRes;
 import com.openbravo.data.loader.PreparedSentence;
 import com.openbravo.data.loader.SerializerReadBasic;
 import com.openbravo.data.loader.SerializerReadClass;
@@ -133,8 +134,19 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
         // Inicializo los componentes visuales
         initComponents();
+        initDialog();
         jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(35, 35));
         jButton1.setText("Create Company");
+    }
+    
+    public void initDialog()
+    {
+        w = new waitDialog(new JFrame(), true);
+        int h = w.getSize().height;
+        int w1 = w.getSize().width;
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension scrnsize = toolkit.getScreenSize();
+        w.setLocation(scrnsize.width / 2 - w1, scrnsize.height / 2 - h);   
     }
 
     //praveen:added for waiter kiosk
@@ -286,7 +298,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         }*/
         // Inicializamos
         m_TTP = new TicketParser(getDeviceTicket(), m_dlSystem);
-        printerStart();
+        //printerStart();
 
         // Inicializamos la bascula
         m_Scale = new DeviceScale(m_props);
@@ -533,23 +545,23 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         m_oldclasses = new HashMap<String, String>();
 
         // update bean names from 2.00 to 2.20    
-        m_oldclasses.put("com.openbravo.pos.reports.JReportCustomers", "/com/openbravo/reports/customers.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportCustomersB", "/com/openbravo/reports/customersb.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportClosedPos", "/com/openbravo/reports/closedpos.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportClosedProducts", "/com/openbravo/reports/closedproducts.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JChartSales", "/com/openbravo/reports/chartsales.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportInventory", "/com/openbravo/reports/inventory.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportInventory2", "/com/openbravo/reports/inventoryb.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportInventoryBroken", "/com/openbravo/reports/inventorybroken.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportInventoryDiff", "/com/openbravo/reports/inventorydiff.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportPeople", "/com/openbravo/reports/people.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportTaxes", "/com/openbravo/reports/taxes.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportUserSales", "/com/openbravo/reports/usersales.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportProducts", "/com/openbravo/reports/products.bs");
-        m_oldclasses.put("com.openbravo.pos.reports.JReportCatalog", "/com/openbravo/reports/productscatalog.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportCustomers", "/com/openbravo/reports/customers.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportCustomersB", "/com/openbravo/reports/customersb.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportClosedPos", "/com/openbravo/reports/closedpos.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportClosedProducts", "/com/openbravo/reports/closedproducts.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JChartSales", "/com/openbravo/reports/chartsales.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportInventory", "/com/openbravo/reports/inventory.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportInventory2", "/com/openbravo/reports/inventoryb.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportInventoryBroken", "/com/openbravo/reports/inventorybroken.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportInventoryDiff", "/com/openbravo/reports/inventorydiff.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportPeople", "/com/openbravo/reports/people.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportTaxes", "/com/openbravo/reports/taxes.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportUserSales", "/com/openbravo/reports/usersales.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportProducts", "/com/openbravo/reports/products.bs");
+//        m_oldclasses.put("com.openbravo.pos.reports.JReportCatalog", "/com/openbravo/reports/productscatalog.bs");
 
         // update bean names from 2.10 to 2.20
-        m_oldclasses.put("com.openbravo.pos.panels.JPanelTax", "com.openbravo.pos.inventory.TaxPanel");
+       // m_oldclasses.put("com.openbravo.pos.panels.JPanelTax", "com.openbravo.pos.inventory.TaxPanel");
 
     }
 
@@ -583,7 +595,6 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
     private void listPeople() {
 
         try {
-            //Date todatedate=new Date();
 
             jScrollPane1.getViewport().setView(null);
 
@@ -592,8 +603,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
             java.util.List people = m_dlSystem.listPeopleVisible();
 
-            for (int i = 0; i
-                    < people.size(); i++) {
+            for (int i = 0; i < people.size(); i++) {
 
                 AppUser user = (AppUser) people.get(i);
 
@@ -618,53 +628,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
     }
 
-    public void CheckExpiredDate() throws BasicException {
-//        Object[] objEXP = (Object[]) new StaticSentence(session, "SELECT VALUE FROM GENERALTABLE where NAME='Validate'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING})).find();
-//        if (objEXP != null) {
-//            if (objEXP != null) {
-//                String vEXP = (String) objEXP[0].toString();
-//                String[] ArrDate = vEXP.split("#");
-//                int year = Integer.parseInt(ArrDate[0].toString());
-//                int Month = Integer.parseInt(ArrDate[1].toString());
-//                int Day = Integer.parseInt(ArrDate[2].toString());
-//                int y2 = year / 13;
-//                int m2 = Month / 13;
-//                int D2 = Day / 13;
-//
-//                Calendar c1 = GregorianCalendar.getInstance();
-//                c1.set(y2, m2, D2);  //January 30th 2000
-//                Date sDate = c1.getTime();
-//
-//                Date CurrDate = new Date();
-//
-//                if (sDate.before(CurrDate)) {
-//
-//                    JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-//                    JDialog dialog = pane.createDialog(null, "Warning");
-//                    dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//                    dialog.setVisible(true);
-//                    tryToClose();
-//
-//                }
-//
-//            } else {
-//                JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-//                JDialog dialog = pane.createDialog(null, "Warning");
-//                dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//                dialog.setVisible(true);
-//                tryToClose();
-//
-//            }
-//        } else {
-//            JOptionPane pane = new JOptionPane("Technical error occured. Please contact Garuda Secure Technologies. ");
-//            JDialog dialog = pane.createDialog(null, "Warning");
-//            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//            dialog.setVisible(true);
-//            tryToClose();
-//
-//        }
-    }
-
+   
     public List<Object[]> geturl() throws BasicException {
         List<Object[]> obj = (List<Object[]>) new PreparedSentence(session, "SELECT S.ID,S.URL,S.USERNAME,S.PASSWORD,S.ACTIVE,S.API_KEY,S.SENDERID,S.URLREF FROM SMSURL_TABLE S WHERE S.ACTIVE=TRUE AND S.URLREF='SEND_URL'", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING})).list();
 
@@ -809,8 +773,7 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
             java.util.List company = getActiveCompanies();
 
-            for (int i = 0; i
-                    < company.size(); i++) {
+            for (int i = 0; i < company.size(); i++) {
 
                 CompanyInfo comp = (CompanyInfo) company.get(i);
 
@@ -851,50 +814,67 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         }
 
         public void actionPerformed(ActionEvent evt) {
-            if (cardAccessOnlyFlag) {
-                JOptionPane.showMessageDialog(null, "Please use your cad to Access", "Access Not Allowed", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                //safdasf
-                boolean appstatus = true;
-                try {
-                    Object[] obj = (Object[]) new StaticSentence(session, "SELECT ACTIVE FROM APPLICATIONS WHERE ID=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.BOOLEAN})).find(AppLocal.APP_ID);
-                    if (obj != null && obj[0] != null) {
-                        appstatus = Boolean.parseBoolean(String.valueOf(obj[0]));
-                    }
-                } catch (Exception e) {
-                }
-                if (appstatus) {
-                    // String sPassword = m_actionuser.getPassword();
-                    if (m_actionuser.authenticate()) {
-                        // p'adentro directo, no tiene password
-                        openAppView(m_actionuser);
-                        //TODO update login time
-                    } else {
-                        // comprobemos la clave antes de entrar...
-                        String sPassword = JPasswordDialog.showEditPassword(JRootApp.this,
-                                AppLocal.getIntString("Label.Password"),
-                                m_actionuser.getName(),
-                                m_actionuser.getIcon());
-                        if (sPassword != null) {
-                            if (m_actionuser.authenticate(sPassword)) {
-                                /*     Object[] open = new StaticSentence(app.getSession()
-                                ,"SELECT P.NAME,U.NAME,S.DATENEW,S.UNITS,PDT.NAME,U1.NAME,S.UNITS1,S.NUM,S.CREATEDBY,RECEIVEDBY "
-                                +"FROM STOCKDIARY S,PRODUCTS P,PRODUCTS PDT,UNIT U,UNIT U1 WHERE P.ID=S.PRODUCT AND U.ID=P.UNITTYPE AND PDT.ID=S.PRODUCT1 AND U1.ID=PDT.UNITTYPE AND NUM IS NOT NULL AND RECEIVEDBY IS NULL ORDER BY NUM "
 
-                                ,SerializerWriteString.INSTANCE
-                                ,new SerializerReadClass( StockTransferTable.Transferline.class )).list();*/
-                                openAppView(m_actionuser);
-                                //TODO update login time
+            Thread t = new Thread(new Runnable() {
+
+                public void run() {
+                    try {
+
+                        if (cardAccessOnlyFlag) {
+                            JOptionPane.showMessageDialog(null, "Please use your cad to Access", "Access Not Allowed", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            boolean appstatus = true;
+                            
+                            Object[] obj = (Object[]) new StaticSentence(session, "SELECT ACTIVE FROM APPLICATIONS WHERE ID=?", SerializerWriteString.INSTANCE, new SerializerReadBasic(new Datas[]{Datas.BOOLEAN})).find(AppLocal.APP_ID);
+                            if (obj != null && obj[0] != null) {
+                                appstatus = Boolean.parseBoolean(String.valueOf(obj[0]));
+                            }
+                            
+                            if (appstatus) {
+                                if (m_actionuser.authenticate()) {
+                                    openAppView(m_actionuser);
+                                } else {
+                                    String sPassword = JPasswordDialog.showEditPassword(JRootApp.this,
+                                            AppLocal.getIntString("Label.Password"),
+                                            m_actionuser.getName(),
+                                            m_actionuser.getIcon());
+                                    if (sPassword != null) {
+                                        if (m_actionuser.authenticate(sPassword)) {
+                                           
+                                            openAppView(m_actionuser);
+                                        } else {
+                                            MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.BadPassword"));
+                                            msg.show(JRootApp.this);
+                                        }
+                                    }
+                                }
                             } else {
-                                MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.BadPassword"));
-                                msg.show(JRootApp.this);
+                                JOptionPane.showMessageDialog(null, "The server is in the process of shutdown", "Cannot Login", JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
+
+                        w.hideDialog();
+                    } catch (Exception ex) {
+                        w.hideDialog();
+                        Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
+                        MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), ex);
+                        msg.show(null);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "The server is in the process of shutdown", "Cannot Login", JOptionPane.INFORMATION_MESSAGE);
                 }
+            });
+            try {
+                t.start();
+                if (!w.isShowing()) {
+                    w.showDialog("Processing Request. Please wait..");
+                }
+
+            } catch (Exception ex) {
+                w.hideDialog();
+                Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
+                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), ex);
+                msg.show(null);
             }
+
         }
     }
 
@@ -913,13 +893,36 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
         }
 
         public void actionPerformed(ActionEvent evt) {
-            // String sPassword = m_actionuser.getPassword();
-            // String temp=m_props.getProperty("db.URL");
-            session.close();
+
+            Thread t = new Thread(new Runnable() {
+
+                public void run() {
+                    try {
+
+                        session.close();
+
+                        initClubPlus(m_actionCompany);
+
+                        w.hideDialog();
+                    } catch (Exception ex) {
+                        w.hideDialog();
+                        Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
+                        MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), ex);
+                        msg.show(null);
+                    }
+                }
+            });
             try {
-                initClubPlus(m_actionCompany);
-            } catch (Exception e) {
-                JMessageDialog.showMessage(null, new MessageInf(MessageInf.SGN_DANGER, e.getMessage(), e));
+                t.start();
+                if (!w.isShowing()) {
+                    w.showDialog("Processing Request. Please wait..");
+                }
+
+            } catch (Exception ex) {
+                w.hideDialog();
+                Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
+                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), ex);
+                msg.show(null);
             }
 
         }
@@ -1063,19 +1066,11 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 
     private void showLogin() {
 
-        // Show Login
-        // listPeople();
         listCompanies();
         showView("login", m_jPanelContainer);
-
-        // show welcome message
-        /* printerStart();*/
-        // keyboard listener activation
-        inputtext
-                = new StringBuffer();
+        inputtext = new StringBuffer();
         m_txtKeys.setText(null);
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 m_txtKeys.requestFocus();
             }
@@ -1085,22 +1080,10 @@ public class JRootApp extends JPanel implements AppView, CardSwipeNotifier {
 //praveen
     private void showLogin1() {
 
-        // Show Login       
-        listPeople();
-        // listCompanies();
-        try {
-            CheckExpiredDate();
-        } catch (BasicException ex) {
-            Logger.getLogger(JRootApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listPeople();      
         showView("login", m_jPanelContainer);
 
-        // show welcome message
-        printerStart();
-
-// keyboard listener activation
-        inputtext
-                = new StringBuffer();
+        inputtext = new StringBuffer();
         m_txtKeys.setText(null);
         java.awt.EventQueue.invokeLater(new Runnable() {
 

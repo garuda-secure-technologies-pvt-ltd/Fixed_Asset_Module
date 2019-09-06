@@ -8,7 +8,9 @@ package com.openbravo.pos.FixedAssetRegistration;
 import com.openbravo.basic.BasicException;
 import com.openbravo.beans.JCalendarDialog;
 import com.openbravo.data.gui.ComboBoxValModel;
+import com.openbravo.data.gui.MessageInf;
 import com.openbravo.data.loader.Datas;
+import com.openbravo.data.loader.LocalRes;
 import com.openbravo.data.loader.PreparedSentence;
 import com.openbravo.data.loader.SerializerReadBasic;
 import com.openbravo.data.loader.SerializerReadString;
@@ -43,6 +45,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 import com.openbravo.pos.Accounts.AccountTable;
+import com.openbravo.pos.Accounts.waitDialog;
+import com.openbravo.pos.inventory.ProductConversion;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -50,6 +54,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.Color;
 import javax.swing.JComponent;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
@@ -59,6 +65,7 @@ import org.apache.commons.beanutils.BeanComparator;
 import java.util.Iterator;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import javax.swing.JFrame;
 
 /**
  *
@@ -133,7 +140,9 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
     private static String created_barcode;
     private static String existed_barcode1 = null;
     private static int savech_max;
-
+    private waitDialog w;   
+    
+    
     public List<MaintenanceInfo> MaintenanceInfoList = new ArrayList<MaintenanceInfo>();
     File documentfile;
     int k = 0;
@@ -188,9 +197,20 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
      */
     public FixedAsset2() {
         initComponents();
+        initDialog();
         savebutt.setVisible(true);
         standaloneradio.setSelected(true);
 
+    }
+    
+    public void initDialog()
+    {
+        w = new waitDialog(new JFrame(), true);
+        int h = w.getSize().height;
+        int w1 = w.getSize().width;
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension scrnsize = toolkit.getScreenSize();
+        w.setLocation(scrnsize.width / 2 - w1, scrnsize.height / 2 - h);   
     }
 
     public boolean hasChanged() {
@@ -3161,11 +3181,12 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
 
     @Override
     public void activate() throws BasicException {
+        
         strtlineradio.setSelected(true);
         loaddata();
         ButtonGrp();
         linktxt.setEditable(false);
-
+        
     }
 
     @Override
@@ -3282,43 +3303,71 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
 
     public void loaddata() throws BasicException {
 
-        fxd_table = FixedAssetTableModel.GetFixedAssetTableModel(m_App, 0);
-        jTable1.setModel(fxd_table.getTableModel());
-        reset();
-        submit_but.setVisible(false);
-        savebutt.setVisible(true);
-        savecha_but.setVisible(false);
-        date.setEditable(false);
-        instdate.setEditable(false);
-        putdate.setEditable(false);
-        commdate.setEditable(false);
-        captdate.setEditable(false);
-        msgdlg.setVisible(false);
-        msgdlg1.setVisible(false);
-        msgdlg2.setVisible(false);
-        msgdlg4.setVisible(false);
-        document_but.setVisible(false);
-        strtlineradio.setSelected(true);
+        
+        Thread t = new Thread(new Runnable() {
 
-        vendorListModel = new ComboBoxValModel(getVendorList());
+            public void run() {
+                try {
+                    
+                    fxd_table = FixedAssetTableModel.GetFixedAssetTableModel(m_App, 0);
+                    jTable1.setModel(fxd_table.getTableModel());
+                    reset();
+                    submit_but.setVisible(false);
+                    savebutt.setVisible(true);
+                    savecha_but.setVisible(false);
+                    date.setEditable(false);
+                    instdate.setEditable(false);
+                    putdate.setEditable(false);
+                    commdate.setEditable(false);
+                    captdate.setEditable(false);
+                    msgdlg.setVisible(false);
+                    msgdlg1.setVisible(false);
+                    msgdlg2.setVisible(false);
+                    msgdlg4.setVisible(false);
+                    document_but.setVisible(false);
+                    strtlineradio.setSelected(true);
 
-        vendorcombo.setModel(vendorListModel);
+                    vendorListModel = new ComboBoxValModel(getVendorList());
 
-        assetListModel = new ComboBoxValModel(getAssetList());
-        assetcombo.setModel(assetListModel);
-        //elementsModel = new ComboBoxValModel(dmang.getaccountParElements());
-        elementsModel = new ComboBoxValModel(dmang.getaccountElements());//added by pratima
-        elements.setModel(elementsModel);
+                    vendorcombo.setModel(vendorListModel);
 
-        writeoff_but.setVisible(false);
-        PhysicalVerification_but.setVisible(false);
-        photo_butt.setVisible(false);
-        amc_but.setVisible(false);
-        revaluation_but.setVisible(false);
-        maintenance_but.setVisible(false);
-        savecha_but.setVisible(false);
-        Name_rad.setSelected(true);
-        jButton3.setVisible(false);
+                    assetListModel = new ComboBoxValModel(getAssetList());
+                    assetcombo.setModel(assetListModel);
+                    //elementsModel = new ComboBoxValModel(dmang.getaccountParElements());
+                    elementsModel = new ComboBoxValModel(dmang.getaccountElements());//added by pratima
+                    elements.setModel(elementsModel);
+
+                    writeoff_but.setVisible(false);
+                    PhysicalVerification_but.setVisible(false);
+                    photo_butt.setVisible(false);
+                    amc_but.setVisible(false);
+                    revaluation_but.setVisible(false);
+                    maintenance_but.setVisible(false);
+                    savecha_but.setVisible(false);
+                    Name_rad.setSelected(true);
+                    jButton3.setVisible(false);
+                    
+                    w.hideDialog();
+                } catch (BasicException ex) {
+                    w.hideDialog();
+                    Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, ex);
+                    MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), ex);
+                    msg.show(null);
+                }
+            }
+        });
+        try {
+            t.start();
+            if(!w.isShowing()) {
+                w.showDialog("Please wait. Collecting data");
+            }
+            
+        } catch (Exception ex) {
+            w.hideDialog();
+            Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, ex);
+            MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nosave"), ex);
+            msg.show(null);
+        }
     }
 
     /* public List getaccountheadList() throws BasicException {
@@ -3631,7 +3680,7 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
                         }
                         //  if ((k == 1) && (y == 1) && (z == 1) && (p == 1)) {
                         Object[] param = new Object[]{fixedid, barcode_txt.getText().trim(), name_txt.getText().trim(), elem, maincom, brk, getaccId(), stdln, asset, getvendId(), purchasedate, costval, name, commistiondate, installationdate, putdated, captdated, strline, rod, wdv, cor, calcu_txt.getText().trim(), agency_txt.getText().trim(), m_App.getAppUserView().getUser().getName(), new Date(), true, RevaluationDialog.RID, WriteOffDetailsDialog.WID, make, model, wdvDate1};
-                        int update_fa_master = new PreparedSentence(m_App.getSession(), "INSERT INTO FA_MASTER(ID,BARCODE,NAME,MAJ_CLASSIFICATION,SUB_HEAD_CLASS,SUB_CLASSIFICATION,ACCOUNT_HEAD,IS_STAND_ALONE_ASSET,LINK,VENDOR,DATE_OF_PURCHASE,TOTAL_COST,SCANNED_DOC,DATE_OF_COMMISSION,DATE_OF_INSTALLETION,DATE_PUT_TO_USE,DATE_OF_CAPITALIZATION,STRAIGHTLINE_OR_WDV,RATE_OF_DEPRECATION,WDV_DATE_OF_FAR,COST_OF_REPLACEMENT,HOW_CALCULATED,AGENCY_FOR_REPLACEMENT,CREATED_BY,CREATED_DATE,ACTIVE,REVALUATION,WO,MAKE,MODEL,WDVDATE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                        int update_fa_master = new PreparedSentence(m_App.getSession(), "INSERT INTO FA_MASTER(ID,BARCODE,NAME,MAJ_CLASSIFICATION,SUB_HEAD_CLASS,SUB_CLASSIFICATION,ACCOUNT_HEAD,IS_STAND_ALONE_ASSET,LINK,VENDOR,DATE_OF_PURCHASE,TOTAL_COST,SCANNED_DOC,DATE_OF_COMMISSION,DATE_OF_INSTALLETION,DATE_PUT_TO_USE,DATE_OF_CAPITALIZATION,STRAIGHTLINE_OR_WDV,RATE_OF_DEPRECATION,WDV_DATE_OF_FAR,COST_OF_REPLACEMENT,HOW_CALCULATED,AGENCY_FOR_REPLACEMENT,CREATED_BY,CREATED_DATE,ACTIVE,REVALUATION,WO,MAKE,MODEL,WDVDATE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                                 new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.INT, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.TIMESTAMP, Datas.INT, Datas.DOUBLE, Datas.DOUBLE, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP})).exec(param);
                         ffa_id = fixedid;
 
@@ -3727,15 +3776,15 @@ public class FixedAsset2 extends javax.swing.JPanel implements JPanelView, BeanF
             e.printStackTrace();
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Number Format Exception :   "+nfe.getMessage(), null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Number Format Exception :   " + nfe.getMessage(), null, JOptionPane.OK_OPTION);
 
         } catch (BasicException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Basic Exception :  "+e.getMessage(), null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Basic Exception :  " + e.getMessage(), null, JOptionPane.OK_OPTION);
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Basic Exception :  "+e.getMessage(), null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Basic Exception :  " + e.getMessage(), null, JOptionPane.OK_OPTION);
             Logger.getLogger(FixedAsset2.class.getName()).log(Level.SEVERE, null, e);
 
         }
