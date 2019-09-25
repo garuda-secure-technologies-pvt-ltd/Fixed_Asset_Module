@@ -47,6 +47,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 import com.openbravo.pos.Accounts.AccountTable;
 import com.openbravo.pos.Accounts.waitDialog;
+import com.openbravo.pos.util.ComboBoxItem;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -62,6 +63,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import javax.swing.ComboBoxModel;
 
 
 /**
@@ -83,17 +85,21 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     private List<LocationBean> blockListofBuilding = new ArrayList<LocationBean>();
     private List<LocationBean> floorListofBlock = new ArrayList<LocationBean>();
     private List<LocationBean> floorList = new ArrayList<LocationBean>();
-    private List<String> buildingListNames = new ArrayList<String>();
-    private List<String> blockListNames = new ArrayList<String>();
-    private List<String> blockListofBuildingNames = new ArrayList<String>();
-    private List<String> floorListofBlockNames = new ArrayList<String>();
-    private List<String> floorListNames = new ArrayList<String>();
+    //private List<String> buildingListNames = new ArrayList<String>();
+    //private List<String> blockListNames = new ArrayList<String>();
+    //private List<String> blockListofBuildingNames = new ArrayList<String>();
+    //private List<String> floorListofBlockNames = new ArrayList<String>();
+    //private List<String> floorListNames = new ArrayList<String>();
     private ComboBoxValModel buildingModel;
     private ComboBoxValModel buildingModel_Location;
     private ComboBoxValModel buildingModel_Blocks;
     private ComboBoxValModel buildingModel_Floors;
     private ComboBoxValModel blockModel;
     private ComboBoxValModel floorModel;
+    
+     private final ComboBoxItem[] floorListComboItems = new ComboBoxItem[100];
+     
+     
     private waitDialog w;
     /**
      * Creates new form FixedAsset2
@@ -150,24 +156,7 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable(){public Component prepareRenderer(TableCellRenderer renderer,
-            int rowIndex, int vColIndex) {
-            Component c = super.prepareRenderer(renderer, rowIndex, vColIndex);
-            if (c instanceof JComponent) {
-                JComponent jc = (JComponent)c;
-                jc.setToolTipText(String.valueOf(getValueAt(rowIndex, vColIndex)));
-
-                if (rowIndex % 2 == 0 && !isCellSelected(rowIndex, vColIndex)) {
-                    jc.setBackground(Color.lightGray);
-                }
-                else {
-                    jc.setBackground(Color.white);
-                }
-                if(isCellSelected(rowIndex, vColIndex))
-                jc.setBackground(Color.cyan);
-            }
-            return c;
-        }};
+        jTable1 = new javax.swing.JTable();
         edit_but = new javax.swing.JButton();
         removeButt = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -728,33 +717,76 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
         if (jTable1.getSelectedRow() != -1) {
             int bill = JOptionPane.showConfirmDialog(jPanel1, " Do you want to Edit Location ?? ", "Editing Menu", JOptionPane.YES_NO_OPTION);
             if (bill == JOptionPane.YES_OPTION) {
-                savecha_but.setVisible(true);
-                savebutt.setVisible(false);
-                edit_but.setVisible(false);
+                
                 if (jTable1.getSelectedRow() < fxd_table.getSize()) {
-                    int row = jTable1.getSelectedRow();
-                    int rowcount = jTable1.getRowCount();
-                    FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
-                    jPanel1.setVisible(true);
-                    savebutt.setVisible(false);
-                    savecha_but.setVisible(true);
-                    nameText.setText(showdata.getName());
 
-                    for (int j = 0; j < buildingList.size(); j++) {
-                        if (buildingList.get(j).getId().equals(showdata.getBuilding())) {
-                            jComboBox_building_locations.setSelectedIndex(j);
+                    Thread t = new Thread(new Runnable() {
+
+                        public void run() {
+                            try {
+
+                                int row = jTable1.getSelectedRow();
+                                int rowcount = jTable1.getRowCount();
+                                FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
+                                //jPanel1.setVisible(true);
+                                //savebutt.setVisible(false);
+                                //savecha_but.setVisible(true);
+                                nameText.setText(showdata.getName());
+
+                               for (LocationBean bean : buildingList) {
+                                    if(bean.getId().equals(showdata.getBuilding())){
+                                        jComboBox_building_locations.setSelectedItem(bean);
+                                        break;
+                                    }
+                                }
+                               
+                                blockListofBuilding = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? AND ACTIVE=1 ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(showdata.getBuilding());
+                                jComboBox_Block_locations.setModel(new ComboBoxValModel(blockListofBuilding));
+                                
+                                for(LocationBean bean : blockListofBuilding) {
+                                    if(bean.getId().equals(showdata.getBlock())){
+                                        jComboBox_Block_locations.setSelectedItem(bean);
+                                        break;
+                                    }
+                                }
+
+                                floorListofBlock = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1  AND BLOCK=?   ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(showdata.getBlock());
+                                jComboBox_floor_locations.setModel(new ComboBoxValModel(floorListofBlock));
+                                for (LocationBean bean : floorListofBlock) {
+                                    if (bean.getId().equals(showdata.getFloor())) {
+                                        jComboBox_floor_locations.setSelectedItem(bean);
+                                        break;
+                                    }
+                                }
+                                savecha_but.setVisible(true);
+                                savebutt.setVisible(false);
+                                jTabbedPane1.setSelectedIndex(0);
+                                jPanel1.setVisible(true);
+                                w.hideDialog();
+
+                            } catch (BasicException ex) {
+                                w.hideDialog();
+                                Logger.getLogger(FixedAssetLocation.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+                            }catch (Exception ex) {
+                                w.hideDialog();
+                                Logger.getLogger(FixedAssetLocation.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
-                    }
-                    for (int k = 0; k < blockList.size(); k++) {
-                        if (blockList.get(k).getId().equals(showdata.getBlock())) {
-                            jComboBox_Block_locations.setSelectedIndex(k);
+                    });
+                    try {
+                        t.start();
+                        if (!w.isShowing()) {
+                            w.showDialog("Please wait. Collecting data.");
                         }
+
+                    } catch (Exception ex) {
+                        w.hideDialog();
+                        JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+
                     }
-                    for (int i = 0; i < floorList.size(); i++) {
-                        if (floorList.get(i).getId().equals(showdata.getFloor())) {
-                            jComboBox_floor_locations.setSelectedIndex(i);
-                        }
-                    }
+
                 }
             }
         }
@@ -766,30 +798,58 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
             try {
                 if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
-                    Transaction t = new Transaction(m_App.getSession()) {
-                        @Override
-                        protected Object transact() throws BasicException {
-                            int row = jTable1.getSelectedRow();
-                            FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
-                            String id = showdata.getId();
-                            String name = nameText.getText();
-                            String floorId = floorList.get(jComboBox_floor_locations.getSelectedIndex()).getId();
-                            String buildingId = buildingList.get(jComboBox_building_locations.getSelectedIndex()).getId();
-                            String blockId = blockList.get(jComboBox_Block_locations.getSelectedIndex()).getId();
-                            Object[] param = new Object[]{name, floorId, buildingId, blockId, id};
-                            new PreparedSentence(m_App.getSession(), "UPDATE FA_LOCATIONS SET NAME=?,FLOOR=?,BUILDING=?,BLOCK=? WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
-                            flagkey = 1;
-                            return null;
-                        }
-                    };
-                    t.execute();
-                    if (flagkey == 1) {
-                        JOptionPane.showMessageDialog(this, "Location Editted Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        loaddata();
+                    
+                    Thread t = new Thread(new Runnable() {
 
-                        jTabbedPane1.setSelectedIndex(1);
-                        jPanel7.setVisible(true);
+                        public void run() {
+                            try {
+
+                                Transaction t = new Transaction(m_App.getSession()) {
+                                    @Override
+                                    protected Object transact() throws BasicException {
+                                        int row = jTable1.getSelectedRow();
+                                        FALocationsTableModel.FALocationsInfo showdata = fxd_table.getList().get(row);
+                                        String id = showdata.getId();
+                                        String name = nameText.getText();
+                                        String floorId = floorList.get(jComboBox_floor_locations.getSelectedIndex()).getId();
+                                        String buildingId = buildingList.get(jComboBox_building_locations.getSelectedIndex()).getId();
+                                        String blockId = blockList.get(jComboBox_Block_locations.getSelectedIndex()).getId();
+                                        Object[] param = new Object[]{name, floorId, buildingId, blockId, id};
+                                        new PreparedSentence(m_App.getSession(), "UPDATE FA_LOCATIONS SET NAME=?,FLOOR=?,BUILDING=?,BLOCK=? WHERE ID=?", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
+                                        flagkey = 1;
+                                        return null;
+                                    }
+                                };
+                                t.execute();
+                                if (flagkey == 1) {
+                                    w.hideDialog();
+                                    JOptionPane.showMessageDialog(FixedAssetLocation.this, "Location Editted Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                    loaddata();
+
+                                    jTabbedPane1.setSelectedIndex(1);
+                                    jPanel7.setVisible(true);
+                                }
+                                w.hideDialog();
+
+                            } catch (BasicException ex) {
+                                w.hideDialog();
+                                Logger.getLogger(FixedAssetLocation.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    });
+                    try {
+                        t.start();
+                        if (!w.isShowing()) {
+                            w.showDialog("Please wait. Saving data");
+                        }
+
+                    } catch (Exception ex) {
+                        w.hideDialog();
+                        JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+
                     }
+
                 } else {
                     JOptionPane.showMessageDialog(this, "Please ensure that Name is not empty", null, JOptionPane.OK_OPTION);
                 }
@@ -808,26 +868,69 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                 if (jComboBox_building_locations.getSelectedIndex() != -1) {
                     if (jComboBox_Block_locations.getSelectedIndex() != -1) {
                         if (jComboBox_floor_locations.getSelectedIndex() != -1) {
-                            Transaction t = new Transaction(m_App.getSession()) {
-                                @Override
-                                protected Object transact() throws BasicException {
-                                    String id = UUID.randomUUID().toString();
-                                    String name = nameText.getText();
-                                    String floorId = floorListofBlock.get(jComboBox_floor_locations.getSelectedIndex()).getId();
-                                    String buildingId = buildingList.get(jComboBox_building_locations.getSelectedIndex()).getId();
-                                    String blockId = blockListofBuilding.get(jComboBox_Block_locations.getSelectedIndex()).getId();
+                            
+                            Thread t = new Thread(new Runnable() {
 
-                                    Object[] param = new Object[]{id, "lo", name, floorId, buildingId, blockId};
-                                    new PreparedSentence(m_App.getSession(), "INSERT INTO FA_LOCATIONS(ID,TYPE,NAME,FLOOR,BUILDING,BLOCK) VALUES (?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
-                                    flagkey = 1;
-                                    return null;
+                                public void run() {
+                                    try {
+                                        Transaction t = new Transaction(m_App.getSession()) {
+                                            @Override
+                                            protected Object transact() throws BasicException {
+                                                String id = UUID.randomUUID().toString();
+                                                String name = nameText.getText();
+                                                
+                                                LocationBean floorBean = (LocationBean) jComboBox_floor_locations.getModel().getSelectedItem();
+                                                String floorId = floorBean.getId();
+                                                
+                                                LocationBean buildingBean = (LocationBean) jComboBox_building_locations.getModel().getSelectedItem();
+                                                String buildingId = buildingBean.getId();
+                                                
+                                                LocationBean blockBean = (LocationBean) jComboBox_Block_locations.getModel().getSelectedItem();
+                                                String blockId = blockBean.getId();
+
+                                                Object[] param = new Object[]{id, "lo", name, floorId, buildingId, blockId};
+                                                new PreparedSentence(m_App.getSession(), "INSERT INTO FA_LOCATIONS(ID,TYPE,NAME,FLOOR,BUILDING,BLOCK) VALUES (?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING})).exec(param);
+                                                flagkey = 1;
+                                                return null;
+                                            }
+                                        };
+                                        t.execute();
+                                        if (flagkey == 1) {
+                                            w.hideDialog();
+                                            JOptionPane.showMessageDialog(FixedAssetLocation.this, "Location Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                            loaddata();
+                                        } else {
+                                             w.hideDialog();
+                                        }
+
+                                        w.hideDialog();
+
+                                    } catch (BasicException ex) {
+                                        w.hideDialog();
+                                        Logger.getLogger(FixedAssetLocation.class.getName()).log(Level.SEVERE, null, ex);
+                                        JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+                                    }
                                 }
-                            };
-                            t.execute();
-                            if (flagkey == 1) {
-                                JOptionPane.showMessageDialog(this, "Location Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                                loaddata();
+                            });
+                            try {
+                                t.start();
+                                if (!w.isShowing()) {
+                                    w.showDialog("Please wait. Saving data");
+                                }
+
+                            } catch (Exception ex) {
+                                w.hideDialog();
+                                JOptionPane.showMessageDialog(FixedAssetLocation.this, ex.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+
                             }
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                         } else {
                             JOptionPane.showMessageDialog(this, "Please ensure that Floor is selected", null, JOptionPane.OK_OPTION);
                         }
@@ -853,7 +956,15 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
     }//GEN-LAST:event_reset_butActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-
+           if(jTabbedPane1.getSelectedIndex() != 0) {
+               jComboBox_building_locations.setSelectedIndex(-1);
+               nameText.setText("");
+               jComboBox_Block_locations.setSelectedIndex(-1);
+               jComboBox_floor_locations.setSelectedIndex(-1);
+               savecha_but.setVisible(false);
+               savebutt.setVisible(true);
+               reset_but.setVisible(true);
+            }
 
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
@@ -930,14 +1041,15 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
                         if (row_inserted > 0) {
                             locationTables();
-                            jComboBox_Building.setModel(new ComboBoxValModel(buildingListNames));
-                            jComboBox_building_locations.setModel(new ComboBoxValModel(buildingListNames));
+                            jComboBox_Building.setModel(new ComboBoxValModel(buildingList));
+                            jComboBox_building_locations.setModel(new ComboBoxValModel(buildingList));
                             
-                            jComboBox_building_floors.setModel(new ComboBoxValModel(buildingListNames));
-                            jComboBox_building_Blocks.setModel(new ComboBoxValModel(buildingListNames));
+                            jComboBox_building_floors.setModel(new ComboBoxValModel(buildingList));
+                            jComboBox_building_Blocks.setModel(new ComboBoxValModel(buildingList));
                             
                             jTextField_building.setText(null);
                             w.hideDialog();
+                            loaddata();
                             JOptionPane.showMessageDialog(FixedAssetLocation.this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             w.hideDialog();
@@ -986,11 +1098,12 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                         if (row_insertted > 0) {
                             
                             locationTables();
-                            jComboBox_blocks.setModel(new ComboBoxValModel(blockListNames));
-                            jComboBox_Block_locations.setModel(new ComboBoxValModel(blockListNames));
+                            jComboBox_blocks.setModel(new ComboBoxValModel(blockList));
+                            jComboBox_Block_locations.setModel(new ComboBoxValModel(blockList));
                             jTextField3.setText(null);
                             jComboBox_building_Blocks.setSelectedIndex(-1);
                             w.hideDialog();
+                            loaddata();
                             JOptionPane.showMessageDialog(FixedAssetLocation.this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                         } else {
@@ -1043,12 +1156,13 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                     
                     if (row_inserted > 0) {
                         locationTables();
-                        jComboBox_floor.setModel(new ComboBoxValModel(floorListNames));
-                        jComboBox_floor_locations.setModel(new ComboBoxValModel(floorListNames));
+                        jComboBox_floor.setModel(new ComboBoxValModel(floorList));
+                        jComboBox_floor_locations.setModel(new ComboBoxValModel(floorList));
                         jTextField2.setText(null);
                         jComboBox_building_floors.setSelectedIndex(-1);
                         jComboBox_block_floors.setSelectedIndex(-1);
                         w.hideDialog();
+                        loaddata();
                         JOptionPane.showMessageDialog(FixedAssetLocation.this, "Added Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         
                     } else {
@@ -1108,17 +1222,18 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                             if (row1 > 0) {
                                 
                                 locationTables();
-                                jComboBox_Building.setModel(new ComboBoxValModel(buildingListNames));
-                                jComboBox_building_locations.setModel(new ComboBoxValModel(buildingListNames));
+                                jComboBox_Building.setModel(new ComboBoxValModel(buildingList));
+                                jComboBox_building_locations.setModel(new ComboBoxValModel(buildingList));
                                 jComboBox_building_locations.setSelectedIndex(-1);
                                 
-                                jComboBox_building_Blocks.setModel(new ComboBoxValModel(buildingListNames));
+                                jComboBox_building_Blocks.setModel(new ComboBoxValModel(buildingList));
                                 jComboBox_building_Blocks.setSelectedIndex(-1);
                                 
-                                jComboBox_building_floors.setModel(new ComboBoxValModel(buildingListNames));
+                                jComboBox_building_floors.setModel(new ComboBoxValModel(buildingList));
                                 jComboBox_building_floors.setSelectedIndex(-1);
                                 
                                 w.hideDialog();
+                                loaddata();
                                 JOptionPane.showMessageDialog(FixedAssetLocation.this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
                             }
                             else {
@@ -1182,12 +1297,13 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
                                 if (row1 > 0) {
                                     locationTables();
-                                    jComboBox_Block_locations.setModel(new ComboBoxValModel(blockListNames));
-                                    jComboBox_blocks.setModel(new ComboBoxValModel(blockListNames));
+                                    jComboBox_Block_locations.setModel(new ComboBoxValModel(blockList));
+                                    jComboBox_blocks.setModel(new ComboBoxValModel(blockList));
                                     jTextField3.setText(null);
                                     jComboBox_building_Blocks.setSelectedIndex(-1);
                                     jComboBox_blocks.setSelectedIndex(-1);
                                     w.hideDialog();
+                                    loaddata();
                                     JOptionPane.showMessageDialog(FixedAssetLocation.this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                                 } else {
@@ -1256,12 +1372,13 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
                                 if (row1 > 0) {
                                     locationTables();
-                                    jComboBox_floor.setModel(new ComboBoxValModel(floorListNames));
-                                    jComboBox_floor_locations.setModel(new ComboBoxValModel(floorListNames));
+                                    jComboBox_floor.setModel(new ComboBoxValModel(floorList));
+                                    jComboBox_floor_locations.setModel(new ComboBoxValModel(floorList));
                                     jTextField2.setText(null);
                                     jComboBox_building_floors.setSelectedIndex(-1);
                                     jComboBox_block_floors.setSelectedIndex(-1);
                                     w.hideDialog();
+                                    loaddata();
                                     JOptionPane.showMessageDialog(FixedAssetLocation.this, "Removed Successfully..!", "Success", JOptionPane.INFORMATION_MESSAGE);
                                     
                                 } else {
@@ -1320,8 +1437,8 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                         String buildingId = buildingList.get(jComboBox_building_floors.getSelectedIndex()).getId();
                         blockListofBuilding = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=?  ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingId);
 
-                        blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
-                        jComboBox_block_floors.setModel(new ComboBoxValModel(blockListofBuildingNames));
+                        //blockListofBuilding = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
+                        jComboBox_block_floors.setModel(new ComboBoxValModel(blockListofBuilding));
 
                         w.hideDialog();
                     } catch (BasicException ex) {
@@ -1361,9 +1478,9 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
                         String buildingId = buildingList.get(jComboBox_building_locations.getSelectedIndex()).getId();
                         blockListofBuilding = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? AND ACTIVE=1 ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingId);
-                        blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? AND ACTIVE=1 ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
+                        //blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? AND ACTIVE=1 ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
 
-                        jComboBox_Block_locations.setModel(new ComboBoxValModel(blockListofBuildingNames));
+                        jComboBox_Block_locations.setModel(new ComboBoxValModel(blockListofBuilding));
 
                         w.hideDialog();
                     } catch (BasicException ex) {
@@ -1404,11 +1521,11 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                             String blockObject =  blockListofBuilding.get(jComboBox_Block_locations.getSelectedIndex()).getId();
                             
                             //Object blockObject = new PreparedSentence(m_App.getSession(), "SELECT ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND NAME=?  ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(jComboBox_Block_locations.getSelectedItem().toString());
-                            if(floorListofBlockNames != null) {
+                            if(floorListofBlock != null) {
                                 floorListofBlock = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1  AND BLOCK=?   ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(blockObject.toString());
-                                floorListofBlockNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 AND BLOCK=?   ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(blockObject.toString());
+                                //floorListofBlockNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 AND BLOCK=?   ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(blockObject.toString());
 
-                                jComboBox_floor_locations.setModel(new ComboBoxValModel(floorListofBlockNames));
+                                jComboBox_floor_locations.setModel(new ComboBoxValModel(floorListofBlock));
                             }
                             w.hideDialog();
                         } catch (BasicException ex) {
@@ -1463,9 +1580,9 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
 
                         String buildingId = buildingList.get(jComboBox_building_Blocks.getSelectedIndex()).getId();
                         blockListofBuilding = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(buildingId);
-                        blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
+                       // blockListofBuildingNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 AND BUILDING=? ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(buildingId);
 
-                        jComboBox_blocks.setModel(new ComboBoxValModel(blockListofBuildingNames));
+                        jComboBox_blocks.setModel(new ComboBoxValModel(blockListofBuilding));
 
                         w.hideDialog();
                     } catch (BasicException ex) {
@@ -1516,9 +1633,9 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                             String blockId = blockListofBuilding.get(jComboBox_block_floors.getSelectedIndex()).getId();
 
                             floorListofBlock = new PreparedSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1  AND BLOCK=?  ORDER BY NAME", SerializerWriteString.INSTANCE, new SerializerReadClass(LocationBean.class)).list(blockId);
-                            floorListofBlockNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 AND BLOCK=?  ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(blockId);
+                           // floorListofBlockNames = new PreparedSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 AND BLOCK=?  ORDER BY NAME", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(blockId);
 
-                            jComboBox_floor.setModel(new ComboBoxValModel(floorListofBlockNames));
+                            jComboBox_floor.setModel(new ComboBoxValModel(floorListofBlock));
 
                             w.hideDialog();
                         } catch (BasicException ex) {
@@ -1684,14 +1801,14 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
                     savecha_but.setVisible(false);
                     edit_but.setVisible(true);
                     locationTables();
-                    buildingModel = new ComboBoxValModel(buildingListNames);
-                    buildingModel_Location = new ComboBoxValModel(buildingListNames);
+                    buildingModel = new ComboBoxValModel(buildingList);
+                    buildingModel_Location = new ComboBoxValModel(buildingList);
                      
-                    blockModel = new ComboBoxValModel(blockListNames);
-                    floorModel = new ComboBoxValModel(floorListNames);
+                    blockModel = new ComboBoxValModel(blockList);
+                    floorModel = new ComboBoxValModel(floorList);
                     jComboBox_building_locations.setModel(buildingModel_Location);
-                    jComboBox_building_Blocks.setModel(new ComboBoxValModel(buildingListNames));
-                    jComboBox_building_floors.setModel(new ComboBoxValModel(buildingListNames));
+                    jComboBox_building_Blocks.setModel(new ComboBoxValModel(buildingList));
+                    jComboBox_building_floors.setModel(new ComboBoxValModel(buildingList));
                     jComboBox_Building.setModel(buildingModel);
                     ComboBoxValModel blankModel = new ComboBoxValModel(new ArrayList<LocationBean>());
                     jComboBox_blocks.setModel(blankModel);
@@ -1734,9 +1851,9 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
             buildingList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BL' AND ACTIVE=1 ORDER BY NAME", null, new SerializerReadClass(LocationBean.class)).list());
             blockList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 ORDER BY NAME", null, new SerializerReadClass(LocationBean.class)).list());
             floorList = new ArrayList<LocationBean>(new StaticSentence(m_App.getSession(), "SELECT NAME,ID FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 ORDER BY NAME", null, new SerializerReadClass(LocationBean.class)).list());
-            buildingListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BL' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
-            blockListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
-            floorListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
+            //buildingListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BL' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
+            //blockListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='BK' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
+            //floorListNames = new ArrayList<String>(new StaticSentence(m_App.getSession(), "SELECT NAME FROM  FA_LOCATIONS WHERE TYPE='FL' AND ACTIVE=1 ORDER BY NAME", null, SerializerReadString.INSTANCE).list());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -1769,6 +1886,11 @@ public class FixedAssetLocation extends javax.swing.JPanel implements JPanelView
         public void setName(String name) {
             this.name = name;
         }
+         @Override
+        public String toString() {
+            return name; 
+        }
+        
 
     }
 }
