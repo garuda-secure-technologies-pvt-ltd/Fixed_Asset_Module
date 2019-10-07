@@ -899,8 +899,8 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
                                                 }
                                                 //save data
                                                 Object[] param = new Object[]{AID, FixedAsset2.fixedid, getContractorId(), paricular_txt.getText().trim(), startdate, periodname, endtdate, rate, amcacc_txt.getText(), amount, amcremark_txt.getText().trim(), amcrenewaldate, name, app.getAppUserView().getUser().getName(), new Date(), true, apprdate, appby_txt.getText().trim(), amcid};
-                                                new PreparedSentence(app.getSession(), "insert into fa_amc (id,fa_id,contractor,particular,start_date,period,end_date,rate,account,amount,remark,reminder_date,doc_link ,initiator,initiated_date,active,approved_date,approved_by,deactreference) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.TIMESTAMP, Datas.STRING, Datas.STRING})).exec(param);
-                                                int update_amc_master = new PreparedSentence(app.getSession(), "update fa_amc set active=false where id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{amcid});
+                                                new PreparedSentence(app.getSession(), "INSERT INTO FA_AMC (ID,FA_ID,CONTRACTOR,PARTICULAR,START_DATE,PERIOD,END_DATE,RATE,ACCOUNT,AMOUNT,REMARK,REMINDER_DATE,DOC_LINK ,INITIATOR,INITIATED_DATE,ACTIVE,APPROVED_DATE,APPROVED_BY,DEACTREFERENCE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.TIMESTAMP, Datas.STRING, Datas.STRING})).exec(param);
+                                                int update_amc_master = new PreparedSentence(app.getSession(), "UPDATE FA_AMC SET ACTIVE=FALSE WHERE ID=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{amcid});
 
                                                 flagkey = 2;
                                                 //continuation of copy paste doc
@@ -1002,9 +1002,9 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
                                         nonamcid = nonamc.getID();
                                         NAID = UUID.randomUUID().toString();
                                         Object[] param = new Object[]{NAID, FixedAsset2.fixedid, getvendId(), nonamcremarks_txt.getText().trim(), nonamccontper_txt.getText().trim(), nonamccontdet_txt.getText().trim(), app.getAppUserView().getUser().getName(), new Date(), true, nonamcid};
-                                        new PreparedSentence(app.getSession(), "insert into fa_nonamc ( id,fa_id,vendor_name,remarks,contact_person,contact_details,created_by,created_date,active,daecreference\n) values (?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING})).exec(param);
+                                        new PreparedSentence(app.getSession(), "INSERT INTO FA_NONAMC ( ID,FA_ID,VENDOR_NAME,REMARKS,CONTACT_PERSON,CONTACT_DETAILS,CREATED_BY,CREATED_DATE,ACTIVE,DAECREFERENCE) VALUES (?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.STRING})).exec(param);
 
-                                        int update_non_amc_master = new PreparedSentence(app.getSession(), "update fa_nonamc set active=false where id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{nonamcid});
+                                        int update_non_amc_master = new PreparedSentence(app.getSession(), "UPDATE FA_NONAMC SET ACTIVE=FALSE WHERE ID=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING})).exec(new Object[]{nonamcid});
                                         reset();
                                         flagkey = 3;
                                         return null;
@@ -1059,8 +1059,8 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
         int no = 0;
         int nona = 0;
         try {
-            idforactamc = (String) new StaticSentence(app.getSession(), "select count(a.id)  from fa_amc a,fa_master f where a.active=true and a.fa_id= ? and a.fa_id=f.id ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(FixedAsset2.fixedid);
-            idforactnonamc = (String) new StaticSentence(app.getSession(), "select count(a.id)   from fa_nonamc a,fa_master f where a.active=true and a.fa_id= ? and a.fa_id=f.id ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(FixedAsset2.fixedid);
+            idforactamc = (String) new StaticSentence(app.getSession(), "SELECT COUNT(A.ID)  FROM FA_AMC A,FA_MASTER F WHERE A.ACTIVE=TRUE AND A.FA_ID= ? AND A.FA_ID=F.ID ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(FixedAsset2.fixedid);
+            idforactnonamc = (String) new StaticSentence(app.getSession(), "SELECT COUNT(A.ID)   FROM FA_NONAMC A,FA_MASTER F WHERE A.ACTIVE=TRUE AND A.FA_ID= ? AND A.FA_ID=F.ID ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).find(FixedAsset2.fixedid);
 
             no = Integer.parseInt(idforactamc);
             nona = Integer.parseInt(idforactnonamc);
@@ -1168,7 +1168,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
                                                         name = "./Asset Documents/" + x;
                                                     }
                                                     Object[] param = new Object[]{AID, FixedAsset2.fixedid, getContractorId(), paricular_txt.getText().trim(), startdate, periodname, endtdate, rate, amcacc_txt.getText(), amount, amcremark_txt.getText(), amcrenewaldate, name, app.getAppUserView().getUser().getName(), new Date(), true, apprdate, appby_txt.getText().trim()};
-                                                    new PreparedSentence(app.getSession(), "insert into fa_amc (id,fa_id,contractor,particular,start_date,period,end_date,rate,account,amount,remark,reminder_date,doc_link ,initiator,initiated_date,active,approved_date,approved_by) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.TIMESTAMP, Datas.STRING})).exec(param);
+                                                    new PreparedSentence(app.getSession(), "INSERT INTO FA_AMC (ID,FA_ID,CONTRACTOR,PARTICULAR,START_DATE,PERIOD,END_DATE,RATE,ACCOUNT,AMOUNT,REMARK,REMINDER_DATE,DOC_LINK ,INITIATOR,INITIATED_DATE,ACTIVE,APPROVED_DATE,APPROVED_BY) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.DOUBLE, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN, Datas.TIMESTAMP, Datas.STRING})).exec(param);
 
                                                     flagkey = 1;
                                                     amcnnonam();
@@ -1269,7 +1269,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
 
                                         NAID = UUID.randomUUID().toString();
                                         Object[] param = new Object[]{NAID, FixedAsset2.fixedid, getvendId(), nonamcremarks_txt.getText().trim(), nonamccontper_txt.getText().trim(), nonamccontdet_txt.getText().trim(), app.getAppUserView().getUser().getName(), new Date(), true};
-                                        new PreparedSentence(app.getSession(), "insert into fa_nonamc ( id,fa_id,vendor_name,remarks,contact_person,contact_details,created_by,created_date,active\n) values (?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
+                                        new PreparedSentence(app.getSession(), "INSERT INTO FA_NONAMC ( ID,FA_ID,VENDOR_NAME,REMARKS,CONTACT_PERSON,CONTACT_DETAILS,CREATED_BY,CREATED_DATE,ACTIVE) VALUES (?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
                                         // flagkey=5;
                                         nonamc_table = AmcNNonamcTableModel.GetNonamcTableModel(app);
                                         jTable1.setModel(nonamc_table.getTableModel1());
@@ -2153,8 +2153,8 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
 
                         try {
 
-                            p1_list = (List<Object>) new StaticSentence(app.getSession(), "select name from vendor where id=? and active=true ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(contractor);
-                            p2_list = (List<Object>) new StaticSentence(app.getSession(), " select name from periodicity where id=? and active=true  ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(period);
+                            p1_list = (List<Object>) new StaticSentence(app.getSession(), "SELECT NAME FROM VENDOR WHERE ID=? AND ACTIVE=TRUE ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(contractor);
+                            p2_list = (List<Object>) new StaticSentence(app.getSession(), " SELECT NAME FROM PERIODICITY WHERE ID=? AND ACTIVE=TRUE  ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(period);
 
                         } catch (BasicException ex) {
                             Logger.getLogger(AmcnNonamcDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -2210,7 +2210,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
 
                         try {
 
-                            List1 = (List<Object>) new StaticSentence(app.getSession(), "select name from vendor where id=? and active=true ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vendor);
+                            List1 = (List<Object>) new StaticSentence(app.getSession(), "SELECT NAME FROM VENDOR WHERE ID=? AND ACTIVE=TRUE ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vendor);
 
                         } catch (BasicException ex) {
                             Logger.getLogger(AmcnNonamcDialog.class.getName()).log(Level.SEVERE, null, ex);
@@ -2464,7 +2464,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
     private void deactamc() {
         try {
 
-            new PreparedSentence(app.getSession(), "update fa_amc  set  active=0  , deacby=? , deacdate=?  where id = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), amcdeatid});
+            new PreparedSentence(app.getSession(), "UPDATE FA_AMC  SET  ACTIVE=0  , DEACBY=? , DEACDATE=?  WHERE ID = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), amcdeatid});
 
             amc_table = AmcNNonamcTableModel.GetAmcTableModel(app);
             jTable1.setModel(amc_table.getTableModel());
@@ -2482,7 +2482,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
     private void deactnonamc() {
         try {
 
-            new PreparedSentence(app.getSession(), "update fa_nonamc  set  active=0  , deacby=? , deacdate=?  where id = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), nonamcdeactid});
+            new PreparedSentence(app.getSession(), "UPDATE FA_NONAMC  SET  ACTIVE=0  , DEACBY=? , DEACDATE=?  WHERE ID = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), nonamcdeactid});
 
             nonamc_table = AmcNNonamcTableModel.GetNonamcTableModel(app);
             jTable1.setModel(nonamc_table.getTableModel1());
@@ -2621,21 +2621,21 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
 
     public List getcontractorList(AppView app) throws BasicException {
         List<Object> contractorList = new ArrayList<Object>();
-        contractorList = (List<Object>) new StaticSentence(app.getSession(), "select name from vendor where active=1 order by name  ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+        contractorList = (List<Object>) new StaticSentence(app.getSession(), "SELECT NAME FROM VENDOR WHERE ACTIVE=1 ORDER BY NAME  ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 
         return contractorList;
     }
 
     public List getPeriodList(AppView app) throws BasicException {
         List<Object> periodList = new ArrayList<Object>();
-        periodList = (List<Object>) new StaticSentence(app.getSession(), "select name from periodicity where active=1", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+        periodList = (List<Object>) new StaticSentence(app.getSession(), "SELECT NAME FROM PERIODICITY WHERE ACTIVE=1", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 
         return periodList;
     }
 
     public List getVendorList() throws BasicException {
         List<Object> vendorList = new ArrayList<Object>();
-        vendorList = (List<Object>) new StaticSentence(app.getSession(), "select name from vendor where active=1 order by name ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+        vendorList = (List<Object>) new StaticSentence(app.getSession(), "SELECT NAME FROM VENDOR WHERE ACTIVE=1 ORDER BY NAME ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 
         return vendorList;
     }
@@ -2645,7 +2645,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
         List<Object> vendorlist = new ArrayList<Object>();
         try {
             if (vend_combo.getSelectedIndex() != -1) {
-                vendorlist = (List<Object>) new StaticSentence(app.getSession(), "select  id from vendor  where name=? and active=1", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vend_combo.getSelectedItem());
+                vendorlist = (List<Object>) new StaticSentence(app.getSession(), "SELECT  ID FROM VENDOR  WHERE NAME=? AND ACTIVE=1", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(vend_combo.getSelectedItem());
                 vendor = (String) vendorlist.get(0);
             } else {
                 vendor = "null";
@@ -2663,7 +2663,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
         List<Object> contractorList = new ArrayList<Object>();
         try {
             if (amcconcombo.getSelectedIndex() != -1) {
-                contractorList = (List<Object>) new StaticSentence(app.getSession(), "select  id from vendor  where name=? and active=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(amcconcombo.getSelectedItem());
+                contractorList = (List<Object>) new StaticSentence(app.getSession(), "SELECT  ID FROM VENDOR  WHERE NAME=? AND ACTIVE=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(amcconcombo.getSelectedItem());
                 contractor = (String) contractorList.get(0);
             } else {
                 contractor = "null";
@@ -2681,7 +2681,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
         List<Object> PeriodTypeList = new ArrayList<Object>();
         try {
             if (period_combo.getSelectedIndex() != -1) {
-                PeriodTypeList = (List<Object>) new StaticSentence(app.getSession(), "select type_ from periodicity where name=? and active=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(period_combo.getSelectedItem());
+                PeriodTypeList = (List<Object>) new StaticSentence(app.getSession(), "SELECT TYPE_ FROM PERIODICITY WHERE NAME=? AND ACTIVE=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(period_combo.getSelectedItem());
                 periodtype = (String) PeriodTypeList.get(0);
             } else {
                 periodtype = "null";
@@ -2701,7 +2701,7 @@ public class AmcnNonamcDialog extends javax.swing.JDialog {
         List<Object> PeriodTypeList = new ArrayList<Object>();
         try {
             if (period_combo.getSelectedIndex() != -1) {
-                PeriodTypeList = (List<Object>) new StaticSentence(app.getSession(), "select no from periodicity where name=? and active=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(period_combo.getSelectedItem());
+                PeriodTypeList = (List<Object>) new StaticSentence(app.getSession(), "SELECT NO FROM PERIODICITY WHERE NAME=? AND ACTIVE=1 ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(period_combo.getSelectedItem());
                 no = (String) PeriodTypeList.get(0);
             } else {
                 no = "null";

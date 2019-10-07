@@ -483,53 +483,54 @@ public class RevaluationDialog extends javax.swing.JDialog {
                                         String[] parts = string.split("-");
                                         String part1 = parts[0];
                                         String part2 = parts[1];
-                                        String flnm=link_txt.getText();
-                                        String x="";
-                                        String name ="";
-                                        if(flnm.equals("")){
-                                        name ="";
-                                        }else{
-                                       // String arr[] = flnm.split("/");
-                                        //x = "Revaluation"+part1 + arr[arr.length-1];
-                                        System.out.println(part1+"part1");
-                                        System.out.println(flnm+"flnm");
-                                        x="Revaluation" + part1 +flnm.substring(flnm.lastIndexOf("."),flnm.length());
-                                        name = "./Asset Documents/" + x;
+                                        String flnm = link_txt.getText();
+                                        String x = "";
+                                        String name = "";
+                                        if (flnm.equals("")) {
+                                            name = "";
+                                        } else {
+                                            // String arr[] = flnm.split("/");
+                                            //x = "Revaluation"+part1 + arr[arr.length-1];
+                                            System.out.println(part1 + "part1");
+                                            System.out.println(flnm + "flnm");
+                                            x = "Revaluation" + part1 + flnm.substring(flnm.lastIndexOf("."), flnm.length());
+                                            name = "./Asset Documents/" + x;
                                         }
                                         Object[] param = new Object[]{RID, FixedAsset2.fixedid, photo, amount, reaforrev_txt.getText().trim(), amtdetails_txt.getText().trim(), name, app.getAppUserView().getUser().getName(), new Date(), true};
-                                        new PreparedSentence(app.getSession(), "insert into fa_revaluation (id,fa_id,date_of_revaluation,revalued_amount,reason_rev,rev_acc_det,rev_doc_link,created_by,created_date,active) values (?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
-                                         int update_Reval = new PreparedSentence(app.getSession(), "update fa_master set revaluation=? where id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{RID, FixedAsset2.fixedid});
-                                                               
-                                        if(link_txt.getText()!=null){
-                                        File srcDir = new File(link_txt.getText());
-                                        FileInputStream fii;
-                                        FileOutputStream fio;
-                                        try {
+                                        new PreparedSentence(app.getSession(), "INSERT INTO FA_REVALUATION (ID,FA_ID,DATE_OF_REVALUATION,REVALUED_AMOUNT,REASON_REV,REV_ACC_DET,REV_DOC_LINK,CREATED_BY,CREATED_DATE,ACTIVE) VALUES (?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
+                                        int update_Reval = new PreparedSentence(app.getSession(), "UPDATE FA_MASTER SET REVALUATION=? WHERE ID=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{RID, FixedAsset2.fixedid});
 
-                                            fii = new FileInputStream(srcDir);
-
-                                            fio = new FileOutputStream("./Asset Documents/" + x + "");
-                                            byte[] b = new byte[1024];
-                                            int i = 0;
+                                        if (link_txt.getText() != null) {
+                                            File srcDir = new File(link_txt.getText());
+                                            FileInputStream fii;
+                                            FileOutputStream fio;
                                             try {
-                                                while ((fii.read(b)) > 0) {
 
-                                                    fio.write(b);
+                                                fii = new FileInputStream(srcDir);
+
+                                                fio = new FileOutputStream("./Asset Documents/" + x + "");
+                                                byte[] b = new byte[1024];
+                                                int i = 0;
+                                                try {
+                                                    while ((fii.read(b)) > 0) {
+
+                                                        fio.write(b);
+                                                    }
+                                                    fii.close();
+                                                    fio.close();
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+
+                                                    Logger.getLogger(RevaluationDialog.class.getName()).log(Level.SEVERE, null, e);
+
                                                 }
-                                                fii.close();
-                                                fio.close();
                                             } catch (Exception e) {
                                                 e.printStackTrace();
 
                                                 Logger.getLogger(RevaluationDialog.class.getName()).log(Level.SEVERE, null, e);
 
                                             }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-
-                                            Logger.getLogger(RevaluationDialog.class.getName()).log(Level.SEVERE, null, e);
-
-                                        }}
+                                        }
                                         return null;
                                     }
                                 };
@@ -561,11 +562,11 @@ public class RevaluationDialog extends javax.swing.JDialog {
             e.printStackTrace();
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Exception : " + nfe.getMessage(), null, JOptionPane.OK_OPTION);
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Please enter the correct price  ", null, JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Exception : " + e.getMessage(), null, JOptionPane.OK_OPTION);
 
             Logger.getLogger(RevaluationDialog.class.getName()).log(Level.SEVERE, null, e);
 
@@ -600,17 +601,16 @@ public class RevaluationDialog extends javax.swing.JDialog {
         if (jTable1.getSelectedRow() != -1) {
             int bill = JOptionPane.showConfirmDialog(jPanel1, " Do you want to deactivate ?? ", "Deactivation", JOptionPane.YES_NO_OPTION);
             if (bill == JOptionPane.YES_OPTION) {
-                
-                    int row = jTable1.getSelectedRow();
-                    RevaluationInfo showdata = Revaluation_table.getList().get(row);
 
-                    deactid = showdata.getId();
-                    deactreval();
+                int row = jTable1.getSelectedRow();
+                RevaluationInfo showdata = Revaluation_table.getList().get(row);
 
-                
+                deactid = showdata.getId();
+                deactreval();
+
             }
-        }else{
-        JOptionPane.showMessageDialog(this, "Please select row in the table ", null, JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select row in the table ", null, JOptionPane.WARNING_MESSAGE);
 
         }
     }//GEN-LAST:event_deact_butActionPerformed
@@ -634,7 +634,7 @@ public class RevaluationDialog extends javax.swing.JDialog {
     private void deactreval() {
         try {
 
-            new PreparedSentence(app.getSession(), "update fa_revaluation  set  active=0  , deacby=? , deacdate=?  where id = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), deactid});
+            new PreparedSentence(app.getSession(), "UPDATE FA_REVALUATION  SET  ACTIVE=0  , DEACBY=? , DEACDATE=?  WHERE ID = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), deactid});
 
             Revaluation_table = RevaluationTableModel.GetRevaluationTableModel(app);
             jTable1.setModel(Revaluation_table.getTableModel());

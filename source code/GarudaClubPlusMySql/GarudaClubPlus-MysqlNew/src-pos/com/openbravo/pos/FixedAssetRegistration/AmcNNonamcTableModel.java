@@ -57,14 +57,14 @@ public class AmcNNonamcTableModel extends BeanFactoryDataSingle {
                 idoffa = FixedAsset2.idf;
           
 
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select v.name,a.particular,a.start_date,a.period,a.end_date,a.rate,a.account,a.amount,a.remark,a.reminder_date,a.doc_link,a.initiator,a.initiated_date,a.id,a.active,approved_by,a.approved_date from fa_amc a,vendor v  where a.active=true and  v.id=a.contractor and  a.fa_id=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.AmcInfo.class)).list(idoffa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT V.NAME,A.PARTICULAR,A.START_DATE,A.PERIOD,A.END_DATE,A.RATE,A.ACCOUNT,A.AMOUNT,A.REMARK,A.REMINDER_DATE,A.DOC_LINK,A.INITIATOR,A.INITIATED_DATE,A.ID,A.ACTIVE,APPROVED_BY,A.APPROVED_DATE FROM FA_AMC A,VENDOR V  WHERE A.ACTIVE=TRUE AND  V.ID=A.CONTRACTOR AND  A.FA_ID=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.AmcInfo.class)).list(idoffa);
             } else if (FixedAsset2.fixedid != null) {
                 idfa = FixedAsset2.fixedid;
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select v.name,a.particular,a.start_date,a.period,a.end_date,a.rate,a.account,a.amount,a.remark,a.reminder_date,a.doc_link,a.initiator,a.initiated_date,a.id,a.active,approved_by,a.approved_date from fa_amc a,vendor v  where a.active=true and  v.id=a.contractor and  a.fa_id=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.AmcInfo.class)).list(idfa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT V.NAME,A.PARTICULAR,A.START_DATE,A.PERIOD,A.END_DATE,A.RATE,A.ACCOUNT,A.AMOUNT,A.REMARK,A.REMINDER_DATE,A.DOC_LINK,A.INITIATOR,A.INITIATED_DATE,A.ID,A.ACTIVE,APPROVED_BY,A.APPROVED_DATE FROM FA_AMC A,VENDOR V  WHERE A.ACTIVE=TRUE AND  V.ID=A.CONTRACTOR AND  A.FA_ID=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.AmcInfo.class)).list(idfa);
 
             } else {
                 idoffa = "a";
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select v.name,a.particular,a.start_date,a.period,a.end_date,a.rate,a.account,a.amount,a.remark,a.reminder_date,a.doc_link,a.initiator,a.initiated_date,a.id,a.active,approved_by,a.approved_date from fa_amc a,vendor v  where a.active=true and  v.id=a.contractor and  a.fa_id=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.AmcInfo.class)).list(idoffa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT V.NAME,A.PARTICULAR,A.START_DATE,A.PERIOD,A.END_DATE,A.RATE,A.ACCOUNT,A.AMOUNT,A.REMARK,A.REMINDER_DATE,A.DOC_LINK,A.INITIATOR,A.INITIATED_DATE,A.ID,A.ACTIVE,APPROVED_BY,A.APPROVED_DATE FROM FA_AMC A,VENDOR V  WHERE A.ACTIVE=TRUE AND  V.ID=A.CONTRACTOR AND  A.FA_ID=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.AmcInfo.class)).list(idoffa);
 
             }
 
@@ -87,14 +87,14 @@ public class AmcNNonamcTableModel extends BeanFactoryDataSingle {
             idoffa = FixedAsset2.idf;
             
             
-            EmailidInfo.data = new StaticSentence(app.getSession(), "select v.name,n.remarks,n.contact_person,n.contact_details,n.created_by,n.created_date,n.id,n.active from fa_nonamc n,vendor v where n.active=true and v.id=n.vendor_name and n.fa_id=?  ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.NonamcInfo.class)).list(idoffa);
+            EmailidInfo.data = new StaticSentence(app.getSession(), "SELECT V.NAME,N.REMARKS,N.CONTACT_PERSON,N.CONTACT_DETAILS,N.CREATED_BY,N.CREATED_DATE,N.ID,N.ACTIVE FROM FA_NONAMC N,VENDOR V WHERE N.ACTIVE=TRUE AND V.ID=N.VENDOR_NAME AND N.FA_ID=?  ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.NonamcInfo.class)).list(idoffa);
             } else if(FixedAsset2.fixedid!=null){
                 idfa=FixedAsset2.fixedid;
-            EmailidInfo.data = new StaticSentence(app.getSession(), "select v.name,n.remarks,n.contact_person,n.contact_details,n.created_by,n.created_date,n.id,n.active from fa_nonamc n,vendor v where n.active=true and v.id=n.vendor_name and n.fa_id=?  ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.NonamcInfo.class)).list(idfa);
+            EmailidInfo.data = new StaticSentence(app.getSession(), "SELECT V.NAME,N.REMARKS,N.CONTACT_PERSON,N.CONTACT_DETAILS,N.CREATED_BY,N.CREATED_DATE,N.ID,N.ACTIVE FROM FA_NONAMC N,VENDOR V WHERE N.ACTIVE=TRUE AND V.ID=N.VENDOR_NAME AND N.FA_ID=?  ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.NonamcInfo.class)).list(idfa);
            
         }else{
             idoffa = "a";
-            EmailidInfo.data = new StaticSentence(app.getSession(), "select v.name,n.remarks,n.contact_person,n.contact_details,n.created_by,n.created_date,n.id,n.active from fa_nonamc n,vendor v where n.active=true and v.id=n.vendor_name and n.fa_id=?  ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.NonamcInfo.class)).list(idoffa);
+            EmailidInfo.data = new StaticSentence(app.getSession(), "SELECT V.NAME,N.REMARKS,N.CONTACT_PERSON,N.CONTACT_DETAILS,N.CREATED_BY,N.CREATED_DATE,N.ID,N.ACTIVE FROM FA_NONAMC N,VENDOR V WHERE N.ACTIVE=TRUE AND V.ID=N.VENDOR_NAME AND N.FA_ID=?  ", SerializerWriteString.INSTANCE, new SerializerReadClass(AmcNNonamcTableModel.NonamcInfo.class)).list(idoffa);
            
             }
             

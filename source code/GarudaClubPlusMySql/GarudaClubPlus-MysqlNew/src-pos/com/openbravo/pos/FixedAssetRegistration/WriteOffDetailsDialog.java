@@ -571,8 +571,8 @@ public class WriteOffDetailsDialog extends javax.swing.JDialog {
                                                 }
 
                                                 Object[] param = new Object[]{WID, FixedAsset2.fixedid, photo, wores_txt.getText().trim(), woinitiate_txt.getText().trim(), woaprby_txt.getText().trim(), name, value, wovocherdet_txt.getText().trim(), app.getAppUserView().getUser().getName(), new Date(), true};
-                                                new PreparedSentence(app.getSession(), "insert into fa_write_off_details ( id,faid,date_of_wo,reason_of_wo,wo_initiated_by,wo_approved_by,wo_doc_links,scrap_or_rec_val,voucher_details,created_by,created_date,active) values (?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
-                                               int update_writeoff = new PreparedSentence(app.getSession(), "update fa_master set wo=? where id=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{WID, FixedAsset2.fixedid});
+                                                new PreparedSentence(app.getSession(), "INSERT INTO FA_WRITE_OFF_DETAILS ( ID,FAID,DATE_OF_WO,REASON_OF_WO,WO_INITIATED_BY,WO_APPROVED_BY,WO_DOC_LINKS,SCRAP_OR_REC_VAL,VOUCHER_DETAILS,CREATED_BY,CREATED_DATE,ACTIVE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
+                                               int update_writeoff = new PreparedSentence(app.getSession(), "UPDATE FA_MASTER SET WO=? WHERE ID=? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING})).exec(new Object[]{WID, FixedAsset2.fixedid});
                                         
                                                 flagkey=1;
                                                 //continuation of copy paste doc
@@ -680,7 +680,7 @@ public class WriteOffDetailsDialog extends javax.swing.JDialog {
     private void deactWo() {
         try {
 
-            new PreparedSentence(app.getSession(), "update fa_write_off_details  set  active=0  , deacby=? , deacdate=?  where id = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), deactid});
+            new PreparedSentence(app.getSession(), "UPDATE FA_WRITE_OFF_DETAILS  SET  ACTIVE=0  , DEACBY=? , DEACDATE=?  WHERE ID = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), deactid});
 
             wo_table = WriteOffDetailsTableModel.GetWriteOffDetailsTableModel(app);
             jTable1.setModel(wo_table.getTableModel());

@@ -51,14 +51,14 @@ public class RevaluationTableModel extends BeanFactoryDataSingle{
             EmailidInfo.data2 = new ArrayList<RevaluationTableModel.RevaluationInfo>();
             if (FixedAsset2.idf != null) {
                 idoffa = FixedAsset2.idf;
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select id,date_of_revaluation,revalued_amount,reason_rev,rev_acc_det,rev_doc_link,created_by,created_date from fa_revaluation where active=true and fa_id=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(RevaluationTableModel.RevaluationInfo.class)).list(idoffa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT ID,DATE_OF_REVALUATION,REVALUED_AMOUNT,REASON_REV,REV_ACC_DET,REV_DOC_LINK,CREATED_BY,CREATED_DATE FROM FA_REVALUATION WHERE ACTIVE=TRUE AND FA_ID=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(RevaluationTableModel.RevaluationInfo.class)).list(idoffa);
              } else if (FixedAsset2.fixedid != null) {
                 idfa = FixedAsset2.fixedid;
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select id,date_of_revaluation,revalued_amount,reason_rev,rev_acc_det,rev_doc_link,created_by,created_date from fa_revaluation where active=true and fa_id=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(RevaluationTableModel.RevaluationInfo.class)).list(idfa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT ID,DATE_OF_REVALUATION,REVALUED_AMOUNT,REASON_REV,REV_ACC_DET,REV_DOC_LINK,CREATED_BY,CREATED_DATE FROM FA_REVALUATION WHERE ACTIVE=TRUE AND FA_ID=? ", SerializerWriteString.INSTANCE, new SerializerReadClass(RevaluationTableModel.RevaluationInfo.class)).list(idfa);
            
             } else {
                 idoffa = "a";
-               EmailidInfo.data2 = new StaticSentence(app.getSession(), "select id,date_of_revaluation,revalued_amount,reason_rev,rev_acc_det,rev_doc_link,created_by,created_date from fa_revaluation where active=true and fa_id=?", SerializerWriteString.INSTANCE, new SerializerReadClass(RevaluationTableModel.RevaluationInfo.class)).list(idoffa);
+               EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT ID,DATE_OF_REVALUATION,REVALUED_AMOUNT,REASON_REV,REV_ACC_DET,REV_DOC_LINK,CREATED_BY,CREATED_DATE FROM FA_REVALUATION WHERE ACTIVE=TRUE AND FA_ID=?", SerializerWriteString.INSTANCE, new SerializerReadClass(RevaluationTableModel.RevaluationInfo.class)).list(idoffa);
            
             }
             

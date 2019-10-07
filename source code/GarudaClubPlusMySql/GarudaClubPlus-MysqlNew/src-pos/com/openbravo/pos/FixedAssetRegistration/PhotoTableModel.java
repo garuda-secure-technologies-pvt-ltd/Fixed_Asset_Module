@@ -55,15 +55,15 @@ public class PhotoTableModel extends BeanFactoryDataSingle {
             if (FixedAsset2.idf != null) {
                 idoffa = FixedAsset2.idf;
                
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select ver_date,ver_by,photo,active  from fa_physicalverification where fa_id=? order by ver_date ", SerializerWriteString.INSTANCE, new SerializerReadClass(PhotoTableModel.PhotoInfo.class)).list(idoffa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT VER_DATE,VER_BY,PHOTO,ACTIVE  FROM FA_PHYSICALVERIFICATION WHERE FA_ID=? ORDER BY VER_DATE ", SerializerWriteString.INSTANCE, new SerializerReadClass(PhotoTableModel.PhotoInfo.class)).list(idoffa);
 
             } else if (FixedAsset2.fixedid != null) {
                 idfa = FixedAsset2.fixedid;
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select ver_date,ver_by,photo,active   from fa_physicalverification where fa_id=? order by ver_date", SerializerWriteString.INSTANCE, new SerializerReadClass(PhotoTableModel.PhotoInfo.class)).list(idfa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT VER_DATE,VER_BY,PHOTO,ACTIVE   FROM FA_PHYSICALVERIFICATION WHERE FA_ID=? ORDER BY VER_DATE", SerializerWriteString.INSTANCE, new SerializerReadClass(PhotoTableModel.PhotoInfo.class)).list(idfa);
 
             } else {
                 idoffa = "a";
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select ver_date,ver_by,photo,active   from fa_physicalverification where fa_id=? order by ver_date", SerializerWriteString.INSTANCE, new SerializerReadClass(PhotoTableModel.PhotoInfo.class)).list(idoffa);
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT VER_DATE,VER_BY,PHOTO,ACTIVE   FROM FA_PHYSICALVERIFICATION WHERE FA_ID=? ORDER BY VER_DATE", SerializerWriteString.INSTANCE, new SerializerReadClass(PhotoTableModel.PhotoInfo.class)).list(idoffa);
 
             }
            

@@ -149,7 +149,7 @@ public class MaintenanceDailog extends javax.swing.JDialog {
 
     public List getaccountheadList() throws BasicException {
         List<Object> accountheadList = new ArrayList<Object>();
-        accountheadList = (List<Object>) new StaticSentence(app.getSession(), "select name from accountmaster order by name ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
+        accountheadList = (List<Object>) new StaticSentence(app.getSession(), "SELECT NAME FROM ACCOUNTMASTER ORDER BY NAME ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list();
 
         return accountheadList;
     }
@@ -159,7 +159,7 @@ public class MaintenanceDailog extends javax.swing.JDialog {
         List<Object> accountheadlist = new ArrayList<Object>();
         try {
             if (acccombo.getSelectedIndex() != -1) {
-                accountheadlist = (List<Object>) new StaticSentence(app.getSession(), "select  id from accountmaster  where name=? ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(acccombo.getSelectedItem());
+                accountheadlist = (List<Object>) new StaticSentence(app.getSession(), "SELECT  ID FROM ACCOUNTMASTER  WHERE NAME=? ", SerializerWriteString.INSTANCE, SerializerReadString.INSTANCE).list(acccombo.getSelectedItem());
                 accclass = (String) accountheadlist.get(0);
             } else {
                 accclass = "null";
@@ -473,7 +473,7 @@ public class MaintenanceDailog extends javax.swing.JDialog {
 
                                         
                                         Object[] param = new Object[]{MID, FixedAsset2.fixedid, mntdate, amount, getaccId(), vocher_det_txt.getText().trim(), name, app.getAppUserView().getUser().getName(), new Date(), true};
-                                        new PreparedSentence(app.getSession(), "insert into fa_maintenance ( id,fa_id,date,amount,account_head,vocher_details,scanned_copy,created_by,created_date,active) values (?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
+                                        new PreparedSentence(app.getSession(), "INSERT INTO FA_MAINTENANCE ( ID,FA_ID,DATE,AMOUNT,ACCOUNT_HEAD,VOCHER_DETAILS,SCANNED_COPY,CREATED_BY,CREATED_DATE,ACTIVE) VALUES (?,?,?,?,?,?,?,?,?,?)", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.DOUBLE, Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING, Datas.TIMESTAMP, Datas.BOOLEAN})).exec(param);
                                         
                                         flagkey=1;
                                         //continuation of copy paste doc
@@ -640,7 +640,7 @@ public class MaintenanceDailog extends javax.swing.JDialog {
     private void deactMaintnce() {
         try {
 
-            new PreparedSentence(app.getSession(), "update fa_maintenance  set  active=0  , deacby=? , deacdate=?  where id = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), deacid});
+            new PreparedSentence(app.getSession(), "UPDATE FA_MAINTENANCE  SET  ACTIVE=0  , DEACBY=? , DEACDATE=?  WHERE ID = ? ", new SerializerWriteBasic(new Datas[]{Datas.STRING, Datas.TIMESTAMP, Datas.STRING})).exec(new Object[]{app.getAppUserView().getUser().getName(), new Date(), deacid});
 
             mnt_table = MaintenanceTableModel.GetMaintenanceTableModel(app);
             jTable1.setModel(mnt_table.getTableModel());

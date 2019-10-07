@@ -52,18 +52,18 @@ public class MaintenanceTableModel extends BeanFactoryDataSingle {
             EmailidInfo.data2 = new ArrayList<MaintenanceTableModel.MaintenanceInfo>();
             if (FixedAsset2.idf != null) {
                 idoffa = FixedAsset2.idf;
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select  m.id,m.date,m.amount,a.name,m.vocher_details,m.scanned_copy,m.created_by,m.created_date from fa_maintenance m,accountmaster a where a.id=m.account_head and m.active=true and m.fa_id=?",
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT  M.ID,M.DATE,M.AMOUNT,A.NAME,M.VOCHER_DETAILS,M.SCANNED_COPY,M.CREATED_BY,M.CREATED_DATE FROM FA_MAINTENANCE M,ACCOUNTMASTER A WHERE A.ID=M.ACCOUNT_HEAD AND M.ACTIVE=TRUE AND M.FA_ID=?",
                         
                         SerializerWriteString.INSTANCE, new SerializerReadClass(MaintenanceTableModel.MaintenanceInfo.class)).list(idoffa);
             } else if (FixedAsset2.fixedid != null) {
                 idfa = FixedAsset2.fixedid;
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select  m.id,m.date,m.amount,a.name,m.vocher_details,m.scanned_copy,m.created_by,m.created_date from fa_maintenance m,accountmaster a where a.id=m.account_head and m.active=true and m.fa_id=?",
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT  M.ID,M.DATE,M.AMOUNT,A.NAME,M.VOCHER_DETAILS,M.SCANNED_COPY,M.CREATED_BY,M.CREATED_DATE FROM FA_MAINTENANCE M,ACCOUNTMASTER A WHERE A.ID=M.ACCOUNT_HEAD AND M.ACTIVE=TRUE AND M.FA_ID=?",
                         
                         SerializerWriteString.INSTANCE, new SerializerReadClass(MaintenanceTableModel.MaintenanceInfo.class)).list(idfa);
 
             } else {
                 idoffa = "a";
-                EmailidInfo.data2 = new StaticSentence(app.getSession(), "select  m.id,m.date,m.amount,a.name,m.vocher_details,m.scanned_copy,m.created_by,m.created_date from fa_maintenance m,accountmaster a where a.id=m.account_head and m.active=true and m.fa_id=?"
+                EmailidInfo.data2 = new StaticSentence(app.getSession(), "SELECT  M.ID,M.DATE,M.AMOUNT,A.NAME,M.VOCHER_DETAILS,M.SCANNED_COPY,M.CREATED_BY,M.CREATED_DATE FROM FA_MAINTENANCE M,ACCOUNTMASTER A WHERE A.ID=M.ACCOUNT_HEAD AND M.ACTIVE=TRUE AND M.FA_ID=?"
                         
                         , SerializerWriteString.INSTANCE, new SerializerReadClass(MaintenanceTableModel.MaintenanceInfo.class)).list(idoffa);
 
